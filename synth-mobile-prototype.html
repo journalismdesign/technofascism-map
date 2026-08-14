@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Synth — prototype d'interface mobile</title>
+<style>
+  @font-face{
+    font-family:'Coolvetica';
+    src:url('https://synthmedia.fr/wp-content/uploads/2024/05/Coolvetica-Regular-1.woff2') format('woff2');
+    font-weight:normal;font-style:normal;font-display:swap;
+  }
+  @font-face{
+    font-family:'IBM Plex Mono Synth';
+    src:url('https://synthmedia.fr/wp-content/uploads/2026/02/ibmplexmono-regular-webfont.woff') format('woff');
+    font-weight:normal;font-style:normal;font-display:swap;
+  }
+  :root{
+    --bg:#f0f0ee;
+    --paper:#faf9f7;
+    --ink:#141414;
+    --red:#c81e1e;
+    --cyan:#00ffe0;
+    --cyan-ink:#023b32;
+    --gold:#ffbc49;
+    --line:#dcdad4;
+    --line-dark:#2a2824;
+    --white:#ffffff;
+    --grey:#68675f;
+    --shell:#0a0a0a;
+    --hard:#000000;
+    --mast:#0a0a0a;
+    --mast-ink:#ffffff;
+    --link:#046a5c;
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1d1f;
+    --paper:#232427;
+    --ink:#f2f1ee;
+    --red:#e2392f;
+    --line:#3a3b3e;
+    --line-dark:#48494d;
+    --white:#232427;
+    --grey:#9a9c9f;
+    --shell:#000;
+    --link:#00ffe0;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;font-family:'IBM Plex Mono Synth',monospace;}
+  body{
+    min-height:100vh;background:#1a1918;
+    display:flex;align-items:center;justify-content:center;
+    padding:32px 16px;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size:36px 36px;
+  }
+  .labnote{
+    position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;
+    color:#8b8880;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    font-family:'IBM Plex Mono Synth',monospace;text-align:center;line-height:1.6;max-width:420px;
+  }
+  .labnote b{color:#f0ece2;}
+
+  /* ---------- phone shell ---------- */
+  .shell{
+    position:relative;z-index:1;
+    width:390px;height:844px;flex:none;
+    background:var(--shell);border-radius:52px;padding:14px;
+    box-shadow:0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .screen{
+    position:relative;width:100%;height:100%;overflow:hidden;
+    background:var(--paper);border-radius:38px;
+    display:flex;flex-direction:column;
+    transition:background .2s;
+  }
+  .notch{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:120px;height:26px;background:var(--shell);border-radius:16px;z-index:40;
+  }
+  .statusbar{
+    flex:none;height:46px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 26px 6px 26px;font-size:12px;font-weight:600;color:var(--ink);z-index:30;position:relative;
+  }
+  .appbody{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;}
+  @media (max-width:460px), (max-height:900px){
+    body{padding:0;align-items:stretch;}
+    .shell{width:100vw;height:100vh;height:100dvh;border-radius:0;padding:0;box-shadow:none;}
+    .screen{border-radius:0;}
+    .notch{display:none;}
+    .labnote{display:none;}
+    .statusbar{display:none;}
+  }
+
+  /* ---------- generic ---------- */
+  ::selection{background:var(--cyan);color:#04231d;}
+  button{font-family:inherit;}
+  .hidden{display:none !important;}
+  a{color:inherit;}
+  .hard{box-shadow:6px 6px 0px -2px var(--hard);}
+  .hard-sm{box-shadow:4px 4px 0px -1px var(--hard);}
+
+  .pm-view{
+    position:absolute;inset:0;display:flex;flex-direction:column;background:var(--paper);
+    overflow:hidden;
+  }
+  .pm-content{
+    flex:1 1 auto;overflow-y:auto;overflow-x:hidden;padding:0 0 110px 0;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .pm-content::-webkit-scrollbar{display:none;}
+
+  .pm-topbar{
+    flex:none;display:flex;align-items:center;justify-content:space-between;
+    padding:10px 16px;background:var(--mast);
+  }
+  .pm-brand{display:flex;align-items:center;gap:8px;}
+  .pm-brand .logo{font-family:'Coolvetica',sans-serif;font-size:21px;letter-spacing:.01em;color:var(--mast-ink);
+    display:flex;align-items:center;gap:2px;}
+  .logo .wordmark{color:transparent;-webkit-text-stroke:1.1px var(--mast-ink);}
+  .logo .dot{width:6px;height:6px;background:var(--cyan);display:inline-block;flex:none;margin:0 1px 2px 1px;}
+  .eyemark{display:block;flex:none;}
+  .pm-burger{background:none;border:none;color:var(--mast-ink);font-size:18px;cursor:pointer;padding:2px 2px 2px 0;line-height:1;}
+  .pm-donateicon{background:none;border:none;color:var(--mast-ink);font-size:17px;cursor:pointer;padding:2px;
+    text-decoration:none;line-height:1;display:flex;}
+
+  .pm-sitemenu{
+    position:absolute;inset:0;z-index:60;background:var(--mast);color:var(--mast-ink);
+    display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .22s ease;
+  }
+  .pm-sitemenu.open{transform:translateX(0);}
+  .pm-sitemenu-head{flex:none;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;}
+  .pm-sitemenu-head .logo{font-family:'Coolvetica',sans-serif;font-size:21px;color:var(--mast-ink);display:flex;align-items:center;gap:2px;}
+  .pm-sitemenu-close{background:none;border:none;color:var(--mast-ink);font-size:24px;cursor:pointer;line-height:1;}
+  .pm-sitemenu-body{flex:1;overflow-y:auto;padding:10px 0 24px 0;}
+  .pm-sitemenu a, .pm-sitemenu-inert{
+    display:block;padding:15px 20px;color:var(--mast-ink);text-decoration:none;
+    font-family:'Coolvetica',sans-serif;font-size:19px;border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .pm-sitemenu a:active{background:rgba(255,255,255,.08);}
+  .pm-sitemenu-inert{color:#8a8a86;cursor:default;}
+  .pm-sitemenu-section{padding:20px 20px 6px 20px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a8a86;font-weight:700;}
+  .pm-sitemenu-contact{padding:6px 20px 16px 20px;font-size:13px;}
+  .pm-sitemenu-contact a{color:var(--cyan);text-decoration:none;}
+  .pm-sitemenu-legal{padding:6px 20px 20px 20px;font-size:11px;color:#8a8a86;}
+  .pm-sitemenu-action{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+    padding:15px 20px;color:var(--mast-ink);background:none;border:none;text-align:left;
+    font-family:'Coolvetica',sans-serif;font-size:19px;border-bottom:1px solid rgba(255,255,255,.1);
+    cursor:pointer;
+  }
+  .pm-sitemenu-action:active{background:rgba(255,255,255,.08);}
+  .pm-sitemenu-toggle{
+    width:34px;height:19px;border:1.5px solid var(--mast-ink);border-radius:999px;position:relative;flex:none;
+  }
+  .pm-sitemenu-toggle::after{
+    content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;
+    background:var(--mast-ink);transition:transform .15s ease;
+  }
+  :root[data-theme="dark"] .pm-sitemenu-toggle::after{transform:translateX(15px);background:var(--cyan);}
+  .pm-editionchip{
+    font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--mast-ink);
+    padding:4px 8px;color:var(--mast-ink);cursor:pointer;background:transparent;
+  }
+  .pm-editionchip.personal{border-color:var(--cyan);color:var(--cyan);}
+  .pm-topbar-actions{display:flex;align-items:center;gap:10px;}
+  .backbtn{
+    background:transparent;border:none;color:var(--ink);font-size:20px;cursor:pointer;
+    padding:2px 6px 2px 0;line-height:1;font-family:'IBM Plex Mono Synth',monospace;flex:none;
+  }
+
+
+  .pm-hero{padding:18px 18px 6px 18px;}
+  .pm-greet{font-family:'Coolvetica',sans-serif;font-size:26px;color:var(--ink);margin:0;}
+  .pm-date{color:var(--grey);font-size:11px;letter-spacing:.04em;margin-top:2px;}
+  .pm-personal-banner{
+    margin:10px 18px 0 18px;padding:9px 11px;border:1px dashed var(--cyan);color:var(--ink);
+    font-size:10.5px;line-height:1.5;display:none;
+  }
+  .pm-personal-banner.show{display:block;}
+
+  .pm-for-you{margin:12px 18px 0 18px;border:1.5px solid var(--cyan);background:var(--white);padding:12px 13px;}
+  .pm-for-you .lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:700;
+    display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+  .pm-for-you .lbl::before{content:"";width:8px;height:8px;background:var(--cyan);border:1px solid var(--ink);flex:none;}
+  .pm-for-you-item{padding:8px 0;border-top:1px dashed var(--line);cursor:pointer;}
+  .pm-for-you-item:first-child{border-top:none;padding-top:0;}
+  .pm-for-you-item .t{font-size:12.5px;color:var(--ink);line-height:1.4;font-weight:600;}
+  .pm-for-you-item .why{font-size:10px;color:var(--grey);margin-top:4px;line-height:1.5;}
+  .pm-for-you-item .why b{color:var(--ink);}
+
+  .pm-section-label{
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+    font-weight:700;margin:26px 18px 10px 18px;display:flex;align-items:center;gap:8px;
+  }
+  .pm-section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* cards */
+  .pm-card{
+    margin:0 18px 14px 18px;border:2px solid var(--ink);background:var(--white);
+    cursor:pointer;position:relative;box-shadow:5px 5px 0 -1px var(--hard);
+  }
+  .pm-card:active{transform:translateY(1px);}
+  .pm-visual{
+    width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;
+    background:
+      repeating-linear-gradient(135deg, rgba(20,19,16,0.08) 0 2px, transparent 2px 14px),
+      linear-gradient(155deg, var(--ink) 0%, #3a3630 55%, #6e1414 130%);
+    border-bottom:2px solid var(--ink);
+  }
+  :root[data-theme="dark"] .pm-visual{
+    background:
+      repeating-linear-gradient(135deg, rgba(240,236,226,0.08) 0 2px, transparent 2px 14px),
+      linear-gradient(155deg, #17181a 0%, #45474b 55%, #6e1414 130%);
+  }
+  .pm-visual img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  }
+  .pm-visual::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 100%);
+  }
+  .pm-visual .idx{
+    position:absolute;left:12px;bottom:10px;font-family:'Coolvetica',sans-serif;
+    font-size:44px;color:#fff;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.6);z-index:2;
+  }
+  .pm-visual .wm{position:absolute;right:8px;bottom:8px;z-index:2;filter:drop-shadow(0 1px 3px rgba(0,0,0,.85));}
+  .pm-cats{padding:10px 14px 0 14px;display:flex;flex-wrap:wrap;gap:4px 8px;}
+  .pm-cats span{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);font-weight:700;}
+  .pm-cardbody{padding:8px 14px 14px 14px;}
+  .pm-eyebrow{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:5px;}
+  .pm-title{font-family:'Coolvetica',sans-serif;font-size:19px;line-height:1.12;color:var(--ink);margin:0 0 6px 0;}
+  .pm-hook{font-size:12px;line-height:1.5;color:var(--grey);margin:0 0 10px 0;}
+  .pm-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .pm-readmore{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink);
+    margin-top:10px;display:flex;align-items:center;gap:5px;}
+  .pm-pill{
+    font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;
+    border:1px solid var(--line);color:var(--grey);
+  }
+  .pm-pill.time{border-color:var(--ink);color:var(--ink);font-weight:600;}
+  .pm-pill.written{border-color:var(--ink);color:var(--ink);}
+  .pm-pill.generated{border-color:var(--gold);color:#7a4b00;background:rgba(255,188,73,.18);}
+  .pm-pill.new{border-color:var(--ink);background:var(--cyan);color:#03251f;font-weight:700;}
+
+  .pm-card-sm{display:flex;gap:12px;align-items:flex-start;}
+  .pm-card-sm .pm-num{font-family:'Coolvetica',sans-serif;font-size:14px;color:var(--ink);flex:none;padding-top:14px;padding-left:14px;}
+  .pm-card-sm .pm-cardbody{padding:12px 14px 12px 0;flex:1;}
+  .pm-card-sm .pm-title{font-size:14.5px;}
+
+  .pm-chiffre{margin:0 18px 14px 18px;border:2px solid var(--ink);padding:16px 16px;background:var(--white);cursor:pointer;box-shadow:5px 5px 0 -1px var(--hard);}
+  .pm-chiffre .big{font-family:'Coolvetica',sans-serif;font-size:40px;color:var(--ink);line-height:1;border-bottom:5px solid var(--gold);display:inline-block;padding-bottom:2px;}
+  .pm-chiffre .lbl{font-size:11.5px;color:var(--ink);margin-top:10px;line-height:1.5;}
+  .pm-chiffre .lbl b{color:var(--ink);}
+
+  .pm-magazine{
+    margin:0 18px 14px 18px;border:2px solid var(--ink);position:relative;cursor:pointer;
+    box-shadow:5px 5px 0 -1px var(--hard);overflow:hidden;aspect-ratio:3/4;
+    background:linear-gradient(155deg, #141310 0%, #3a3630 55%, #6e1414 130%);
+  }
+  .pm-magazine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .pm-magazine::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.15) 100%);
+  }
+  .pm-magazine .mg-wm{position:absolute;top:10px;right:10px;z-index:3;filter:drop-shadow(0 1px 3px rgba(0,0,0,.85));}
+  .pm-magazine .mg-content{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px;}
+  .pm-magazine .mg-eyebrow{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#e2ded2;margin-bottom:8px;opacity:.9;}
+  .pm-magazine .mg-title{font-family:'Coolvetica',sans-serif;font-size:22px;line-height:1.15;color:#fff;margin:0 0 8px 0;}
+  .pm-magazine .mg-hook{font-size:12px;line-height:1.55;color:#dcd8cd;margin:0 0 12px 0;}
+  .pm-magazine .mg-byline{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);}
+  .pm-magazine .mg-byline .pm-avatar{border-color:#fff;}
+  .pm-magazine .mg-byline-name{font-size:11.5px;color:#fff;font-weight:600;}
+  .pm-magazine .mg-byline-role{font-size:10px;color:#c8c4b8;}
+
+  .pm-byline{display:flex;gap:10px;align-items:center;padding:12px 14px;border-top:1px dashed var(--line);}
+  .pm-avatar{
+    width:34px;height:34px;border-radius:50%;flex:none;overflow:hidden;border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .pm-avatar svg{display:block;width:100%;height:100%;}
+  .pm-byline-name{font-size:11.5px;color:var(--ink);font-weight:600;}
+  .pm-byline-role{font-size:10px;color:var(--grey);}
+
+  .pm-endcard{margin:30px 18px 20px 18px;padding:22px 16px;border:1.5px dashed var(--line);text-align:center;}
+  .pm-endcard .check{font-size:22px;color:var(--ink);}
+  .pm-endcard .msg{font-family:'Coolvetica',sans-serif;font-size:17px;color:var(--ink);margin:8px 0 4px 0;}
+  .pm-endcard .sub{font-size:11px;color:var(--grey);line-height:1.6;margin-bottom:14px;}
+  .pm-endrow{display:flex;gap:8px;justify-content:center;}
+
+  .pm-btn{
+    font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 14px;
+    border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
+    font-family:'IBM Plex Mono Synth',monospace;
+  }
+  .pm-btn-primary{background:var(--ink);color:var(--paper);}
+  .pm-btn-primary:active,.pm-btn:active{opacity:.75;}
+  .pm-btn.on{background:var(--ink);border-color:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 2px var(--cyan);}
+  .pm-btn-cyan{background:var(--cyan);border-color:var(--hard);color:#03251f;font-weight:700;}
+  .pm-btn-gold{background:transparent;border-color:var(--gold);color:var(--ink);}
+
+  .pm-bookmark{
+    position:absolute;top:8px;right:8px;z-index:3;width:26px;height:26px;border-radius:50%;
+    background:rgba(20,19,16,.55);color:#f4f1ea;border:1px solid rgba(244,241,234,.5);
+    display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;
+  }
+  .pm-bookmark.on{background:var(--gold);color:#231400;border-color:var(--hard);}
+
+  .pm-topic-row{margin:0 18px 10px 18px;border:2px solid var(--ink);padding:12px 14px;background:var(--white);cursor:pointer;box-shadow:4px 4px 0 -1px var(--hard);}
+  .pm-topic-row-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .pm-topic-name{font-family:'Coolvetica',sans-serif;font-size:15px;color:var(--ink);}
+  .pm-dots{letter-spacing:2px;color:var(--ink);font-size:11px;flex:none;}
+  .pm-dots .off{color:var(--line);}
+  .pm-topic-new{font-size:10.5px;color:var(--grey);margin-top:6px;}
+  .pm-topic-new b{color:var(--ink);}
+  .pm-topic-empty{margin:0 18px 10px 18px;padding:16px;border:1px dashed var(--line);text-align:center;
+    font-size:11px;color:var(--grey);line-height:1.6;}
+
+  .pm-newsletter{
+    margin:22px 0 6px 0;background:var(--cyan);padding:22px 18px;color:#04231d;border-top:2px solid var(--hard);
+    border-bottom:2px solid var(--hard);
+  }
+  .pm-newsletter h3{font-family:'Coolvetica',sans-serif;font-size:22px;margin:0 0 14px 0;color:#04231d;
+    display:flex;align-items:center;gap:8px;line-height:1.15;}
+  .pm-newsletter form{display:flex;flex-direction:column;gap:10px;}
+  .pm-newsletter input[type=text],.pm-newsletter input[type=email]{
+    width:100%;padding:11px 12px;border:1px solid var(--hard);background:#fff;color:#111;
+    font-family:'IBM Plex Mono Synth',monospace;font-size:12px;
+  }
+  .pm-newsletter .consent{display:flex;align-items:flex-start;gap:8px;font-size:10px;line-height:1.5;color:#04231d;margin-top:2px;}
+  .pm-newsletter .consent input{margin-top:2px;flex:none;}
+  .pm-newsletter input[type=submit]{
+    padding:13px 16px;color:#fff;background:var(--hard);border:1px solid var(--hard);
+    cursor:pointer;font-weight:700;font-family:'IBM Plex Mono Synth',monospace;font-size:12px;
+    letter-spacing:.04em;text-transform:none;align-self:stretch;
+  }
+  .pm-newsletter .ok{font-size:11px;color:#04231d;font-weight:700;display:none;margin-top:2px;}
+  .pm-newsletter .ok.show{display:block;}
+
+  .pm-donation{margin:20px 18px;border:2px solid var(--ink);background:var(--white);padding:16px;
+    box-shadow:5px 5px 0 -1px var(--gold);}
+  .pm-donation .tag{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#04231d;
+    background:var(--cyan);display:inline-block;padding:2px 8px;font-weight:700;margin-bottom:8px;}
+  .pm-donation p{font-size:11.5px;line-height:1.6;color:var(--ink);margin:0 0 10px 0;}
+  .pm-donation a.dbtn{
+    display:inline-flex;align-items:center;gap:8px;border:2px solid var(--ink);color:var(--ink);
+    padding:10px 14px;font-size:11.5px;font-weight:700;text-decoration:none;letter-spacing:.02em;
+    background:var(--white);box-shadow:3px 3px 0 -1px var(--gold);
+  }
+  .pm-support-row{
+    display:flex;align-items:center;gap:8px;border:2px solid var(--ink);background:var(--white);
+    padding:11px 14px;font-weight:700;font-size:12px;color:var(--ink);text-decoration:none;
+    box-shadow:4px 4px 0 -1px var(--gold);
+  }
+
+  /* bottom nav */
+  .pm-bottomnav{
+    position:absolute;left:0;right:0;bottom:0;z-index:20;
+    display:flex;align-items:center;justify-content:space-around;
+    padding:10px 8px calc(14px + env(safe-area-inset-bottom,0px)) 8px;
+    background:var(--mast);
+  }
+  .navbtn{
+    background:none;border:none;color:#8a8a86;display:flex;flex-direction:column;align-items:center;
+    gap:4px;font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;flex:1;
+    font-family:'IBM Plex Mono Synth',monospace;padding:4px 0;
+  }
+  .navbtn .ic{font-size:16px;line-height:1;}
+  .navbtn.active{color:var(--mast-ink);font-weight:700;}
+  .navbtn.active .ic{color:var(--cyan);}
+  .fab{
+    position:absolute;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:21;
+    background:var(--cyan);color:#04231d;border:2px solid var(--hard);border-radius:0;
+    padding:11px 16px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+    display:flex;align-items:center;gap:6px;cursor:pointer;box-shadow:4px 4px 0 -1px var(--hard);
+    font-family:'IBM Plex Mono Synth',monospace;font-weight:700;
+  }
+  .fab:active{opacity:.85;}
+
+  /* ---- topic / article overlay ---- */
+  .pm-overlay-header{
+    flex:none;padding:14px 16px 14px 8px;border-bottom:2px solid var(--ink);
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:var(--paper);
+  }
+  .pm-overlay-title-wrap{display:flex;align-items:flex-start;gap:4px;flex:1;min-width:0;}
+  .pm-overlay-h1{font-family:'Coolvetica',sans-serif;font-size:20px;color:var(--ink);margin:0;line-height:1.1;}
+  .pm-overlay-meta{font-size:10.5px;color:var(--grey);margin-top:4px;}
+
+  .pm-30s{margin:16px 18px;padding:14px;border:1.5px solid var(--ink);background:var(--bg);}
+  .pm-30s .lbl{font-size:9.5px;letter-spacing:.14em;color:var(--ink);text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .pm-30s p{font-size:12.5px;line-height:1.6;color:var(--ink);margin:0;}
+
+  .pm-hscroll{display:flex;gap:10px;overflow-x:auto;padding:0 18px 6px 18px;scrollbar-width:none;}
+  .pm-hscroll::-webkit-scrollbar{display:none;}
+  .pm-mini{flex:none;width:200px;border:1.5px solid var(--ink);padding:12px;background:var(--white);}
+  .pm-mini .lbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:6px;}
+  .pm-mini p{font-size:11.5px;line-height:1.55;color:var(--ink);margin:0;}
+
+  .pm-timeline{margin:0 18px;}
+  .pm-tl-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);}
+  .pm-tl-item:last-child{border-bottom:none;}
+  .pm-tl-date{flex:none;width:76px;font-size:10.5px;color:var(--grey);padding-top:1px;}
+  .pm-tl-text{font-size:12px;line-height:1.5;color:var(--ink);}
+  .pm-tl-text a{color:var(--link);text-decoration:none;border-bottom:1px dotted var(--link);}
+
+  .pm-golist{margin:0 18px;}
+  .pm-go-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+  .pm-go-item:last-child{border-bottom:none;}
+  .pm-go-kind{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
+  .pm-go-title{font-size:12.5px;color:var(--ink);line-height:1.35;max-width:250px;}
+  .pm-go-dur{font-size:10.5px;color:var(--grey);flex:none;margin-left:10px;text-align:right;}
+
+  .pm-actors{display:flex;flex-wrap:wrap;gap:8px;margin:0 18px;}
+  .actor-chip{font-size:10.5px;padding:6px 10px;border:1px solid var(--ink);display:flex;align-items:center;gap:6px;color:var(--ink);}
+  .actor-chip .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+
+  .pm-sources{margin:0 18px;}
+  .src-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--ink);
+    text-decoration:none;}
+  a.src-item span:last-child{color:var(--link);text-decoration:underline;text-decoration-style:dotted;}
+  .src-item:last-child{border-bottom:none;}
+  .src-item .k{color:var(--grey);flex:none;font-size:10px;letter-spacing:.08em;text-transform:uppercase;width:64px;}
+
+  .pm-primary-src{margin:12px 18px 0 18px;padding:12px 14px;border:1px solid var(--ink);background:var(--bg);font-size:11px;line-height:1.6;color:var(--ink);}
+  .pm-primary-src a{color:var(--link);text-decoration:none;border-bottom:1px dotted var(--link);word-break:break-word;}
+
+  .pm-followbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 18px 0 18px;
+    padding:12px 14px;border:1.5px solid var(--ink);background:var(--bg);}
+  .pm-followbar .txt{font-size:11px;color:var(--ink);line-height:1.4;}
+  .pm-followbar .txt b{display:block;font-family:'Coolvetica',sans-serif;font-size:13.5px;font-weight:400;}
+
+  /* article reader levels */
+  .pm-levels{display:flex;flex:none;border-bottom:2px solid var(--ink);background:var(--paper);}
+  .pm-level{flex:1;text-align:center;padding:10px 4px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--grey);cursor:pointer;border-right:1px solid var(--line);position:relative;background:none;
+    font-family:'IBM Plex Mono Synth',monospace;}
+  .pm-level:last-child{border-right:none;}
+  .pm-level.active{color:var(--ink);font-weight:700;}
+  .pm-level.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--cyan);}
+  .pm-level small{display:block;font-size:8.5px;color:var(--grey);margin-top:2px;letter-spacing:0;text-transform:none;}
+
+  .pm-level-panel{display:none;}
+  .pm-level-panel.show{display:block;}
+
+  .pm-see{padding:0;}
+  .pm-see .pm-visual{aspect-ratio:4/3;border-bottom:none;}
+  .pm-see-body{padding:18px;}
+  .pm-see-claim{font-family:'Coolvetica',sans-serif;font-size:24px;line-height:1.15;color:var(--ink);margin:0 0 10px 0;}
+  .pm-see-time{font-size:10.5px;color:var(--grey);}
+
+  .pm-playbtn{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;
+    width:58px;height:58px;border-radius:50%;background:rgba(10,10,10,.6);border:2px solid #fff;
+    color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding-left:3px;
+  }
+  .pm-videobadge{
+    position:absolute;top:10px;left:12px;z-index:3;background:var(--hard);color:#fff;
+    font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .pm-videobadge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none;}
+
+  .pm-generated-tag{
+    margin:0 18px 14px 18px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    color:#7a4b00;background:rgba(255,188,73,.18);border:1px solid var(--gold);display:inline-block;padding:5px 10px;
+  }
+
+  .pm-deepen{padding:0 18px 18px 18px;font-size:13px;line-height:1.75;color:var(--ink);}
+  .pm-deepen p{margin:0 0 14px 0;}
+  .pm-deepen h4{font-family:'Coolvetica',sans-serif;font-size:15px;margin:22px 0 8px 0;color:var(--ink);}
+  .pm-deepen .lede{font-size:10px;letter-spacing:.1em;color:var(--grey);text-transform:uppercase;padding:16px 0 8px 0;}
+
+  .pm-verify-block{margin:0 18px 18px 18px;}
+  .pm-verify-h{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:700;margin:18px 0 8px 0;}
+
+  .pm-doubt-box{margin:14px 18px 0 18px;padding:12px 14px;border-left:3px solid var(--gold);background:var(--bg);}
+  .pm-doubt-box .h{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#7a4b00;font-weight:700;margin-bottom:6px;}
+  .pm-doubt-box p{font-size:11.5px;line-height:1.55;color:var(--ink);margin:0;}
+
+  /* ---- discover ---- */
+  .pm-discover{position:relative;flex:1;overflow:hidden;background:var(--ink);}
+  .pm-discover-track{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .pm-discover-track::-webkit-scrollbar{display:none;}
+  .pm-dcard{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;
+    justify-content:flex-end;padding:0;color:var(--paper);overflow:hidden;touch-action:pan-y;}
+  .pm-dcard.snapping{transition:transform .22s cubic-bezier(.2,.8,.3,1);}
+  .pm-dcard .bg{position:absolute;inset:0;background:linear-gradient(165deg, var(--dc1,#141310) 0%, var(--dc2,#3a3630) 55%, var(--red) 140%);}
+  .pm-dcard .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .pm-dcard .bg::after{content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(135deg, rgba(244,241,234,0.06) 0 2px, transparent 2px 16px);}
+  .pm-dcard .shade{position:absolute;inset:0;background:linear-gradient(to top, rgba(14,13,11,.94) 0%, rgba(14,13,11,.5) 42%, rgba(14,13,11,.15) 68%, transparent 82%);}
+  .pm-dcard .content{position:relative;padding:22px 20px 30px 20px;z-index:2;}
+  .pm-dcard .kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:10px;}
+  .pm-dcard .headline{font-family:'Coolvetica',sans-serif;font-size:22px;line-height:1.18;margin:0 0 12px 0;}
+  .pm-dcard .more{font-size:12px;color:#e2ded2;margin:10px 0 0 0;line-height:1.55;max-height:0;overflow:hidden;
+    transition:max-height .25s ease;}
+  .pm-dcard.expanded .more{max-height:260px;margin-top:12px;}
+  .pm-dcard .tapmore{font-size:11.5px;color:var(--paper);cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+    border-bottom:1px solid rgba(244,241,234,.4);padding-bottom:2px;}
+  .pm-dcard.expanded .tapmore .chev{transform:rotate(180deg);}
+  .pm-dcard .chev{display:inline-block;transition:transform .2s;}
+  .pm-dcard .foot{display:flex;align-items:center;gap:8px;font-size:10.5px;color:#c8c4b8;margin-top:16px;flex-wrap:wrap;}
+  .pm-dcard .foot .rd-hint{
+    display:inline-flex;align-items:center;gap:6px;color:var(--paper);font-size:10px;
+    letter-spacing:.04em;text-transform:uppercase;font-family:'IBM Plex Mono Synth',monospace;
+    margin-left:auto;opacity:.85;pointer-events:none;
+  }
+  .pm-dcard .foot .chevleft{display:inline-block;animation:chevleftpulse 1.6s ease-in-out infinite;}
+  @keyframes chevleftpulse{0%,100%{transform:translateX(0);opacity:.5;}50%{transform:translateX(-5px);opacity:1;}}
+  .pm-dcard .swipehint{position:absolute;top:20px;right:52px;font-size:9.5px;color:#e8e4dc;opacity:.75;letter-spacing:.08em;text-transform:uppercase;z-index:2;}
+  .pm-dcard .idxlabel{position:absolute;top:20px;left:20px;font-family:'Coolvetica',sans-serif;font-size:14px;color:#e8e4dc;opacity:.9;z-index:2;}
+  .pm-discover-end{height:100%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:var(--paper);color:var(--ink);text-align:center;padding:30px;}
+  .pm-discover-end .msg{font-family:'Coolvetica',sans-serif;font-size:22px;margin:12px 0 8px 0;}
+  .pm-discover-end .sub{font-size:11.5px;color:var(--grey);line-height:1.6;margin-bottom:20px;max-width:260px;}
+  .pm-discover-close{position:absolute;top:14px;right:14px;z-index:5;width:30px;height:30px;border-radius:0;
+    background:rgba(20,19,16,.5);color:#f4f1ea;border:1px solid rgba(244,241,234,.4);font-size:15px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;}
+
+  #view-article.slide-in-right{transform:translateX(100%);}
+  #view-article.slide-in-right.slide-in-active{transform:translateX(0);transition:transform .26s ease-out;}
+
+  /* ---- explore ---- */
+  .pm-ask{margin:14px 18px 4px 18px;border:1.5px solid var(--ink);padding:11px 12px;background:var(--white);
+    display:flex;align-items:center;gap:8px;}
+  .pm-ask input{flex:1;border:none;background:none;font-size:12.5px;color:var(--ink);font-family:'IBM Plex Mono Synth',monospace;}
+  .pm-ask input:focus{outline:none;}
+  .pm-ask input::placeholder{color:var(--grey);}
+  .pm-ask .ic{color:var(--ink);font-size:15px;flex:none;}
+  .pm-ask .clr{color:var(--grey);cursor:pointer;font-size:14px;flex:none;display:none;}
+  .pm-ask .clr.show{display:block;}
+
+  .pm-searchresults{margin:6px 18px 0 18px;}
+  .sr-item{padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+  .sr-item:last-child{border-bottom:none;}
+  .sr-item .t{font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.4;}
+  .sr-item .m{font-size:10px;color:var(--grey);margin-top:3px;}
+  .sr-empty{padding:14px 0;font-size:11px;color:var(--grey);text-align:center;}
+
+  .pm-qcard{margin:0 18px 14px 18px;border:2px solid var(--ink);padding:16px 16px;background:var(--white);cursor:pointer;position:relative;box-shadow:4px 4px 0 -1px var(--hard);}
+  .pm-qcard .qtxt{font-family:'Coolvetica',sans-serif;font-size:17px;line-height:1.25;color:var(--ink);margin:0;}
+  .pm-qcard .arrow{position:absolute;right:14px;bottom:14px;color:var(--ink);font-size:16px;}
+  .pm-qcard .sub{font-size:10.5px;color:var(--grey);margin-top:8px;}
+
+  .pm-graphlink{margin:6px 18px 24px 18px;padding:12px 14px;border:1px dashed var(--line);font-size:10.5px;color:var(--grey);line-height:1.6;}
+  .pm-graphlink b{color:var(--ink);}
+  .pm-graphlink a{color:var(--link);text-decoration:none;border-bottom:1px dotted var(--link);}
+
+  /* ---- you tab ---- */
+  .pm-filterrow{display:flex;gap:6px;overflow-x:auto;padding:2px 18px 14px 18px;scrollbar-width:none;}
+  .pm-filterrow::-webkit-scrollbar{display:none;}
+  .pm-filterchip{flex:none;font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:6px 11px;
+    border:1px solid var(--line);color:var(--grey);cursor:pointer;background:none;font-family:'IBM Plex Mono Synth',monospace;}
+  .pm-filterchip.active{border-color:var(--ink);color:var(--ink);background:var(--bg);font-weight:700;}
+
+  .pm-interest-row{margin:0 18px 12px 18px;}
+  .pm-interest-top{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink);margin-bottom:5px;}
+  .pm-interest-bar{height:8px;background:var(--line);position:relative;overflow:hidden;}
+  .pm-interest-fill{height:100%;background:var(--ink);transition:width .18s;}
+  .pm-interest-ctrl{display:flex;gap:6px;margin-top:5px;align-items:center;}
+  .pm-interest-ctrl button{width:22px;height:22px;border:1px solid var(--line);background:transparent;color:var(--ink);
+    cursor:pointer;font-size:12px;line-height:1;font-family:'IBM Plex Mono Synth',monospace;}
+  .pm-why{margin:8px 18px 20px 18px;padding:12px 14px;border:1px solid var(--ink);background:var(--bg);
+    font-size:11px;line-height:1.55;color:var(--ink);}
+  .pm-why b{color:var(--ink);}
+
+  .pm-account-row{display:flex;justify-content:space-between;align-items:center;margin:0 18px;padding:13px 0;
+    border-bottom:1px solid var(--line);font-size:12px;color:var(--ink);cursor:pointer;}
+  .pm-account-row .a{color:var(--grey);font-size:13px;}
+
+  .pm-readlater-item{margin:0 18px 10px 18px;border:1.5px solid var(--ink);padding:12px 14px;background:var(--white);
+    display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;}
+  .pm-readlater-item .t{font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.4;}
+  .pm-readlater-item .m{font-size:10px;color:var(--grey);margin-top:4px;}
+
+  /* ---- assistant overlay ---- */
+  .pm-chat{padding:14px 18px;}
+  .pm-chat-bubble{margin-bottom:16px;}
+  .pm-chat-user{background:var(--ink);color:var(--paper);padding:10px 13px;font-size:12.5px;line-height:1.5;max-width:85%;margin-left:auto;}
+  .pm-chat-ans{border:1.5px solid var(--ink);padding:14px;background:var(--white);}
+  .pm-chat-ans .lbl{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#7a4b00;font-weight:700;margin-bottom:8px;}
+  .pm-chat-ans p{font-size:12.5px;line-height:1.6;color:var(--ink);margin:0 0 10px 0;}
+  .pm-chat-ans .src{font-size:10.5px;color:var(--grey);border-top:1px dashed var(--line);padding-top:8px;margin-bottom:10px;}
+  .pm-chat-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .pm-chip-btn{font-size:10px;letter-spacing:.03em;text-transform:uppercase;padding:7px 10px;border:1px solid var(--ink);
+    background:transparent;color:var(--ink);cursor:pointer;font-family:'IBM Plex Mono Synth',monospace;}
+  .pm-chat-matches{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;display:none;}
+  .pm-chat-matches.show{display:block;}
+  .pm-chat-matches .mi{font-size:11px;padding:5px 0;color:var(--ink);cursor:pointer;}
+  .pm-chat-matches .mi span{color:var(--grey);font-size:10px;}
+  .pm-followup{margin-top:14px;font-size:11.5px;color:var(--link);border-top:1px dashed var(--line);padding-top:12px;
+    cursor:pointer;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .pm-suggest-chip{border:1px solid var(--ink);color:var(--ink);padding:5px 9px;font-size:10.5px;cursor:pointer;}
+  .pm-chat-input-bar{flex:none;display:flex;gap:8px;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px)) 16px;
+    border-top:2px solid var(--ink);background:var(--paper);}
+  .pm-chat-input-bar input{flex:1;border:1.5px solid var(--ink);background:var(--bg);color:var(--ink);padding:10px 12px;
+    font-family:'IBM Plex Mono Synth',monospace;font-size:12.5px;}
+  .pm-chat-input-bar input:focus{outline:none;border-color:var(--cyan);}
+  .pm-chat-input-bar button{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:0 16px;cursor:pointer;font-size:14px;}
+  .pm-boundary{margin:0 18px 16px 18px;font-size:9.5px;color:var(--grey);line-height:1.6;text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="labnote"><b>SYNTH</b> — prototype d'interface mobile · contenu réel (flux RSS synthmedia.fr)<br>republié à des fins de démonstration — sources liées sur chaque article</div>
+
+<div class="shell">
+  <div class="screen" id="screen">
+    <div class="notch"></div>
+    <div class="statusbar" id="statusbar">
+      <span id="clock">21:42</span>
+      <span>●●●● 5G 🔋</span>
+    </div>
+
+    <div class="appbody">
+
+    <!-- ===================== TODAY ===================== -->
+    <section class="pm-view" id="view-today" data-view>
+      <div class="pm-topbar">
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo"><span class="wordmark">Synth</span><span class="dot"></span><svg class="eyemark" width="20" height="16" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#000"/><line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="pm-topbar-actions">
+          <button class="pm-editionchip" id="editionChip" onclick="toggleEdition()">Édition commune</button>
+          <a class="pm-donateicon" href="https://synthmedia.fr/soutenir/" target="_blank" rel="noopener" aria-label="Soutenir Synth">🎯</a>
+        </div>
+      </div>
+      <div class="pm-content" id="todayContent">
+        <!-- rendered by renderToday() -->
+      </div>
+    </section>
+
+    <!-- ===================== DISCOVER ===================== -->
+    <section class="pm-view hidden" id="view-discover" data-view>
+      <div class="pm-discover">
+        <button class="pm-discover-close" onclick="switchTab('today')" aria-label="Fermer">×</button>
+        <div class="pm-discover-track" id="discoverTrack"></div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPLORE ===================== -->
+    <section class="pm-view hidden" id="view-explore" data-view>
+      <div class="pm-topbar">
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo"><span class="wordmark">Synth</span><span class="dot"></span><svg class="eyemark" width="20" height="16" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#000"/><line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="pm-topbar-actions"><a class="pm-donateicon" href="https://synthmedia.fr/soutenir/" target="_blank" rel="noopener" aria-label="Soutenir Synth">🎯</a></div>
+      </div>
+      <div class="pm-content">
+        <div class="pm-ask">
+          <span class="ic">⌕</span>
+          <input type="text" id="exploreSearch" placeholder="Qu'est-ce que vous voulez comprendre ?" oninput="onExploreSearch()">
+          <span class="clr" id="exploreClear" onclick="clearExploreSearch()">×</span>
+        </div>
+        <div class="pm-searchresults hidden" id="exploreResults"></div>
+
+        <div id="exploreQuestions">
+          <div class="pm-section-label">Naviguer par question, pas par rubrique</div>
+          <div id="questionCards"></div>
+          <div class="pm-graphlink">
+            Chaque question ouvre un <b>graphe de sujets</b> — acteurs, sources et développements liés — plutôt qu'une liste d'articles classés par rubrique. Voir aussi la <a href="cartographie_technofascisme_10.html">cartographie complète du technofascisme →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VOUS ===================== -->
+    <section class="pm-view hidden" id="view-you" data-view>
+      <div class="pm-topbar">
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo"><span class="wordmark">Synth</span><span class="dot"></span><svg class="eyemark" width="20" height="16" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#000"/><line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="pm-topbar-actions"><a class="pm-donateicon" href="https://synthmedia.fr/soutenir/" target="_blank" rel="noopener" aria-label="Soutenir Synth">🎯</a></div>
+      </div>
+      <div class="pm-content">
+        <div class="pm-section-label" style="margin-top:18px;">Ce que vous cherchez à comprendre</div>
+        <div class="pm-filterrow" id="youFilters"></div>
+        <div id="youList"></div>
+
+        <div class="pm-section-label">Votre carte d'intérêt</div>
+        <div style="margin:0 18px 8px 18px;font-size:10.5px;color:var(--grey);line-height:1.6;">
+          Ceci détermine ce qui vous est proposé en édition personnelle — vous pouvez le modifier à tout moment.
+        </div>
+        <div id="interestGraph"></div>
+        <div class="pm-why" id="whyBox"></div>
+
+        <div class="pm-section-label">Compte</div>
+        <div class="pm-newsletter">
+          <h3>Inscrivez-vous à la newsletter <svg width="26" height="21" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#04231d" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#04231d"/><line x1="40" y1="78" x2="58" y2="78" stroke="#04231d" stroke-width="7" stroke-linecap="round"/></svg></h3>
+          <form onsubmit="submitNewsletter(event,'you')">
+            <input type="text" id="nlNameYou" placeholder="Entrez votre nom">
+            <input type="email" id="nlEmailYou" placeholder="✉ alan.turing@manchester.univ.uk" required>
+            <label class="consent"><input type="checkbox" required>En cochant cette case, vous confirmez avoir lu et accepté nos conditions d'utilisation concernant le stockage des données envoyées via ce formulaire.</label>
+            <input type="submit" value="Je m'inscris">
+          </form>
+          <div class="ok" id="nlOkYou">Merci — vérifiez votre boîte mail pour confirmer votre inscription.</div>
+        </div>
+        <div class="pm-account-row" style="margin-top:18px;"><span>Abonnement</span><span class="a">Synth+ ›</span></div>
+        <div style="margin:14px 18px;">
+          <a class="pm-support-row" href="https://synthmedia.fr/soutenir/" target="_blank" rel="noopener">Je soutiens Synth 🎯</a>
+        </div>
+        <div class="pm-account-row" style="border-bottom:none;"><span>Édition</span><span class="a" id="editionStatusRow">commune ›</span></div>
+      </div>
+    </section>
+
+    <!-- ===================== TOPIC OVERLAY ===================== -->
+    <section class="pm-view hidden" id="view-topic" data-overlay>
+      <div class="pm-overlay-header">
+        <div class="pm-overlay-title-wrap">
+          <button class="backbtn" onclick="closeOverlay('view-topic')">←</button>
+          <div>
+            <h1 class="pm-overlay-h1" id="topicTitle">—</h1>
+            <div class="pm-overlay-meta" id="topicMeta"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-content">
+        <div class="pm-30s"><div class="lbl">En 30 secondes</div><p id="topicSummary">…</p></div>
+
+        <div class="pm-followbar">
+          <div class="txt">Votre suivi<b id="topicFollowLabel">Pas encore suivi</b></div>
+          <button class="pm-btn" id="topicFollowBtn" onclick="toggleFollow()">Je veux comprendre ce sujet</button>
+        </div>
+
+        <div class="pm-section-label">Comprendre</div>
+        <div class="pm-hscroll" id="topicComprendre"></div>
+
+        <div class="pm-section-label">Ce qui vient de se passer</div>
+        <div class="pm-timeline" id="topicTimeline"></div>
+
+        <div class="pm-section-label">Aller plus loin</div>
+        <div class="pm-golist" id="topicGoFurther"></div>
+
+        <div class="pm-section-label">Les acteurs</div>
+        <div class="pm-actors" id="topicActors"></div>
+
+        <div class="pm-section-label" style="margin-bottom:6px;">Les sources</div>
+        <div class="pm-sources" id="topicSources"></div>
+        <div style="height:20px;"></div>
+      </div>
+    </section>
+
+    <!-- ===================== ARTICLE OVERLAY (progressive depth) ===================== -->
+    <section class="pm-view hidden" id="view-article" data-overlay>
+      <div class="pm-overlay-header" style="border-bottom:none;padding-bottom:0;">
+        <div class="pm-overlay-title-wrap">
+          <button class="backbtn" onclick="closeOverlay('view-article')">←</button>
+          <div><h1 class="pm-overlay-h1" id="articleTitle" style="font-size:16px;">…</h1></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none;">
+          <span class="pm-pill written">Écrit par la rédaction</span>
+          <button class="pm-bookmark" id="articleBookmarkBtn" onclick="toggleReadLater()" style="position:static;" aria-label="À lire plus tard">☆</button>
+        </div>
+      </div>
+      <div class="pm-levels">
+        <div class="pm-level active" data-level="voir" id="tabVoir" onclick="setLevel('voir')">Voir<small id="voirDur">10-20s</small></div>
+        <div class="pm-level" data-level="comprendre" onclick="setLevel('comprendre')">Comprendre<small>1-3 min</small></div>
+        <div class="pm-level" data-level="approfondir" onclick="setLevel('approfondir')">Approfondir<small id="approfondirDur">8-15 min</small></div>
+        <div class="pm-level" data-level="verifier" onclick="setLevel('verifier')">Vérifier<small>sources</small></div>
+      </div>
+      <div class="pm-content">
+        <div class="pm-level-panel show" data-panel="voir">
+          <div class="pm-see">
+            <div class="pm-visual" id="voirVisual">
+              <img id="articleImg" src="" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="idx" id="articleIdx">01</span>
+              <svg class="wm" width="26" height="21" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#000"/><line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/></svg>
+              <span class="pm-videobadge hidden" id="videoBadge">Vidéo d'accroche</span>
+              <button class="pm-playbtn hidden" id="playBtn" onclick="event.stopPropagation();setLevel('comprendre')" aria-label="Lire l'accroche">▶</button>
+            </div>
+            <div class="pm-see-body">
+              <h2 class="pm-see-claim" id="articleClaim">…</h2>
+              <div class="pm-see-time" id="seeTimeLabel">L'essentiel, en une phrase.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pm-level-panel" data-panel="comprendre">
+          <div class="pm-byline" style="padding:16px 18px;border-top:none;">
+            <div class="pm-avatar" id="articleAvatar">NH</div>
+            <div><div class="pm-byline-name" id="articleAuthor">—</div><div class="pm-byline-role">Journaliste</div></div>
+          </div>
+          <div class="pm-generated-tag">Synthèse générée · résumé structuré de l'article</div>
+          <div class="pm-hscroll" id="articleCards"></div>
+          <div style="margin:16px 18px 0 18px;padding:12px 14px;border:1px solid var(--line);font-size:11.5px;line-height:1.6;color:var(--ink);font-style:italic;" id="articleWhy"></div>
+          <div style="margin:14px 18px 0 18px;padding:12px 14px;border:1px solid var(--line);font-size:11.5px;line-height:1.6;color:var(--ink);" id="articleDiscovered"></div>
+          <div class="pm-doubt-box"><div class="h">Ce sur quoi j'ai encore un doute</div><p id="articleDoubt">…</p></div>
+        </div>
+
+        <div class="pm-level-panel" data-panel="approfondir">
+          <div class="pm-deepen" id="articleBody">…</div>
+          <div class="pm-donation">
+            <span class="tag">Cet article est disponible pour toutes et tous</span>
+            <p>Face à la domination des GAFAM et de leurs algorithmes opaques, Synth vous aide à reprendre la main sur les récits technologiques qui façonnent votre quotidien. Un don à partir de 1€, défiscalisé à 66 %.</p>
+            <a class="dbtn" href="https://synthmedia.fr/soutenir/" target="_blank" rel="noopener">Je fais un don à Synth ❤︎</a>
+          </div>
+        </div>
+
+        <div class="pm-level-panel" data-panel="verifier">
+          <div class="pm-verify-block">
+            <div class="pm-verify-h">Chronologie</div>
+            <div class="pm-timeline" id="articleTimeline" style="margin:0;"></div>
+            <div class="pm-verify-h">Sources citées dans l'article</div>
+            <div class="pm-sources" id="articleSources"></div>
+            <div class="pm-verify-h">Catégories éditoriales</div>
+            <div class="pm-actors" id="articleCats"></div>
+          </div>
+          <div class="pm-primary-src">
+            Cet article est republié tel que documenté par la rédaction de Synth. Pour la version intégrale, ses liens et sa mise à jour éventuelle, consultez la <a id="articlePrimaryLink" href="#" target="_blank" rel="noopener">source primaire sur synthmedia.fr →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ASSISTANT OVERLAY ===================== -->
+    <section class="pm-view hidden" id="view-assistant" data-overlay>
+      <div class="pm-overlay-header">
+        <div class="pm-overlay-title-wrap">
+          <button class="backbtn" onclick="closeOverlay('view-assistant')">←</button>
+          <div>
+            <h1 class="pm-overlay-h1" style="font-size:16px;">Comprendre</h1>
+            <div class="pm-overlay-meta">interroge le corpus éditorial de Synth — pas le Web entier</div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-content" id="chatLog">
+        <div class="pm-chat">
+          <div class="pm-chat-bubble" style="text-align:center;"><span class="pm-boundary" style="margin:0;">Essayez : « Palantir », « cloud souverain », « Musk Le Pen », « argent de l'IA »…</span></div>
+        </div>
+      </div>
+      <div class="pm-chat-input-bar">
+        <input type="text" id="chatInput" placeholder="Qu'est-ce que vous voulez comprendre ?" onkeydown="if(event.key==='Enter')askChat()">
+        <button onclick="askChat()">↵</button>
+      </div>
+    </section>
+
+    <!-- ===================== BOTTOM NAV ===================== -->
+    <button class="fab" id="fab" onclick="openAssistant()">⌕ Comprendre</button>
+    <nav class="pm-bottomnav" id="bottomnav">
+      <button class="navbtn active" data-tab="today" onclick="switchTab('today')"><span class="ic">◆</span>Aujourd'hui</button>
+      <button class="navbtn" data-tab="discover" onclick="switchTab('discover')"><span class="ic">▶</span>Découvrir</button>
+      <button class="navbtn" data-tab="explore" onclick="switchTab('explore')"><span class="ic">⌕</span>Explorer</button>
+      <button class="navbtn" data-tab="you" onclick="switchTab('you')"><span class="ic">●</span>Vous</button>
+    </nav>
+
+    <!-- ===================== MENU (site) ===================== -->
+    <div class="pm-sitemenu" id="siteMenu">
+      <div class="pm-sitemenu-head">
+        <span class="logo"><span class="wordmark">Synth</span><span class="dot"></span><svg class="eyemark" width="20" height="16" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#000"/><line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/></svg></span>
+        <button class="pm-sitemenu-close" onclick="closeMenu()" aria-label="Fermer le menu">×</button>
+      </div>
+      <div class="pm-sitemenu-body">
+        <button class="pm-sitemenu-action" onclick="closeMenu();openAssistant();">⌕ Comprendre</button>
+        <button class="pm-sitemenu-action" id="menuThemeBtn" onclick="toggleTheme()">
+          <span>🌓 Mode sombre</span><span class="pm-sitemenu-toggle" id="menuThemeToggle"></span>
+        </button>
+        <a href="https://synthmedia.fr/" target="_blank" rel="noopener">Accueil</a>
+        <a href="https://synthmedia.fr/qui-sommes-nous/" target="_blank" rel="noopener">Qu'est-ce que Synth Média ?</a>
+        <a href="https://synthmedia.fr/manifeste-de-synth/" target="_blank" rel="noopener">Notre manifeste</a>
+        <a href="https://synthmedia.fr/comment-nous-contacter/" target="_blank" rel="noopener">Comment nous contacter ?</a>
+        <a href="https://journalism.design/interventions-medias-et-conference/" target="_blank" rel="noopener">Dans les médias</a>
+        <a href="https://synth.tpopsite.com/" target="_blank" rel="noopener">Boutique</a>
+        <div class="pm-sitemenu-section">Contact rapide</div>
+        <div class="pm-sitemenu-contact"><a href="mailto:hello@synthmedia.fr">hello@synthmedia.fr</a></div>
+        <div class="pm-sitemenu-section">Informations</div>
+        <div class="pm-sitemenu-legal">Mentions légales · Données personnelles<br><span style="opacity:.7;">(liens à confirmer — non fournis)</span></div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================================
+   DONNÉES RÉELLES — extraites du flux RSS https://synthmedia.fr/feed/ (10 derniers articles,
+   juin-juillet 2026). Titres, dates, auteur·ices, citations, chiffres et liens sont réels ;
+   les fiches "Comprendre / Voir / Vérifier" sont une mise en forme éditoriale de ce contenu
+   à des fins de démonstration d'interface, pas une republication brute.
+   ========================================================================================= */
+
+const CAT_COLORS = {
+  "Milliardaire / fondateur": "#B4182D",
+  "Idéologue / penseur": "#FDA481",
+  "Politique / gouvernement": "#54162B",
+  "Entreprise / plateforme": "#37415C",
+  "Think tank / fondation / réseau": "#9A726E",
+  "Parti / mouvement": "#242E49",
+  "Concept / idéologie": "#181A2F"
+};
+
+const AXES = ["Intelligence artificielle","Souveraineté numérique","Vie démocratique & élections","Défense & sécurité","Argent de la tech","Europe & régulation"];
+
+const ARTICLES = {
+  "critiques-terroristes":{
+    title:"États-Unis : les critiques des technologies considérés comme des « terroristes d'extrême-gauche »",
+    link:"https://synthmedia.fr/industrie-de-lia/critiques-technologies-terroristes/",
+    author:"Nastasia Hadjadji", initials:"NH",
+    date:"2026-07-29T13:58:02Z", video:"0:41",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/07/no-datacenters.jpg",
+    categories:["Data centers","Éthique","Industrie de l'IA","Politiques","Vie démocratique","luddisme"],
+    axes:["Intelligence artificielle","Vie démocratique & élections"],
+    claim:"Washington classe désormais la critique des technologies et de l'IA comme une composante possible du « terrorisme d'extrême-gauche ».",
+    excerpt:"La Maison Blanche s'alarme de la résurgence du « terrorisme d'extrême-gauche » — une classification qui s'étend aux militants critiques des technologies et de l'IA, selon des documents internes du FBI et du Département de la Sécurité Intérieure.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Le 16 juillet 2026, la Maison Blanche annonce des moyens internationaux pour lutter contre la « résurgence du terrorisme d'extrême-gauche », une catégorie qui englobe désormais l'activisme critique des technologies et de l'IA, selon des documents internes du FBI et du DHS."},
+      {h:"Pourquoi maintenant", t:"Cette qualification prolonge celle de « terrorisme domestique » appliquée à l'antifascisme en novembre 2025, et s'appuie sur une lecture sélective d'un rapport Europol qui ne recense pourtant que des actions mineures en Europe."},
+      {h:"Pourquoi c'est important", t:"Des documents obtenus par Wired mettent dans le même sac des violences non coordonnées (cocktails Molotov visant le domicile de Sam Altman, incendies de concessions Tesla) et le mouvement plus large de résistance aux data centers, dont les « néo-luddites »."},
+      {h:"Ce qu'on ne sait pas", t:"L'ampleur réelle du dispositif de surveillance annoncé pour « monitorer » les personnes critiques de l'IA, ni le nombre de personnes visées par de possibles interdictions de séjour."},
+      {h:"Ce qui va se passer ensuite", t:"Le Département d'État a annoncé déployer des moyens internationaux, ce qui pourrait toucher des militants européens, notamment dans la mouvance de « Renaissance luddite »."}
+    ],
+    why:"Ce dossier documente un glissement sémantique : une classification antiterroriste américaine s'étend désormais, sur la base de documents internes que nous avons pu consulter, à la critique de l'intelligence artificielle elle-même.",
+    discovered:"Ce que documentent les pièces consultées : le FBI et le DHS ne distinguent pas les violences ciblées (comme les attaques contre des concessions Tesla) du mouvement plus large et non-violent de contestation des data centers.",
+    doubt:"L'ampleur concrète des mesures de surveillance et d'interdiction de séjour annoncées reste, à ce stade, difficile à vérifier au-delà des communiqués officiels.",
+    body:[
+      {t:"p", x:"Dans un communiqué daté du 16 juillet 2026, la Maison Blanche s'alarme de la résurgence du « terrorisme d'extrême-gauche ». Une classification aux contours flous qui s'étend aux militants et activistes critiques des nouvelles technologies et de l'IA, confirment des documents internes du FBI et du Département de la Sécurité Intérieure."},
+      {t:"p", x:"Après l'antifascisme associé au « terrorisme domestique » au mois de novembre 2025, le président Donald Trump s'attaque de nouveau à la « violence politique » de la gauche radicale et fait de cette « menace » la cible de sa politique répressive. Celle-ci figure dans la liste des menaces prioritaires du contre-terrorisme américain, aux côtés du terrorisme islamiste ou du narcoterrorisme."},
+      {t:"h", x:"« Extrémisme anti-tech »"},
+      {t:"p", x:"Bien que très divers dans ses motivations idéologiques, ses stratégies et ses objectifs politiques, l'activisme critique des technologies est dans le viseur des autorités américaines. L'administration Trump s'alarme ainsi de la « convergence » entre un « extrémisme anti-Américain, l'antisémitisme ou l'activisme anti-tech »."},
+      {t:"p", x:"En parallèle, des documents internes aux services de sécurité intérieure américains et au FBI obtenus par le magazine Wired s'alarment de « possibles soulèvements » liés à l'adoption massive des intelligences artificielles. La focale répressive qui se porte sur « l'extrémisme anti-technologies » englobe des éléments très divers, depuis des actions violentes non coordonnées — comme les attaques au cocktail Molotov visant la maison de Sam Altman à San Francisco, ou les incendies ciblant des concessions Tesla — jusqu'au mouvement global de résistance contre la construction de data centers."},
+      {t:"p", x:"À l'avenir, les autorités américaines déploient leur arsenal de surveillance afin d'identifier et « monitorer » les personnes « exprimant des opinions critiques vis-à-vis de l'IA ». Des interdictions de séjour sur le territoire étasunien pourraient ainsi s'appliquer afin de juguler ce que l'administration Trump qualifie de « menace terroriste transnationale »."}
+    ],
+    timeline:[
+      {d:"nov. 2025", t:"L'antifascisme est classé « terrorisme domestique » par l'administration Trump."},
+      {d:"16 juil. 2026", t:"La Maison Blanche annonce la lutte contre le « terrorisme d'extrême-gauche », incluant l'activisme anti-tech."},
+      {d:"16 juil. 2026", t:"Le Département d'État annonce des moyens internationaux pour cette lutte."},
+      {d:"29 juil. 2026", t:"Publication de cet article."}
+    ],
+    sourcesCited:[
+      {t:"Communiqué de la Maison Blanche, 16 juillet 2026", url:"https://www.whitehouse.gov/releases/2026/07/trump-administration-unleashes-global-campaign-to-crush-radical-left-terrorism/"},
+      {t:"Documents internes FBI / DHS, révélés par Wired", url:"https://www.wired.com/story/us-law-enforcement-warns-of-anti-tech-extremism/"},
+      {t:"Rapport Europol EU-TE-SAT 2026", url:"https://www.europol.europa.eu/cms/sites/default/files/documents/EU-TE-SAT-2026.pdf"},
+      {t:"« Renaissance Luddite » — enquête liée de Synth", url:"https://synthmedia.fr/data-centers/resistances-technologiques-renaissance-luddite/"}
+    ]
+  },
+
+  "dependances-numeriques":{
+    title:"Dépendances numériques : le plan de la commission d'enquête parlementaire pour émanciper la France des Big techs étasuniennes",
+    link:"https://synthmedia.fr/geopolitique-numerique/dependances-numeriques-francaises/",
+    author:"Eitanite Bellaïche", initials:"EB",
+    date:"2026-07-23T05:57:00Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/07/Header-Posts-2.jpg",
+    categories:["Data centers","Économie","Géopolitique numérique","Législation","souveraineté numérique"],
+    axes:["Souveraineté numérique","Europe & régulation"],
+    claim:"Un rapport parlementaire de 1 200 pages chiffre à 1,5 milliard d'euros par an la facture versée par l'État français aux Big Tech américaines.",
+    excerpt:"Publié le 15 juillet 2026, le rapport de la commission d'enquête parlementaire sur les dépendances numériques françaises alerte sur l'emprise des géants américains — et propose un moratoire sur certains data centers étrangers.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Publié le 15 juillet 2026 après six mois de travaux et 112 auditions, le rapport de la commission d'enquête parlementaire, présidée par le député Philippe Latombe (MoDem) et rapporté par la députée écologiste Cyrielle Chatelain, dresse un état des lieux des dépendances numériques françaises."},
+      {h:"Pourquoi maintenant", t:"Philippe Latombe alertait déjà en 2021, mais regrette qu'« il a fallu attendre l'ère MAGA » pour que le sujet soit pris au sérieux politiquement."},
+      {h:"Pourquoi c'est important", t:"Si 83 % des logiciels critiques de l'État sont français en façade, les couches techniques sous-jacentes restent dominées par Microsoft, Oracle et VMware — jusqu'au risque de « kill switch » évoqué pour la suite Office 365 utilisée par le ministère de la Justice."},
+      {h:"Le chiffre", t:"1,5 milliard d'euros par an, dont 1 milliard versé directement à Microsoft, Oracle, VMware et IBM — pendant que la Gendarmerie nationale dit avoir économisé 534 millions d'euros depuis 2004 grâce à l'open source."},
+      {h:"Ce qui va se passer ensuite", t:"Le rapport propose un moratoire sur les data centers portés par des acteurs étrangers et une meilleure protection des entreprises stratégiques françaises par prise de participation publique."}
+    ],
+    why:"Ce rapport de 1 200 pages, que nous avons dépouillé, chiffre pour la première fois avec cette précision la dépendance numérique de l'État français.",
+    discovered:"Même les logiciels considérés comme « souverains » reposent souvent sur des couches techniques (systèmes d'exploitation, bases de données, virtualisation) contrôlées par trois groupes américains : Microsoft, Oracle et VMware.",
+    doubt:"Le rapport propose un moratoire sur certains data centers étrangers, mais sa traduction législative concrète reste, à ce stade, incertaine.",
+    body:[
+      {t:"p", x:"La France peut-elle encore garantir son indépendance numérique ? Publié le 15 juillet 2026, le rapport de la commission d'enquête parlementaire sur les dépendances et vulnérabilités numériques tricolores alerte sur l'emprise des géants américains en France. Le texte propose une riposte fondée sur l'open source, la protection des entreprises stratégiques par l'acquisition d'actions et un moratoire sur les data centers portés par des acteurs étrangers."},
+      {t:"p", x:"« Voilà plus de six ans que je tente d'alerter sur ce sujet […]. Je me suis senti peu entendu, peu suivi et trop souvent cantonné au rôle frustrant de Cassandre. » C'est par ce cri du cœur que le député Philippe Latombe (MoDem) ouvre le rapport, mené aux côtés de 26 autres députés et de la cheffe de file des Écologistes à l'Assemblée nationale, Cyrielle Chatelain, rapporteure du texte."},
+      {t:"h", x:"Risque géopolitique"},
+      {t:"p", x:"Avec ce pavé de plus de 1 200 pages qui a demandé six mois de travaux et 112 auditions, la commission d'enquête parlementaire entend dresser une cartographie sans concession de nos servitudes virtuelles. « Que l'on parle des principales plateformes ou des data centers, ce danger est aujourd'hui beaucoup plus pressant qu'il ne l'était encore il y a deux ou cinq ans », s'alarme Cyrielle Chatelain auprès de Synth."},
+      {t:"h", x:"Logiciels français, architecture étasunienne"},
+      {t:"p", x:"Le rapport scrute les applications logicielles utilisées par l'État : 83 % des programmes essentiels aux services publics et 69 % de ceux qui garantissent l'ordre public battent pavillon tricolore. Mais derrière cette façade nationale, les couches techniques communes restent dominées par trois groupes : Microsoft pour les systèmes d'exploitation et la bureautique, Oracle pour les bases de données, VMware (propriété de Broadcom) pour la virtualisation. Plusieurs ministères, dont celui de la Justice, utilisent la suite Office 365, qui dépend du droit américain et pourrait faire l'objet d'un « kill switch »."},
+      {t:"h", x:"1,5 milliard d'euros par an versés aux Big Tech"},
+      {t:"p", x:"En s'appuyant sur les données de la centrale d'achat public (l'Ugap), la rapporteure évalue à 1,5 milliard d'euros par an la facture versée par nos administrations aux géants américains, dont 1 milliard directement à Microsoft, Oracle, VMware et IBM. Pour stopper cette fuite de capitaux, la commission recommande de se tourner vers des outils open source français ou européens — citant l'exemple de la Gendarmerie nationale, qui estime avoir évité 534 millions d'euros de dépenses depuis 2004 grâce à cette stratégie."}
+    ],
+    timeline:[
+      {d:"2021", t:"Philippe Latombe alerte déjà sur le sujet comme rapporteur d'une mission d'information."},
+      {d:"2004", t:"La Gendarmerie nationale engage sa stratégie open source."},
+      {d:"15 juil. 2026", t:"Publication du rapport de la commission d'enquête parlementaire (1 200 pages, 112 auditions)."},
+      {d:"23 juil. 2026", t:"Publication de cet article."}
+    ],
+    sourcesCited:[
+      {t:"Rapport de la commission d'enquête parlementaire, 15 juillet 2026", url:"https://www.assemblee-nationale.fr/dyn/17/rapports/cenum/l17b3054-t1_rapport-enquete.pdf"},
+      {t:"Commission d'enquête sur les vulnérabilités numériques — Assemblée nationale", url:"https://www.assemblee-nationale.fr/dyn/17/organes/autres-commissions/commissions-enquete/ce-vulnerabilites-numeriques"},
+      {t:"Auditions de Mistral AI et des GAFAM devant la commission", url:"https://www.assemblee-nationale.fr/dyn/actualites-accueil-hub/vulnerabilites-du-secteur-du-numerique-en-france-auditions-de-mistral-ai-de-representants-des-gafam-en-france-et-de-cedric-o"}
+    ]
+  },
+
+  "musk-lepen":{
+    title:"Soutien d'Elon Musk à Marine Le Pen : un cadeau empoisonné ?",
+    link:"https://synthmedia.fr/politiques/elon-musk-soutient-marine-le-pen/",
+    author:"Eitanite Bellaïche", initials:"EB",
+    date:"2026-07-16T22:55:21Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/07/Musk-LePen-0.jpg",
+    categories:["Politiques","Presidentielle 2027","Vie démocratique","Elon Musk","Marine Le Pen"],
+    axes:["Vie démocratique & élections","Argent de la tech"],
+    claim:"« Elle est le dernier espoir de la France » : Elon Musk apporte un soutien explicite à Marine Le Pen pour 2027.",
+    excerpt:"Propriétaire de X et soutien de plusieurs formations d'extrême droite en Europe, Elon Musk adoube désormais Marine Le Pen — mettant le discours souverainiste du RN face à ses contradictions.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Sur X, Elon Musk a publiquement adoubé Marine Le Pen pour la présidentielle 2027, prolongeant un soutien déjà affiché en avril 2025 (« Free Le Pen! ») après sa condamnation en première instance."},
+      {h:"Pourquoi maintenant", t:"Musk a déjà appliqué la même rhétorique messianique à l'AfD en Allemagne et à un parti d'extrême droite au Royaume-Uni, tout en multipliant les marques de proximité avec Giorgia Meloni en Italie."},
+      {h:"Pourquoi c'est important", t:"Le soutien embarrasse le RN, dont les dirigeants (Sébastien Chenu, Jean-Philippe Tanguy) tentent de prendre leurs distances, alors que le parti défend officiellement souveraineté nationale et méfiance envers les élites mondialisées."},
+      {h:"Ce qu'on ne sait pas", t:"L'ampleur réelle de l'influence de l'algorithme de X sur le débat public français fait l'objet d'une enquête de la justice française, dont les conclusions ne sont pas encore connues."},
+      {h:"Ce qui va se passer ensuite", t:"Le RN devra clarifier sa position à l'approche de 2027, entre bénéfice d'un soutien médiatique international et risque de contredire son discours souverainiste."}
+    ],
+    why:"Ce soutien n'est pas un simple message isolé : il s'inscrit dans un mode opératoire qu'Elon Musk a déjà déployé en Allemagne, au Royaume-Uni et en Italie.",
+    discovered:"Le RN, via Sébastien Chenu et Jean-Philippe Tanguy, tient aujourd'hui un discours nettement plus prudent qu'il y a un an et demi, quand ce dernier qualifiait encore Musk de simple « champion du capitalisme ».",
+    doubt:"Le lien entre ce soutien et l'enquête en cours de la justice française sur l'algorithme de X reste, à ce stade, deux dossiers distincts qu'il serait prématuré de fusionner.",
+    body:[
+      {t:"p", x:"Propriétaire de X et soutien de plusieurs formations d'extrême droite en Europe, Elon Musk adoube désormais Marine Le Pen pour 2027. Une intervention qui interroge le pouvoir politique des plateformes numériques et met le discours souverainiste du RN face à ses contradictions. « Elle est le dernier espoir de la France. » En quelques mots publiés sur le réseau X, Elon Musk a choisi son camp."},
+      {t:"h", x:"Une rhétorique déjà éprouvée"},
+      {t:"p", x:"L'homme d'affaires avait déjà pris la défense de la cheffe de file du RN à l'Assemblée nationale après sa condamnation, en première instance, dans l'affaire des assistants parlementaires européens du Front national. Le 4 avril 2025, il martelait ainsi « Free Le Pen! ». En Allemagne, il a multiplié les déclarations en faveur de l'AfD, affirmant qu'elle était « la seule à pouvoir sauver l'Allemagne ». Au Royaume-Uni, même formule messianique. En Italie, il salue régulièrement la politique de Giorgia Meloni."},
+      {t:"h", x:"Un soutien qui embarrasse le RN ?"},
+      {t:"p", x:"Cette proximité embarrasse manifestement le Rassemblement national. « Cela ne nous lie pas à Elon Musk », a assuré le 16 juillet sur France 2 le vice-président du RN, Sébastien Chenu. Sur RTL, le député Jean-Philippe Tanguy s'est montré plus hésitant : « Il a le droit de s'exprimer, nous, on est contre toutes les ingérences. » Un an et demi plus tôt, le même député se montrait pourtant beaucoup moins conciliant, le qualifiant simplement de « champion du capitalisme »."},
+      {t:"h", x:"Deux mondes face à face"},
+      {t:"p", x:"L'électorat du RN est travaillé par le pouvoir d'achat, le déclassement social et l'immigration, comme le souligne le chercheur Luc Kouban (CEVIPOF). En face, l'un des hommes les plus riches du monde, capable de peser sur les élections sans bulletin de vote — ce qui fait notamment l'objet d'une enquête de la justice française sur le fonctionnement de l'algorithme de X, soupçonné de favoriser les discours d'extrême droite. Rappelons qu'Elon Musk a dirigé le Département de l'efficacité gouvernementale (DOGE) pour Donald Trump, et que son salut controversé lors de l'investiture du 21 janvier 2025 avait provoqué une onde de choc."}
+    ],
+    timeline:[
+      {d:"21 janv. 2025", t:"Investiture de Donald Trump ; salut contesté d'Elon Musk."},
+      {d:"4 avril 2025", t:"Elon Musk soutient Marine Le Pen après sa condamnation (« Free Le Pen! »)."},
+      {d:"16 juil. 2026", t:"Nouveau soutien public de Musk à Marine Le Pen sur X ; réactions du RN sur France 2 et RTL."},
+      {d:"16 juil. 2026", t:"Publication de cet article."}
+    ],
+    sourcesCited:[
+      {t:"Publication d'Elon Musk sur X, juillet 2026", url:"https://x.com/elonmusk/status/2077359803454673313?s=20"},
+      {t:"Réaction de Sébastien Chenu sur France 2", url:"https://x.com/telematin/status/2077647674212306952?s=20"},
+      {t:"Réaction de Jean-Philippe Tanguy sur RTL", url:"https://www.youtube.com/watch?v=XWX1h3qr0EI"},
+      {t:"Luc Kouban, CEVIPOF — Les ressorts cachés du vote RN (2024)", url:"https://www.sciencespo.fr/cevipof/fr/actualites/les-ressorts-caches-du-vote-rn/"}
+    ]
+  },
+
+  "irlande-ue":{
+    title:"L'Irlande prend la tête du Conseil de l'Union Européenne, les Big Tech dans le rétroviseur",
+    link:"https://synthmedia.fr/europe/lirlande-prend-la-tete-du-conseil-de-lunion-europeenne-les-big-tech-dans-le-retroviseur/",
+    author:"Eitanite Bellaïche", initials:"EB",
+    date:"2026-07-12T22:44:18Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/07/Irlande-EU-2.jpg",
+    categories:["Europe","Géopolitique numérique","big tech","Meta","Microsoft"],
+    axes:["Europe & régulation","Souveraineté numérique"],
+    claim:"L'Irlande prend la présidence du Conseil de l'UE alors qu'elle héberge le siège européen de seize des vingt plus grandes entreprises tech mondiales.",
+    excerpt:"Une présidence délicate pour un pays devenu, en 25 ans, le principal point d'ancrage des Big Tech américaines en Europe — Apple et Microsoft ont payé à eux seuls près de 40 % de l'impôt sur les sociétés irlandais en 2024.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Depuis le 1er juillet, l'Irlande préside le Conseil de l'Union européenne et doit piloter des dossiers numériques sensibles — souveraineté technologique, protection des mineurs en ligne, budget 2028-2034."},
+      {h:"Pourquoi maintenant", t:"Dublin a bâti depuis 25 ans une politique fiscale et réglementaire attractive pour la tech américaine ; Apple et Microsoft ont payé à eux seuls près de 40 % de l'impôt sur les sociétés du pays en 2024."},
+      {h:"Pourquoi c'est important", t:"La Commission irlandaise de protection des données (DPC), régulateur clé du numérique européen, est régulièrement critiquée pour son manque de fermeté — la nomination d'une ex-lobbyiste de Meta comme commissaire en décembre 2025 a renforcé les doutes."},
+      {h:"Ce qu'on ne sait pas", t:"Si la présidence irlandaise privilégiera, comme l'anticipe le chercheur Julien Nocetti (Ifri), une stratégie du « laisser-faire » qui dilue les grandes régulations européennes."},
+      {h:"Ce qui va se passer ensuite", t:"L'ONG Irish Council for Civil Liberties a demandé en avril que l'Irlande se retire de la gestion des dossiers numériques pendant son mandat — une requête pour l'instant ignorée."}
+    ],
+    why:"Cette présidence tombe à un moment où plusieurs textes numériques européens sensibles sont en jeu, ce qui rend la position irlandaise particulièrement scrutée.",
+    discovered:"Le chiffre qui arrête : Apple et Microsoft ont, à eux seuls, payé près de 40 % de l'impôt sur les sociétés irlandais en 2024.",
+    doubt:"Le Premier ministre irlandais promet un rôle de « médiateur impartial » — reste à vérifier, dossier par dossier, si cette promesse tient sur la durée du mandat.",
+    body:[
+      {t:"p", x:"À la tête du Conseil de l'Union européenne depuis le 1er juillet, l'Irlande devra piloter plusieurs dossiers numériques majeurs, de la souveraineté technologique à la protection des mineurs en ligne. Une mission délicate pour un pays devenu l'un des principaux points d'ancrage des Big Tech américaines en Europe."},
+      {t:"h", x:"Une présidence sous surveillance"},
+      {t:"p", x:"« C'est une question assez sensible… », estime Julien Nocetti, chercheur à l'Ifri, « parce que l'Irlande occupe une place centrale dans l'Union européenne en matière de régulation numérique. Dans le même temps, depuis plus de vingt-cinq ans, Dublin a mené une politique très active pour attirer les grands acteurs américains de la tech. » Seize des vingt mastodontes mondiaux du secteur — dont Apple, Amazon, Alphabet, Meta, Microsoft et Intel — y ont jeté l'ancre. La tech y fait vivre plus de 100 000 personnes selon l'IDA Ireland. En 2024, Apple et Microsoft ont payé à eux seuls près de 40 % de l'impôt sur les sociétés du pays."},
+      {t:"p", x:"« Je pense que l'Irlande sera scrutée comme jamais auparavant », avance Mark Dempsey, responsable de plaidoyer auprès de l'UE pour l'organisation ARTICLE 19. Le 7 juillet à Strasbourg, le Premier ministre irlandais a assuré que son pays serait un « médiateur impartial » sur la législation numérique européenne."},
+      {t:"h", x:"Des dossiers sensibles à l'agenda"},
+      {t:"p", x:"Dublin avance avec des priorités claires : simplification administrative, examen des mesures de souveraineté technologique dévoilées par la Commission le 3 juin, et restriction de l'accès des mineurs aux réseaux sociaux. Mais selon Mark Dempsey, le cœur de la présidence battra ailleurs, au rythme des négociations du budget européen 2028-2034."},
+      {t:"p", x:"La Commission irlandaise de protection des données (DPC), arbitre suprême de la vie privée numérique en Europe, s'est souvent vu reprocher son manque de fermeté. La nomination en décembre 2025 d'une ancienne lobbyiste de Meta au rang de commissaire de la DPC n'a fait que nourrir les doutes. En avril, l'ONG Irish Council for Civil Liberties a officiellement demandé à l'Irlande de se retirer de la gestion des affaires numériques européennes pendant son mandat — une requête ignorée."}
+    ],
+    timeline:[
+      {d:"déc. 2025", t:"Nomination d'une ancienne lobbyiste de Meta à la DPC irlandaise."},
+      {d:"1er juil. 2026", t:"L'Irlande prend la présidence du Conseil de l'UE."},
+      {d:"7 juil. 2026", t:"Le Premier ministre irlandais promet à Strasbourg un rôle de « médiateur impartial »."},
+      {d:"12 juil. 2026", t:"Publication de cet article."}
+    ],
+    sourcesCited:[
+      {t:"IDA Ireland (agence gouvernementale des investissements étrangers)", url:"https://www.idaireland.com/explore-your-sector/business-sectors/technology"},
+      {t:"Tribune de l'eurodéputé Michael McNamara", url:"https://www.theparliamentmagazine.eu/news/article/oped-the-irish-presidency-can-shape-the-next-phase-of-europes-digital-rulebook"},
+      {t:"Nomination d'une ex-lobbyiste de Meta à la DPC — noyb", url:"https://noyb.eu/en/former-meta-lobbyist-named-dpc-commissioner-meta-now-officially-regulates-itself"},
+      {t:"Demande de l'Irish Council for Civil Liberties, avril 2026", url:"https://www.iccl.ie/wp-content/uploads/2026/04/ICCL-EU-Affairs-Committee-22-April-2026.pdf"}
+    ]
+  },
+
+  "retailleau-ia":{
+    title:"Bruno Retailleau rêve pour 2027 d'un État administré par une IA souveraine",
+    link:"https://synthmedia.fr/politiques/bruno-retailleau-reve-pour-2027-dun-etat-administre-par-une-ia-souveraine/",
+    author:"Rédaction Synth", initials:"S",
+    date:"2026-07-07T20:20:25Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/07/Retailleau.jpg",
+    categories:["Politiques","Presidentielle 2027","Sécurité et police","Vie démocratique"],
+    axes:["Intelligence artificielle","Vie démocratique & élections"],
+    claim:"Bruno Retailleau promet une France administrée par une « IA souveraine », capable de faire l'économie de 125 000 postes de fonctionnaires.",
+    excerpt:"Au Machina Summit, à Station F, le président des Républicains a présenté son programme technologique pour 2027 : IA administrative, dérogation au RGPD, caméras intelligentes.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Au Machina Summit, à Station F, le président des Républicains a présenté son programme technologique pour 2027, misant sur l'IA pour l'administration, la sécurité et la lutte contre la fraude."},
+      {h:"Pourquoi maintenant", t:"Retailleau compare l'IA au nucléaire du XXe siècle et promet un « pourcentage de souveraineté » obligatoire pour tout logiciel ou équipement public."},
+      {h:"Pourquoi c'est important", t:"Le programme prévoit de ne pas remplacer 125 000 fonctionnaires proches de la retraite, un assistant administratif unique baptisé « Marianne », et jusqu'à 15 milliards d'euros d'économies annuelles pour un investissement de 23 milliards sur cinq ans."},
+      {h:"Le chiffre", t:"54 % des Français jugent l'IA comme une menace selon un sondage Elabe de juin 2026 — un chiffre balayé par l'entourage de Retailleau, qui affirme qu'« il n'y a pas d'opposition à l'IA en France »."},
+      {h:"Ce qui va se passer ensuite", t:"Le candidat défend une dérogation de trois ans au RGPD et à certaines dispositions de l'AI Act, ainsi qu'un usage élargi des caméras intelligentes pour la police."}
+    ],
+    why:"Ce programme mérite d'être lu dans le détail : le mot « souveraineté » y revient presque autant de fois que le document compte de pages.",
+    discovered:"Le chiffrage annoncé (15 milliards d'euros d'économies pour 23 milliards investis) repose largement sur la suppression de 125 000 postes de fonctionnaires par non-remplacement — un point peu mis en avant dans la communication.",
+    doubt:"La question de l'accompagnement des publics éloignés du numérique reste, dans le discours du candidat, rapidement évacuée.",
+    body:[
+      {t:"p", x:"Devant un parterre d'acteurs de l'IA réunis à Station F, Bruno Retailleau a présenté son programme technologique pour 2027. Le président des Républicains mise sur l'intelligence artificielle pour moderniser l'administration, renforcer la sécurité, lutter contre la fraude et restaurer la souveraineté numérique française, tout en assumant une ligne de dérégulation européenne."},
+      {t:"h", x:"Le refrain de la souveraineté"},
+      {t:"p", x:"Celui qui affirme utiliser l'IA au quotidien ouvre sa conférence par une comparaison lourde de symboles : l'intelligence artificielle serait au XXIe siècle ce que le nucléaire fut au XXe, un « nucléaire augmenté ». Bruno Retailleau promet d'instaurer un « pourcentage de souveraineté » applicable à tout logiciel ou équipement, et un audit de l'emprise des GAFAM sur le territoire."},
+      {t:"p", x:"L'IA permettrait de renvoyer sur le terrain 125 000 fonctionnaires aujourd'hui « embourbés dans la paperasse » ; 125 000 agents proches de la retraite ne seraient pas remplacés. À la clé, des économies annoncées à hauteur de 15 milliards d'euros par an pour un investissement technologique estimé à 23 milliards d'euros sur cinq ans."},
+      {t:"h", x:"L'IA administrative pour accompagner les Français"},
+      {t:"p", x:"Bruno Retailleau mise aussi sur un assistant administratif unique baptisé « Marianne ». La défiance croissante envers l'IA est balayée par Constance Nebulla, membre de son équipe tech : « Il n'y a pas d'opposition à l'IA en France », assure-t-elle — une affirmation difficile à concilier avec un sondage Elabe de juin 2026, selon lequel 54 % des Français considèrent l'IA comme une menace."},
+      {t:"h", x:"Un mandat pour déréguler"},
+      {t:"p", x:"Sur le terrain sécuritaire, le candidat défend l'utilisation de caméras intelligentes « dans un cadre strict, contrôlé et rigoureux », ainsi qu'une dérogation de trois ans au RGPD et à certaines dispositions de l'AI Act, qu'il présente comme des freins à l'innovation."}
+    ],
+    timeline:[
+      {d:"juin 2026", t:"Sondage Elabe : 54 % des Français jugent l'IA comme une menace."},
+      {d:"3 juin 2026", t:"La Commission européenne dévoile ses mesures de souveraineté technologique."},
+      {d:"7 juil. 2026", t:"Bruno Retailleau présente son programme au Machina Summit, Station F."}
+    ],
+    sourcesCited:[
+      {t:"Sondage Elabe sur l'intelligence artificielle, juin 2026", url:"https://elabe.fr/intelligence-artificielle/"},
+      {t:"Programme « L'IA au service des Français et de leur indépendance »", url:"https://synthmedia.fr/politiques/bruno-retailleau-reve-pour-2027-dun-etat-administre-par-une-ia-souveraine/"},
+      {t:"Déclarations de Constance Nebulla (OpenDataFrance)", url:"https://synthmedia.fr/politiques/bruno-retailleau-reve-pour-2027-dun-etat-administre-par-une-ia-souveraine/"}
+    ]
+  },
+
+  "eurosatory-palantir":{
+    title:"Au salon de l'armement Eurosatory, la France cherche son Palantir européen",
+    link:"https://synthmedia.fr/geopolitique-numerique/reportage-eurosatory-palantir-europeen/",
+    author:"Nastasia Hadjadji", initials:"NH",
+    date:"2026-06-29T14:25:25Z", video:"1:02",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/06/Command-AI.jpg",
+    categories:["Économie","Géopolitique numérique","DefTech","Mistral","Palantir"],
+    axes:["Défense & sécurité","Argent de la tech"],
+    claim:"Face à l'hégémonie de l'américain Palantir, les start-up françaises de la « DefTech » tentent de faire émerger une alternative souveraine sur le champ de bataille.",
+    excerpt:"Reportage à Eurosatory : Command AI lève 32 millions de dollars, Mistral AI développerait en secret son propre système de commandement militaire — sur fond de budgets de défense en forte hausse.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Au salon Eurosatory, la start-up Command AI annonce une levée de fonds de 32 millions de dollars, et Mistral AI développerait en secret son propre système de commandement militaire."},
+      {h:"Pourquoi maintenant", t:"Les investissements militaires ont augmenté de 14 % en Europe l'an dernier (743 milliards d'euros, SIPRI), et la France y a consacré environ 60 milliards d'euros en 2025."},
+      {h:"Pourquoi c'est important", t:"La ministre des Armées Catherine Vautrin a annoncé ériger l'IA de défense en « intérêt essentiel de sécurité », exonérant son achat des obligations de mise en concurrence des marchés publics."},
+      {h:"Ce qu'on ne sait pas", t:"Combien de ces jeunes pousses de la « startupisation de la guerre » survivront réellement au-delà des levées de fonds en séries A, B, C — un doute exprimé sur le salon lui-même."},
+      {h:"Ce qui va se passer ensuite", t:"Les carnets de commande de la défense française devraient croître d'environ 17,5 milliards d'euros d'ici 2030, attirant un nombre croissant d'acteurs financiers."}
+    ],
+    why:"J'ai passé plusieurs jours sur le salon Eurosatory pour comprendre comment la « DefTech » française tente de construire une alternative à Palantir.",
+    discovered:"Quelques jours avant mon passage, la ministre des Armées a annoncé ériger l'IA de défense en « intérêt essentiel de sécurité » — une décision qui exonère son achat des obligations de mise en concurrence habituelles.",
+    doubt:"Beaucoup de ces start-up misent sur des levées de fonds successives sans certitude de rentabilité ; leur consolidation réelle reste, à ce stade, une inconnue du secteur lui-même.",
+    body:[
+      {t:"p", x:"Face à l'hégémonie de l'américain Palantir, les start-up françaises de la « DefTech » s'organisent pour faire émerger une alternative souveraine, à l'image du champion Mistral AI qui développe en secret son propre système de commandement militaire. Cette accélération technologique, portée par une hausse inédite des budgets publics, suscite de profonds questionnements éthiques sur l'effacement progressif du contrôle humain sur le champ de bataille."},
+      {t:"p", x:"La veille de notre passage, la start-up française Command AI, spécialisée dans les logiciels d'appui au commandement d'opérations militaires, a annoncé une levée de fonds de 32 millions de dollars portée par Blossom Capital et le géant suédois de la défense Saab, sous le regard réjoui de la ministre des Armées, Catherine Vautrin."},
+      {t:"h", x:"Réarmer l'Europe grâce à l'IA"},
+      {t:"p", x:"Tous les deux ans, le salon Eurosatory, organisé à Villepinte par le Gicat, réunit des dizaines de milliers d'acteurs militaires. Parmi les 2 100 participants de 65 pays, 36 % des exposants y participent pour la première fois. D'après le SIPRI, les investissements militaires ont augmenté de 14 % sur le Vieux Continent l'an dernier, pour un total de 743 milliards d'euros ; la France y a consacré environ 60 milliards d'euros en 2025. Le 19 juin, la ministre des Armées a annoncé que l'IA de défense serait érigée au rang d'intérêt essentiel de sécurité, exonérant son achat des obligations de mise en concurrence."},
+      {t:"h", x:"Startupisation de la guerre"},
+      {t:"p", x:"L'édition 2026 d'Eurosatory a inauguré un espace dédié au financement de la défense, alors que les carnets de commande devraient croître d'environ 17,5 milliards d'euros d'ici 2030. « Comme les budgets augmentent, les startups espèrent que les armées achèteront leurs produits », observe Nicolas Minvielle, consultant au ministère des Armées. « Beaucoup pensent devenir assez grosses avec des levées de fonds en séries A, B, C, mais très peu y arriveront. » La Direction Générale de l'Armement (DGA) teste désormais des « contrats d'expérimentation » pour accompagner ces jeunes pousses."}
+    ],
+    timeline:[
+      {d:"17 juin 2026", t:"Command AI annonce une levée de fonds de 32 millions de dollars."},
+      {d:"19 juin 2026", t:"La ministre des Armées annonce ériger l'IA de défense en intérêt essentiel de sécurité."},
+      {d:"29 juin 2026", t:"Publication de ce reportage, réalisé sur le salon Eurosatory à Villepinte."}
+    ],
+    sourcesCited:[
+      {t:"Stockholm International Peace Research Institute (SIPRI), rapport 2026", url:"https://www.sipri.org/sites/default/files/2026-04/2604_milex_2025.pdf"},
+      {t:"Rapport financier annuel de Palantir Technologies (10-K 2025)", url:"https://investors.palantir.com/files/2025%20FY%20PLTR%2010-K.pdf"},
+      {t:"« Le manifeste de Palantir pour la domination » — Le Grand Continent", url:"https://legrandcontinent.eu/fr/2026/04/20/le-manifeste-de-palantir-pour-la-domination/"},
+      {t:"Coalition d'ONG contre l'IA militaire — AccessNow", url:"https://www.accessnow.org/press-release/ai-accelerated-warfare-must-stop/"}
+    ]
+  },
+
+  "cloud-sovereignty-washing":{
+    title:"Cloud souverain : Bruxelles ouvre la porte au « sovereignty-washing »",
+    link:"https://synthmedia.fr/international/ia-act-regulations-internationales/cloud-souverain-bruxelles-sovereignty-washing/",
+    author:"Nastasia Hadjadji", initials:"NH",
+    date:"2026-06-22T21:24:35Z", video:"0:52",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/06/cloud-supreme-1.jpg",
+    categories:["Data centers","Europe","IA Act & régulations internationales","régulation","souveraineté numérique","Union Européenne"],
+    axes:["Souveraineté numérique","Europe & régulation"],
+    claim:"Le « cloud souverain » européen promis par Bruxelles ne garantit une réelle indépendance que pour environ 1 % des usages, selon une eurodéputée.",
+    excerpt:"Avec le Cloud and AI Development Act, la Commission européenne promet un cloud souverain — sans rompre avec les hyperscalers américains soumis au Cloud Act. Un cas d'école de « sovereignty-washing ».",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Présenté le 3 juin 2026, le Cloud and AI Development Act (CADA) organise quatre « niveaux d'assurance » de souveraineté pour les données publiques européennes."},
+      {h:"Pourquoi maintenant", t:"Le texte doit répondre au Cloud Act américain, qui permet aux États-Unis d'exiger des données stockées à l'étranger — comme l'a reconnu sous serment un dirigeant de Microsoft France au Sénat."},
+      {h:"Pourquoi c'est important", t:"Seul le niveau 4, le plus strict, offre une souveraineté complète — et il ne concernerait qu'environ 1 % des usages, selon l'eurodéputée LFI Leïla Chaibi, qui parle de « sovereignty-washing »."},
+      {h:"Ce qu'on ne sait pas", t:"Si les montages en co-entreprise (comme S3NS, coentreprise Thalès-Google) suffiront à qualifier juridiquement une offre de « souveraine » sans lever l'ambiguïté du Cloud Act."},
+      {h:"Ce qui va se passer ensuite", t:"AWS, Microsoft et Oracle ont déjà lancé leurs propres « clouds souverains » commerciaux depuis 2023-2026, tout en restant soumis au droit américain."}
+    ],
+    why:"Le mot « souveraineté » revient presque chaque semaine dans l'actualité européenne — j'ai voulu vérifier ce qu'il recouvre concrètement dans ce texte.",
+    discovered:"Un dirigeant de Microsoft France a dû reconnaître sous serment, lors d'une audition au Sénat, que son entreprise ne pouvait garantir la souveraineté des données européennes tant qu'elle restait soumise au Cloud Act.",
+    doubt:"Le CISPE alertait déjà en mars 2026 sur ce risque de « sovereignty-washing » — reste à voir si cette critique influencera la version finale du texte.",
+    body:[
+      {t:"p", x:"Avec le Cloud and AI Development Act, la Commission européenne mise sur la « souveraineté technologique » et promet de mieux protéger les données critiques du continent, sans pour autant rompre avec les hyperscalers soumis au droit extraterritorial américain. Un cas d'école de « sovereignty-washing »."},
+      {t:"h", x:"Le continent 🇪🇺 sous dépendance 🇺🇸"},
+      {t:"p", x:"En vertu des lois sur l'extraterritorialité, les données européennes hébergées chez des géants du numérique étasunien ou chinois peuvent être consultées, voire censurées, par celles qui les hébergent. Le CADA demande aux États membres d'évaluer les risques pesant sur leurs administrations et de préparer la migration de leurs données vers des services cloud certifiés selon quatre « niveaux d'assurance »."},
+      {t:"h", x:"Une souveraineté graduée"},
+      {t:"p", x:"Le premier niveau impose un stockage des données sur le territoire européen — sans questionner la propriété des infrastructures : on peut stocker des données en UE dans des data centers exploités par Google, Amazon ou Microsoft. Le troisième niveau revendique propriété et contrôle européens, mais autorise la Commission à accorder des équivalences par dérogation. Le quatrième niveau, le plus strict, réclame une maîtrise complète de toute la chaîne technologique — qu'aucun fournisseur européen ne semble aujourd'hui en mesure d'offrir."},
+      {t:"p", x:"Lors d'une audition au Sénat, Anton Carniaux, directeur des affaires publiques de Microsoft France, a été contraint de reconnaître sous serment que son entreprise ne pouvait garantir la souveraineté des données européennes, restant soumise au Cloud Act américain."},
+      {t:"h", x:"« Sovereignty-washing »"},
+      {t:"p", x:"« En réalité, seul le niveau 4, qui concernerait 1 % des usages, notamment les secteurs les plus sensibles comme la défense, offrirait une vraie garantie de souveraineté », juge Leïla Chaibi, eurodéputée LFI, qui accuse la Commission de « sovereignty-washing ». Le CISPE alertait déjà en mars 2026 sur ce risque. AWS a inauguré son « European Sovereign Cloud » en janvier 2026, Microsoft son « Sovereign Cloud » en juin 2025, Oracle son « EU Sovereign Cloud » dès 2023 — tous restent soumis au Cloud Act américain."}
+    ],
+    timeline:[
+      {d:"mars 2026", t:"Le CISPE alerte par lettre sur le risque de « sovereignty-washing »."},
+      {d:"3 juin 2026", t:"Présentation du Cloud and AI Development Act par la Commission européenne."},
+      {d:"avril 2026", t:"S3NS (Thalès-Google) remporte un appel d'offres de 180 millions d'euros pour un cloud souverain."},
+      {d:"22 juin 2026", t:"Publication de cet article."}
+    ],
+    sourcesCited:[
+      {t:"Cloud and AI Development Act, Commission européenne, 3 juin 2026", url:"https://digital-strategy.ec.europa.eu/en/policies/cloud-and-ai-development-act"},
+      {t:"Audition au Sénat d'Anton Carniaux (Microsoft France)", url:"https://www.senat.fr/compte-rendu-commissions/20250609/ce_commande_publique.html#toc2"},
+      {t:"Lettre commune des fournisseurs cloud européens (CISPE), mars 2026", url:"https://www.cispe.cloud/website_cispe/wp-content/uploads/2026/03/Cloud-CEOs-Joint-Letter-March-17-2026-FINAL.pdf"},
+      {t:"Appel d'offres cloud souverain de la Commission, avril 2026", url:"https://france.representation.ec.europa.eu/informations/souverainete-numerique-la-commission-octroie-180-millions-deuros-quatre-fournisseurs-europeens-2026-04-17_fr"}
+    ]
+  },
+
+  "palantir-dgsi":{
+    title:"Les renseignements intérieurs français débranchent Palantir",
+    link:"https://synthmedia.fr/europe/les-renseignements-interieurs-francais-debranchent-palantir/",
+    author:"Rédaction Synth", initials:"S",
+    date:"2026-06-17T05:53:45Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/06/Palantir-DGSI.jpg",
+    categories:["Europe","Géopolitique numérique","Sécurité et police"],
+    axes:["Défense & sécurité","Souveraineté numérique"],
+    claim:"Après dix ans de collaboration, la DGSI met fin à son contrat avec Palantir au profit du français ChapsVision.",
+    excerpt:"Le Premier ministre Sébastien Lecornu annonce le divorce entre la DGSI et Palantir, la sulfureuse entreprise américaine choyée par Donald Trump, remplacée par la solution Argonos de ChapsVision.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Le Premier ministre Sébastien Lecornu a annoncé la fin du contrat liant la DGSI à Palantir, dont la solution « Gotham » avait été adoptée après les attentats du 13 novembre 2015."},
+      {h:"Pourquoi maintenant", t:"Le contrat avait pourtant été renouvelé en décembre 2025 (après 2019 et 2022) ; ce délai semble avoir surtout servi à préparer la bascule vers la solution française Argonos, développée par ChapsVision."},
+      {h:"Pourquoi c'est important", t:"Fondée en 2003 avec le soutien de la CIA, Palantir — dont les fondateurs Alex Karp et Peter Thiel ont pris des positions autoritaires assumées — a vu son chiffre d'affaires décupler en 2025 grâce à ses contrats avec l'administration Trump, notamment son outil de ciblage Maven Smart System déployé en Iran."},
+      {h:"Ce qu'on ne sait pas", t:"Le calendrier précis de la migration, que Matignon évalue entre un et trois ans, alors que le contrat signé avec Palantir est censé courir jusqu'en 2028."},
+      {h:"Ce qui va se passer ensuite", t:"ChapsVision, qui vient de signer un contrat similaire avec le service de renseignement intérieur allemand (BfV), devra migrer les données ultra-sensibles de la DGSI vers sa solution Argonos."}
+    ],
+    why:"Ce dossier suit une dépendance technologique vieille de dix ans entre le renseignement intérieur français et une entreprise américaine à la réputation controversée.",
+    discovered:"Le contrat avait été renouvelé une nouvelle fois en décembre 2025, ce qui, avec le recul, ressemble surtout à un délai technique pour préparer la bascule vers la solution française.",
+    doubt:"Le calendrier réel de la migration reste flou : Matignon évoque « un à trois ans », un intervalle large pour des données classifiées.",
+    body:[
+      {t:"p", x:"Le Premier ministre Sébastien Lecornu a annoncé le divorce entre la DGSI et Palantir, la sulfureuse entreprise de logiciels américaine choyée par Donald Trump. Après dix ans de dépendance technologique, les services secrets français coupent le cordon pour confier leurs données ultra-sensibles au champion tricolore ChapsVision."},
+      {t:"p", x:"Ce mardi 16 juin, Sébastien Lecornu a annoncé la fin du contrat reliant la Direction générale de la sécurité intérieure (DGSI) à Palantir. L'entreprise collabore avec les services français depuis 2016 ; sa solution « Gotham » avait été adoptée au lendemain des attentats du 13 novembre 2015."},
+      {t:"p", x:"Fondée en 2003 avec le soutien de la CIA, l'entreprise traîne une réputation sulfureuse. Ses fondateurs, Alex Karp et Peter Thiel, ont pris des positions autoritaires à de nombreuses reprises. Son chiffre d'affaires a été décuplé en 2025 par l'augmentation des contrats passés avec le gouvernement Trump, en particulier grâce à son outil d'aide au ciblage, le Maven Smart System, déployé en Iran. Plusieurs ONG, comme Amnesty International, ont accusé la firme de surveillance de masse."},
+      {t:"p", x:"Cela n'avait pas empêché la DGSI de renouveler son contrat avec Palantir en décembre 2025 (après déjà deux renouvellements en 2019 et en 2022). C'est ChapsVision et sa solution Argonos qui vont progressivement remplacer le logiciel américain, quelques semaines après avoir conclu un contrat similaire avec le BfV, le service de renseignement intérieur allemand."},
+      {t:"p", x:"Palantir s'est empressé de rappeler que son contrat avec la DGSI était pour le moment toujours en vigueur. Interrogé par Politico, Matignon assure que la bascule se fera au « moment opportun, dans un délai s'étirant entre un et trois ans ». « Il y a encore quelques années, beaucoup auraient considéré qu'un projet d'une telle ampleur ne pouvait être confié qu'à un acteur américain, a réagi le patron de ChapsVision, Olivier Dellenbach. Cette époque est heureusement en train de changer. »"}
+    ],
+    timeline:[
+      {d:"2003", t:"Fondation de Palantir, avec le soutien de la CIA."},
+      {d:"13 nov. 2015", t:"Attentats de Paris ; adoption de la solution « Gotham » par la DGSI."},
+      {d:"2019 / 2022 / déc. 2025", t:"Renouvellements successifs du contrat DGSI-Palantir."},
+      {d:"16 juin 2026", t:"Sébastien Lecornu annonce la fin du contrat avec Palantir."}
+    ],
+    sourcesCited:[
+      {t:"« La DGSI reconduit Palantir » — chronique d'une dépendance assumée (Synth)", url:"https://synthmedia.fr/etats-unis/la-dgsi-reconduit-palantir-chronique-dune-dependance-assumee-en-pleine-tension-transatlantique/"},
+      {t:"Politico — la DGSI va remplacer Palantir par ChapsVision", url:"https://www.politico.eu/article/la-dgsi-va-remplacer-palantir-par-chapsvision-annonce-sebastien-lecornu/"},
+      {t:"Réaction d'Olivier Dellenbach (ChapsVision)", url:"https://www.linkedin.com/in/olivierdellenbach/recent-activity/all/"}
+    ]
+  },
+
+  "crypto-ia-elections":{
+    title:"Comment l'argent de l'IA et de la crypto influence les élections américaines de mi-mandat ?",
+    link:"https://synthmedia.fr/economie/dark-money-ia-crypto/",
+    author:"Nastasia Hadjadji", initials:"NH",
+    date:"2026-06-10T13:39:36Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/06/crypto-pac.jpg",
+    categories:["Économie","Politiques","Vie démocratique"],
+    axes:["Argent de la tech","Vie démocratique & élections"],
+    claim:"Plus de 408 millions de dollars ont déjà été mobilisés par l'IA et la crypto pour influencer les élections de mi-mandat américaines de novembre 2026.",
+    excerpt:"La chercheuse Molly White a lancé un outil pour tracer les flux financiers des industriels de la tech dans la campagne — Super PAC transparents et groupes « dark money » anonymes.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"La chercheuse Molly White a lancé l'outil « Tech Influence Watch » pour tracer les flux financiers des industriels de la tech dans la campagne de mi-mandat."},
+      {h:"Pourquoi maintenant", t:"En 2024, la crypto-industrie avait déjà mobilisé 203 millions de dollars pour la présidentielle américaine ; le secteur de l'IA cherche désormais à dupliquer cette stratégie victorieuse."},
+      {h:"Pourquoi c'est important", t:"Des Super PAC comme FairShake (crypto, avec Coinbase, Ripple, Andreessen Horowitz) ou Leading the Future (IA, transpartisan) financent autant les soutiens que les campagnes contre les élu·es favorables à la régulation."},
+      {h:"Ce qu'on ne sait pas", t:"L'ampleur exacte des financements « dark money » via des groupes 501c4 comme Build American AI, que Wired a révélé être financé par OpenAI, Palantir et Andreessen Horowitz, échappe à toute obligation de transparence."},
+      {h:"Ce qui va se passer ensuite", t:"L'intégralité de la Chambre des représentants et 35 sièges sur 100 au Sénat seront renouvelés en novembre 2026, un scrutin déterminant pour l'agenda réglementaire de l'IA et de la crypto."}
+    ],
+    why:"L'outil développé par Molly White permet, pour la première fois avec cette granularité, de suivre où va l'argent de l'IA et de la crypto dans la campagne américaine.",
+    discovered:"Le montant déjà mobilisé, plus de 408 millions de dollars, dépasse largement ce que la seule industrie crypto avait dépensé pour toute la présidentielle de 2024 (203 millions de dollars).",
+    doubt:"Une partie de ces flux transite par des structures « dark money » dont les donateurs ne sont, par construction, pas identifiables — ce qui limite ce que l'on peut vérifier avec certitude.",
+    body:[
+      {t:"p", x:"Les secteurs de l'IA et de la crypto sont déterminés à influencer les élections de mi-mandat de novembre 2026. Leur objectif ? Faire élire un maximum de représentant·es favorables à leurs intérêts au Congrès et au Sénat. La chercheuse Molly White a conçu un outil interactif pour tracer les flux financiers qui nourrissent cette politique d'influence."},
+      {t:"p", x:"À l'occasion de la présidentielle américaine de 2024, le secteur des crypto-actifs s'était positionné comme le premier financeur privé de la campagne, mobilisant 203 millions de dollars. Aujourd'hui, il faut aussi compter avec les centaines de millions de dollars des industriels de l'IA."},
+      {t:"h", x:"Follow the money"},
+      {t:"p", x:"L'outil Tech Influence Watch permet de tracer les flux financiers déversés dans la campagne : le secteur de l'IA entend dupliquer la stratégie victorieuse de l'industrie des cryptos. À ce jour, plus de 408 millions de dollars ont déjà été mobilisés pour influencer les élections de mi-mandat — autant pour soutenir des élu·es favorables que pour neutraliser des opposants à la régulation."},
+      {t:"h", x:"Les PAC à suivre"},
+      {t:"p", x:"L'argent circule via des Super PAC, permis par l'arrêt Citizens United vs FEC de 2010. FairShake, affilié à Coinbase, Ripple et Andreessen Horowitz, finance notamment Defend American Jobs. Leading the Future, super PAC transpartisan pro-IA, est affilié à Think Big (démocrate) et American Mission (républicain)."},
+      {t:"h", x:"Les groupes « dark money »"},
+      {t:"p", x:"D'autres structures, les 501c4, opèrent dans l'ombre : leurs donateurs peuvent rester anonymes sans limite de donation. Le magazine Wired a révélé que le groupe « dark money » de l'IA, Build American AI, est notamment financé par OpenAI, Palantir et Andreessen Horowitz."}
+    ],
+    timeline:[
+      {d:"2010", t:"L'arrêt Citizens United vs FEC de la Cour suprême autorise les Super PAC."},
+      {d:"2024", t:"La crypto-industrie mobilise 203 millions de dollars pour la présidentielle américaine."},
+      {d:"10 juin 2026", t:"Publication de cet article ; plus de 408 millions de dollars déjà mobilisés pour les midterms."},
+      {d:"nov. 2026", t:"Élections de mi-mandat américaines."}
+    ],
+    sourcesCited:[
+      {t:"Outil Tech Influence Watch, Molly White", url:"https://influence.citationneeded.news/"},
+      {t:"Fiche du Super PAC FairShake", url:"https://influence.citationneeded.news/2026/networks/fairshake"},
+      {t:"The New York Times — l'argent de l'IA dans les midterms", url:"https://www.nytimes.com/2026/03/29/business/trump-artificial-intelligence-pac-midterms.html"},
+      {t:"Build American AI (groupe « dark money » pro-IA)", url:"https://www.buildamericanai.org/"}
+    ]
+  },
+
+  "rn-ia-communication":{
+    title:"Présidentielle 2027 : au RN, la communication passe en mode IA",
+    link:"https://synthmedia.fr/politiques/presidentielle-2027-au-rn-la-communication-passe-en-mode-ia/",
+    author:"Rédaction Synth", initials:"S",
+    date:"2026-06-06T06:21:40Z",
+    image:"https://synthmedia.fr/wp-content/uploads/2026/06/F-Haine-GPT.jpg",
+    categories:["Politiques","Vie démocratique","ChatGPT","Marine Le Pen","Rassemblement National"],
+    axes:["Intelligence artificielle","Vie démocratique & élections"],
+    claim:"Le Rassemblement national se dote de son propre outil d'IA pour harmoniser le discours du parti avant 2027.",
+    excerpt:"Révélé par France Inter, le RN développe un robot conversationnel nourri des discours du parti — pendant que Marine Le Pen attend un verdict qui pourrait la rendre inéligible.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Révélé par France Inter le 3 juin, le RN développe un robot conversationnel nourri des discours et du programme du parti, destiné à ses cadres et militants."},
+      {h:"Pourquoi maintenant", t:"L'outil doit éviter les couacs internes, comme la proposition de Sébastien Chenu sur la double nationalité en 2024, rapidement désavouée par Marine Le Pen."},
+      {h:"Pourquoi c'est important", t:"Le projet s'inspire d'une expérience déjà menée par Sarah Knafo (ex-Reconquête) lors des municipales de mars 2026, utilisant l'IA comme vitrine de campagne, y compris des images générées."},
+      {h:"Ce qu'on ne sait pas", t:"Si Marine Le Pen pourra elle-même se présenter en 2027 — la cour d'appel de Paris devait rendre son verdict le 7 juillet dans l'affaire des assistants d'eurodéputés, le parquet ayant requis cinq ans d'inéligibilité."},
+      {h:"Ce qui va se passer ensuite", t:"Si l'inéligibilité était confirmée, Jordan Bardella deviendrait le « plan B » présidentiel du parti pour 2027."}
+    ],
+    why:"Ce projet d'IA interne au RN mérite d'être suivi : il préfigure la manière dont un parti structure son discours à l'ère des chatbots.",
+    discovered:"L'outil s'inspire directement d'une expérimentation déjà menée par Sarah Knafo lors des municipales de mars 2026, y compris l'usage d'images générées par IA.",
+    doubt:"L'avenir de cet outil dépend en partie du calendrier judiciaire de Marine Le Pen, dont l'issue n'était pas connue au moment de la publication.",
+    body:[
+      {t:"p", x:"Alors que l'avenir présidentiel de Marine Le Pen dépend encore du verdict attendu le 7 juillet dans l'affaire des assistants d'eurodéputés, le Rassemblement national développe un outil d'intelligence artificielle destiné à harmoniser son discours politique et à préparer la campagne de 2027. Son parti peaufine son propre « ChatGPT », un robot conversationnel nourri aux discours, programme et éléments de langage du parti."},
+      {t:"h", x:"Une IA pour cadrer la ligne"},
+      {t:"p", x:"L'idée n'est pas totalement neuve : l'ex-candidate Reconquête Sarah Knafo l'avait déjà expérimentée lors des municipales de mars dernier, en utilisant l'IA comme vitrine de campagne. Révélée par France Inter le 3 juin, l'initiative du RN doit permettre à ses cadres et militants de retrouver en quelques secondes la ligne officielle du parti, et éviter les couacs des législatives de 2024 — comme la proposition de Sébastien Chenu sur la double nationalité, abandonnée par Marine Le Pen."},
+      {t:"h", x:"Marine Le Pen dans l'attente"},
+      {t:"p", x:"Le calendrier judiciaire continue de planer au-dessus de Marine Le Pen : la cour d'appel de Paris devait rendre son verdict le 7 juillet dans l'affaire des assistants d'eurodéputés. En février 2026, le ministère public avait requis cinq ans d'inéligibilité et quatre ans de prison, dont un ferme. Si ces réquisitions étaient confirmées, Jordan Bardella deviendrait le plan B présidentiel du parti."}
+    ],
+    timeline:[
+      {d:"2024", t:"Couac interne du RN sur la double nationalité, proposition désavouée par Marine Le Pen."},
+      {d:"mars 2026", t:"Sarah Knafo teste l'IA comme vitrine de campagne aux municipales."},
+      {d:"3 juin 2026", t:"France Inter révèle le projet d'IA interne du RN."},
+      {d:"7 juil. 2026", t:"Verdict attendu dans l'affaire des assistants d'eurodéputés de Marine Le Pen."}
+    ],
+    sourcesCited:[
+      {t:"Révélation France Inter, 3 juin 2026", url:"https://www.radiofrance.fr/franceinter/podcasts/l-info-de-france-inter/presidentielle-le-rn-cree-son-propre-outil-ia-pour-rendre-son-programme-plus-accessible-a-ses-cadres-et-militants-5223600"},
+      {t:"Réquisitions du parquet, février 2026", url:"https://www.leclubdesjuristes.com/en-bref/affaire-des-assistants-parlementaires-du-rn-les-requisitions-du-parquet-14124/"},
+      {t:"Programme du RN bouclé — France Info", url:"https://www.franceinfo.fr/elections/presidentielle/presidentielle-2027-le-rassemblement-national-boucle-son-programme-en-attendant-de-designer-son-candidat_8013449.html"}
+    ]
+  }
+};
+
+const TOPICS = {
+  "souverainete":{
+    title:"SOUVERAINETÉ NUMÉRIQUE",
+    articles:["dependances-numeriques","cloud-sovereignty-washing","irlande-ue"],
+    axes:["Souveraineté numérique","Europe & régulation"],
+    summary:"Entre le rapport parlementaire qui chiffre à 1,5 milliard d'euros par an la facture versée aux Big Tech américaines, le « cloud souverain » européen critiqué comme du « sovereignty-washing », et une présidence irlandaise du Conseil de l'UE elle-même hébergeuse des géants américains, la souveraineté numérique reste, sur le terrain, largement à construire.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Un rapport parlementaire de 1 200 pages (15 juillet) chiffre à 1,5 milliard d'euros par an la facture numérique versée par l'État français aux Big Tech américaines."},
+      {h:"Le paradoxe du cloud souverain", t:"Le Cloud and AI Development Act européen ne garantit une souveraineté complète qu'à hauteur d'environ 1 % des usages, selon l'eurodéputée Leïla Chaibi."},
+      {h:"Une présidence sous surveillance", t:"L'Irlande, qui préside le Conseil de l'UE, héberge elle-même le siège européen de seize des vingt plus grandes entreprises tech mondiales."},
+      {h:"Ce qu'on ne sait pas", t:"Si les recommandations du rapport parlementaire (moratoire sur les data centers étrangers, prises de participation publiques) seront un jour traduites en loi."},
+      {h:"Ce qui va se passer ensuite", t:"Le budget européen 2028-2034, négocié sous présidence irlandaise, déterminera une partie des moyens consacrés à cette souveraineté numérique."}
+    ],
+    actors:[
+      {n:"Commission européenne", c:"Politique / gouvernement"},
+      {n:"Microsoft", c:"Entreprise / plateforme"},
+      {n:"AWS", c:"Entreprise / plateforme"},
+      {n:"Leïla Chaibi (eurodéputée)", c:"Politique / gouvernement"},
+      {n:"CISPE", c:"Think tank / fondation / réseau"},
+      {n:"« sovereignty-washing »", c:"Concept / idéologie"}
+    ]
+  },
+  "palantir":{
+    title:"PALANTIR EN FRANCE",
+    articles:["palantir-dgsi","eurosatory-palantir"],
+    axes:["Défense & sécurité","Souveraineté numérique"],
+    summary:"Alors que la DGSI met fin à dix ans de contrat avec l'américain Palantir au profit du français ChapsVision, les start-up de la « DefTech » — de Mistral AI à Command AI — tentent d'inventer une alternative souveraine sur le champ de bataille, portées par une envolée sans précédent des budgets de défense.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"La DGSI met fin à dix ans de contrat avec Palantir au profit du français ChapsVision et de sa solution Argonos."},
+      {h:"Pourquoi maintenant", t:"Le contrat, renouvelé une dernière fois en décembre 2025, semble avoir surtout servi à préparer cette bascule technique."},
+      {h:"Sur le terrain aussi", t:"Au salon Eurosatory, les start-up françaises de la « DefTech » — Command AI, et en secret Mistral AI — cherchent à construire une alternative souveraine aux logiciels de commandement militaire américains."},
+      {h:"Le chiffre", t:"Les investissements militaires ont augmenté de 14 % en Europe en un an, pour un total de 743 milliards d'euros (SIPRI)."},
+      {h:"Ce qui va se passer ensuite", t:"La migration des données ultra-sensibles de la DGSI vers Argonos est annoncée entre un et trois ans, alors que le contrat Palantir courait initialement jusqu'en 2028."}
+    ],
+    actors:[
+      {n:"Palantir", c:"Entreprise / plateforme"},
+      {n:"ChapsVision", c:"Entreprise / plateforme"},
+      {n:"Mistral AI", c:"Entreprise / plateforme"},
+      {n:"Command AI", c:"Entreprise / plateforme"},
+      {n:"DGSI", c:"Politique / gouvernement"},
+      {n:"Alex Karp & Peter Thiel", c:"Milliardaire / fondateur"},
+      {n:"Gicat", c:"Think tank / fondation / réseau"}
+    ]
+  },
+  "ia2027":{
+    title:"IA & PRÉSIDENTIELLE 2027",
+    articles:["musk-lepen","retailleau-ia","rn-ia-communication","crypto-ia-elections"],
+    axes:["Vie démocratique & élections","Argent de la tech","Intelligence artificielle"],
+    summary:"À l'approche de 2027, l'intelligence artificielle s'installe au cœur de la vie politique française et américaine : Elon Musk soutient publiquement Marine Le Pen, Bruno Retailleau promet une administration pilotée par une « IA souveraine », le RN se dote de son propre chatbot interne, et plus de 408 millions de dollars sont déjà mobilisés pour influencer les élections de mi-mandat américaines.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"Elon Musk apporte un soutien public à Marine Le Pen, embarrassant un RN qui se dote en parallèle de son propre outil d'IA conversationnelle."},
+      {h:"Côté droite républicaine", t:"Bruno Retailleau promet une administration pilotée par une « IA souveraine », avec la suppression de 125 000 postes de fonctionnaires par non-remplacement."},
+      {h:"Un parallèle américain", t:"Plus de 408 millions de dollars ont déjà été mobilisés par l'IA et la crypto pour influencer les élections de mi-mandat de novembre 2026."},
+      {h:"Ce qu'on ne sait pas", t:"Si Marine Le Pen sera éligible en 2027 : la cour d'appel de Paris devait statuer le 7 juillet sur l'affaire des assistants d'eurodéputés."},
+      {h:"Ce qui va se passer ensuite", t:"L'issue judiciaire pour Marine Le Pen déterminera si Jordan Bardella devient le candidat du RN pour 2027."}
+    ],
+    actors:[
+      {n:"Elon Musk", c:"Milliardaire / fondateur"},
+      {n:"Marine Le Pen", c:"Politique / gouvernement"},
+      {n:"Bruno Retailleau", c:"Politique / gouvernement"},
+      {n:"Rassemblement National", c:"Parti / mouvement"},
+      {n:"FairShake / Leading the Future (Super PAC)", c:"Think tank / fondation / réseau"}
+    ]
+  },
+  "resistances":{
+    title:"RÉSISTANCES TECHNOLOGIQUES",
+    articles:["critiques-terroristes"],
+    axes:["Intelligence artificielle","Vie démocratique & élections"],
+    summary:"Washington classe désormais une partie de la critique des technologies et de l'intelligence artificielle comme une composante possible du « terrorisme d'extrême-gauche », amalgamant violences ciblées et mouvement plus large de résistance aux data centers.",
+    cards:[
+      {h:"Ce qui s'est passé", t:"La Maison Blanche annonce, le 16 juillet 2026, des moyens internationaux pour lutter contre la « résurgence du terrorisme d'extrême-gauche », catégorie qui englobe désormais l'activisme critique de l'IA."},
+      {h:"Pourquoi maintenant", t:"Cette qualification prolonge celle appliquée à l'antifascisme en novembre 2025 comme « terrorisme domestique »."},
+      {h:"Pourquoi c'est important", t:"Des documents obtenus par Wired mêlent violences ciblées (Tesla, domicile de Sam Altman) et mouvement plus large de résistance aux data centers, dont la mouvance « Renaissance luddite »."},
+      {h:"Ce qu'on ne sait pas", t:"L'ampleur réelle du dispositif de surveillance annoncé pour « monitorer » les critiques de l'IA."},
+      {h:"Ce qui va se passer ensuite", t:"Le Département d'État a annoncé vouloir étendre ces moyens à l'international, ce qui pourrait toucher des militants européens."}
+    ],
+    actors:[
+      {n:"Maison-Blanche", c:"Politique / gouvernement"},
+      {n:"FBI / DHS", c:"Politique / gouvernement"},
+      {n:"Tesla", c:"Entreprise / plateforme"},
+      {n:"« Renaissance luddite »", c:"Concept / idéologie"}
+    ],
+    external:[
+      {kind:"Enquête", title:"Incendies, sabotages, guérilla juridique contre l'IA : vers une « Renaissance Luddite » ?", link:"https://synthmedia.fr/data-centers/resistances-technologiques-renaissance-luddite/"}
+    ]
+  }
+};
+
+/* =========================================================================================
+   ÉTAT + PERSISTANCE
+   ========================================================================================= */
+const STORE_KEY = "synth-proto-v2";
+function loadStore(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveStore(){
+  // Le stockage local peut être indisponible (aperçu en bac à sable, navigation privée,
+  // contexte cross-origin) : l'interface doit rester utilisable pendant la session même
+  // si la persistance entre visites échoue silencieusement.
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      theme: state.theme, edition: state.edition, follows: state.follows,
+      readLater: state.readLater, interests: state.interests
+    }));
+  }catch(e){ /* stockage indisponible : on continue sans persistance */ }
+}
+const saved = loadStore();
+let state = {
+  theme: saved.theme || 'light',
+  edition: saved.edition || 'commune',
+  currentTab: 'today',
+  overlayStack: [],
+  follows: saved.follows || { "souverainete":true, "palantir":true },
+  readLater: saved.readLater || {},
+  currentTopic: null,
+  currentArticle: null,
+  interests: saved.interests || Object.fromEntries(AXES.map((a,i)=>[a, [7,6,5,4,6][i]||4]))
+};
+AXES.forEach(a=>{ if(state.interests[a]===undefined) state.interests[a]=4; });
+
+/* =========================================================================================
+   UTILITAIRES
+   ========================================================================================= */
+function relTime(iso){
+  const d = new Date(iso);
+  const now = new Date();
+  const diffMs = now - d;
+  const h = Math.floor(diffMs/3600000);
+  if(h < 1) return "à l'instant";
+  if(h < 24) return "il y a "+h+" h";
+  const j = Math.floor(h/24);
+  if(j < 7) return "il y a "+j+" j";
+  const sem = Math.floor(j/7);
+  if(j < 60) return "il y a "+sem+" sem";
+  const mo = Math.floor(j/30);
+  return "il y a "+mo+" mois";
+}
+function fmtDate(iso){
+  const months = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  const d = new Date(iso);
+  return d.getDate()+" "+months[d.getMonth()]+" "+d.getFullYear();
+}
+function readTime(bodyArr){
+  const words = bodyArr.map(b=>b.x).join(' ').split(/\s+/).length;
+  return Math.max(2, Math.round(words/180))+" min";
+}
+function articlesSorted(){
+  return Object.entries(ARTICLES).sort((a,b)=> new Date(b[1].date)-new Date(a[1].date));
+}
+function interestScore(axesArr){
+  if(!axesArr || !axesArr.length) return 0;
+  return axesArr.reduce((s,a)=> s + (state.interests[a]||0), 0) / axesArr.length;
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+/* Approximation à l'œil du logo (bulle/œil cyan + pupille noire) — en
+   attente du fichier source pour une reproduction exacte. */
+function synthEyeMark(size){
+  size = size || 22;
+  const h = Math.round(size*0.8);
+  return `<svg class="wm eyemark" width="${size}" height="${h}" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#00ffe0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="50" cy="32" r="13" fill="#000"/>
+    <line x1="40" y1="78" x2="58" y2="78" stroke="#00ffe0" stroke-width="7" stroke-linecap="round"/>
+  </svg>`;
+}
+function eyeWatermark(size){ return synthEyeMark(size); }
+function catList(cats){
+  return `<div class="pm-cats">${cats.slice(0,5).map(c=>`<span>${escapeHtml(c)}</span>`).join('')}</div>`;
+}
+const AVATAR_PALETTE = ['#37415C','#54162B','#9A726E','#181A2F','#6e1414','#242E49'];
+function avatarPhoto(name){
+  // Pas de photo réelle disponible pour les journalistes du flux : silhouette
+  // stylisée (pas d'initiales) plutôt qu'une photo inventée.
+  let hash = 0;
+  for(let i=0;i<name.length;i++) hash = (hash*31 + name.charCodeAt(i)) >>> 0;
+  const bg = AVATAR_PALETTE[hash % AVATAR_PALETTE.length];
+  return `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="40" height="40" fill="${bg}"/>
+    <circle cx="20" cy="16" r="7" fill="#fff" fill-opacity=".92"/>
+    <path d="M4 38c0-9.5 7-15 16-15s16 5.5 16 15" fill="#fff" fill-opacity=".92"/>
+  </svg>`;
+}
+
+/* =========================================================================================
+   CLOCK / THEME
+   ========================================================================================= */
+function updateClock(){
+  const now = new Date();
+  document.getElementById('clock').textContent = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('greeting') && (document.getElementById('greeting').textContent = (now.getHours()>=18||now.getHours()<5) ? "Bonsoir." : "Bonjour.");
+}
+setInterval(updateClock, 30000);
+
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', state.theme);
+}
+function toggleTheme(){
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  applyTheme();
+  saveStore();
+}
+
+/* =========================================================================================
+   ÉDITION COMMUNE / PERSONNELLE
+   ========================================================================================= */
+function toggleEdition(){
+  state.edition = state.edition === 'commune' ? 'personnelle' : 'commune';
+  saveStore();
+  renderToday();
+  const chip = document.getElementById('editionChip');
+  const statusRow = document.getElementById('editionStatusRow');
+  if(state.edition === 'personnelle'){
+    chip.textContent = 'Édition personnelle'; chip.classList.add('personal');
+    if(statusRow) statusRow.textContent = 'personnelle ›';
+  } else {
+    chip.textContent = 'Édition commune'; chip.classList.remove('personal');
+    if(statusRow) statusRow.textContent = 'commune ›';
+  }
+}
+
+/* =========================================================================================
+   RENDER: AUJOURD'HUI
+   ========================================================================================= */
+function topKeysByInterest(excludeKeys, n){
+  return Object.entries(ARTICLES)
+    .filter(([k])=>!excludeKeys.includes(k))
+    .map(([k,a])=>[k,a,interestScore(a.axes)])
+    .sort((a,b)=> b[2]-a[2])
+    .slice(0,n);
+}
+
+function renderToday(){
+  const sorted = articlesSorted();
+  const heroKey = sorted[0][0], hero = sorted[0][1];
+  const secondKey = sorted[1][0], second = sorted[1][1];
+  const chiffreKey = "dependances-numeriques";
+  const reportageKey = "eurosatory-palantir";
+  const longformKey = "crypto-ia-elections";
+
+  let html = '';
+  html += `<div class="pm-hero">
+    <p class="pm-greet" id="greeting">Bonjour.</p>
+    <div class="pm-date" id="todayDate">${escapeHtml(fmtDate(new Date().toISOString()))}</div>
+  </div>`;
+  html += `<div class="pm-personal-banner ${state.edition==='personnelle'?'show':''}">
+    Édition personnalisée — recomposée à partir de votre carte d'intérêt. L'édition commune reste identique pour tout le monde, à retrouver via le bouton en haut à droite.
+  </div>`;
+
+  if(state.edition === 'personnelle'){
+    const excl = [heroKey, secondKey, chiffreKey, reportageKey, longformKey];
+    const picks = topKeysByInterest(excl, 2);
+    if(picks.length){
+      html += `<div class="pm-for-you">
+        <div class="lbl">Pour vous, aujourd'hui</div>
+        ${picks.map(([k,a,score])=>{
+          const topAxis = (a.axes||[]).slice().sort((x,y)=> state.interests[y]-state.interests[x])[0];
+          return `<div class="pm-for-you-item" onclick="openArticle('${k}')">
+            <div class="t">${escapeHtml(a.title)}</div>
+            <div class="why">Suggéré parce que vous suivez <b>${escapeHtml(topAxis||'')}</b> — ${relTime(a.date)} · ${escapeHtml(a.author)}</div>
+          </div>`;
+        }).join('')}
+      </div>`;
+    }
+  }
+
+  html += `<div class="pm-section-label">À comprendre aujourd'hui</div>`;
+  html += `<div class="pm-card" onclick="openArticle('${heroKey}')">
+    <div class="pm-visual">
+      <img src="${hero.image}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <span class="idx">01</span>
+      ${eyeWatermark(24)}
+    </div>
+    ${catList(hero.categories)}
+    <div class="pm-cardbody">
+      <div class="pm-eyebrow">L'affaire qui compte</div>
+      <h2 class="pm-title">${escapeHtml(hero.title)}</h2>
+      <p class="pm-hook">${escapeHtml(hero.excerpt)}</p>
+      <div class="pm-meta-row">
+        <span class="pm-pill time">${readTime(hero.body)}</span>
+        <span class="pm-pill">${escapeHtml(relTime(hero.date))}</span>
+      </div>
+      <div class="pm-readmore">Lire plus →</div>
+    </div>
+  </div>`;
+
+  html += `<div class="pm-card pm-card-sm" onclick="openArticle('${secondKey}')">
+    <span class="pm-num">02</span>
+    <div class="pm-cardbody">
+      <div class="pm-eyebrow">Ce qui vient de changer</div>
+      <h2 class="pm-title">${escapeHtml(second.title)}</h2>
+      <div class="pm-meta-row"><span class="pm-pill time">${readTime(second.body)}</span><span class="pm-pill">${escapeHtml(relTime(second.date))}</span></div>
+    </div>
+  </div>`;
+
+  const chiffreA = ARTICLES[chiffreKey];
+  html += `<div class="pm-chiffre" onclick="openArticle('${chiffreKey}')">
+    <div class="pm-eyebrow">03 · Le chiffre</div>
+    <div class="big">1,5 Md€/an</div>
+    <div class="lbl">versés par l'État français aux Big Tech américaines (Microsoft, Oracle, VMware, IBM), selon le rapport de la commission d'enquête parlementaire du 15 juillet 2026. <b>→ voir le dossier</b></div>
+  </div>`;
+
+  const reportage = ARTICLES[reportageKey];
+  html += `<div class="pm-section-label">Prendre du recul</div>`;
+  html += `<div class="pm-magazine" onclick="openArticle('${reportageKey}')">
+    <img src="${reportage.image}" alt="" loading="lazy" onerror="this.style.display='none'">
+    <div class="mg-wm">${eyeWatermark(24)}</div>
+    <div class="mg-content">
+      <div class="mg-eyebrow">Reportage · ${readTime(reportage.body)}</div>
+      <h2 class="mg-title">${escapeHtml(reportage.title)}</h2>
+      <p class="mg-hook">${escapeHtml(reportage.excerpt)}</p>
+      <div class="mg-byline">
+        <div class="pm-avatar">${avatarPhoto(reportage.author)}</div>
+        <div><div class="mg-byline-name">${escapeHtml(reportage.author)}</div><div class="mg-byline-role">Journaliste</div></div>
+      </div>
+    </div>
+  </div>`;
+
+  html += `<div class="pm-section-label">Continuer à comprendre</div>`;
+  let followedKeys = Object.keys(state.follows).filter(k=>state.follows[k] && TOPICS[k]);
+  if(state.edition === 'personnelle'){
+    followedKeys = followedKeys.slice().sort((a,b)=> interestScore(TOPICS[b].axes) - interestScore(TOPICS[a].axes));
+  }
+  if(!followedKeys.length){
+    html += `<div class="pm-topic-empty">Vous ne suivez encore aucun sujet. Ouvrez un article et touchez « Je veux comprendre ce sujet ».</div>`;
+  } else {
+    followedKeys.forEach(k=>{
+      const t = TOPICS[k];
+      const n = t.articles.length;
+      const filled = Math.min(5, Math.max(1, Math.round(n * 1.3)));
+      html += `<div class="pm-topic-row" onclick="openTopic('${k}')">
+        <div class="pm-topic-row-top">
+          <span class="pm-topic-name">${escapeHtml(t.title)}</span>
+          <span class="pm-dots">${'●'.repeat(filled)}<span class="off">${'○'.repeat(5-filled)}</span></span>
+        </div>
+        <div class="pm-topic-new"><b>${n}</b> publication${n>1?'s':''} liée${n>1?'s':''} — ${escapeHtml(t.articles.map(ak=>relTime(ARTICLES[ak].date)).sort()[0])}</div>
+      </div>`;
+    });
+  }
+
+  const longform = ARTICLES[longformKey];
+  html += `<div class="pm-section-label">Format long</div>`;
+  html += `<div class="pm-card" onclick="openArticle('${longformKey}')">
+    <div class="pm-visual"><img src="${longform.image}" alt="" loading="lazy" onerror="this.style.display='none'">${eyeWatermark(24)}</div>
+    ${catList(['Enquête'].concat(longform.categories.slice(0,3)))}
+    <div class="pm-cardbody"><h2 class="pm-title">${escapeHtml(longform.title)}</h2><p class="pm-hook">${escapeHtml(longform.excerpt)}</p>
+      <div class="pm-readmore">Lire plus →</div>
+    </div>
+    <div class="pm-byline">
+      <div class="pm-avatar">${avatarPhoto(longform.author)}</div>
+      <div><div class="pm-byline-name">${escapeHtml(longform.author)}</div><div class="pm-byline-role">Journaliste</div></div>
+    </div>
+  </div>`;
+
+  html += `<div class="pm-newsletter" style="margin-top:24px;">
+    <h3>Inscrivez-vous à la newsletter <svg width="26" height="21" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="2,38 35,6 70,10 98,40 68,50 48,74 34,52" fill="none" stroke="#04231d" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="32" r="13" fill="#04231d"/><line x1="40" y1="78" x2="58" y2="78" stroke="#04231d" stroke-width="7" stroke-linecap="round"/></svg></h3>
+    <form onsubmit="submitNewsletter(event,'today')">
+      <input type="text" id="nlNameToday" placeholder="Entrez votre nom">
+      <input type="email" id="nlEmailToday" placeholder="✉ alan.turing@manchester.univ.uk" required>
+      <label class="consent"><input type="checkbox" required>En cochant cette case, vous confirmez avoir lu et accepté nos conditions d'utilisation concernant le stockage des données envoyées via ce formulaire.</label>
+      <input type="submit" value="Je m'inscris">
+    </form>
+    <div class="ok" id="nlOkToday">Merci — vérifiez votre boîte mail pour confirmer votre inscription.</div>
+  </div>`;
+
+  html += `<div class="pm-endcard">
+    <div class="check">✓</div>
+    <div class="msg">Vous avez fait le tour.</div>
+    <div class="sub">${sorted.length} sujets sélectionnés ces dernières semaines.<br>Revenez demain, ou explorez un sujet par vous-même.</div>
+    <div class="pm-endrow">
+      <button class="pm-btn" onclick="switchTab('explore')">Explorer</button>
+      <button class="pm-btn pm-btn-primary" onclick="switchTab('discover')">Découvrir</button>
+    </div>
+  </div>`;
+
+  document.getElementById('todayContent').innerHTML = html;
+  updateClock();
+}
+
+function submitNewsletter(ev, ctx){
+  ev.preventDefault();
+  document.getElementById('nlOk'+(ctx==='today'?'Today':'You')).classList.add('show');
+  ev.target.reset();
+}
+
+/* =========================================================================================
+   NAVIGATION PRINCIPALE
+   ========================================================================================= */
+function switchTab(tab){
+  closeAllOverlays();
+  state.currentTab = tab;
+  document.querySelectorAll('[data-view]').forEach(v=>v.classList.add('hidden'));
+  document.getElementById('view-'+tab).classList.remove('hidden');
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.getElementById('fab').style.display = (tab==='discover') ? 'none' : 'flex';
+  document.getElementById('bottomnav').style.display = (tab==='discover') ? 'none' : 'flex';
+  if(tab === 'today') renderToday();
+  if(tab === 'discover') renderDiscover();
+  if(tab === 'explore') renderExplore();
+  if(tab === 'you') renderYou();
+}
+
+/* =========================================================================================
+   OVERLAYS
+   ========================================================================================= */
+function openOverlayEl(id){
+  document.getElementById(id).classList.remove('hidden');
+  document.getElementById(id).style.zIndex = 30 + state.overlayStack.length;
+  state.overlayStack.push(id);
+  document.getElementById('bottomnav').style.display = 'none';
+  document.getElementById('fab').style.display = 'none';
+}
+function closeOverlay(id){
+  document.getElementById(id).classList.add('hidden');
+  state.overlayStack = state.overlayStack.filter(x=>x!==id);
+  if(state.overlayStack.length){
+    document.getElementById(state.overlayStack[state.overlayStack.length-1]).classList.remove('hidden');
+  } else {
+    document.getElementById('bottomnav').style.display = (state.currentTab==='discover') ? 'none' : 'flex';
+    document.getElementById('fab').style.display = (state.currentTab==='discover') ? 'none' : 'flex';
+  }
+}
+function closeAllOverlays(){
+  state.overlayStack.forEach(id=>document.getElementById(id).classList.add('hidden'));
+  state.overlayStack = [];
+}
+
+/* ---------- topic overlay ---------- */
+function openTopic(key){
+  const t = TOPICS[key];
+  state.currentTopic = key;
+  const arts = t.articles.map(k=>ARTICLES[k]);
+  const latest = arts.slice().sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+
+  document.getElementById('topicTitle').textContent = t.title;
+  document.getElementById('topicMeta').textContent = "Mis à jour "+relTime(latest.date);
+  document.getElementById('topicSummary').textContent = t.summary;
+
+  document.getElementById('topicComprendre').innerHTML = t.cards.map(c=>
+    `<div class="pm-mini"><div class="lbl">${escapeHtml(c.h)}</div><p>${escapeHtml(c.t)}</p></div>`
+  ).join('');
+
+  const tl = t.articles.map(k=>({d:fmtDate(ARTICLES[k].date), t:ARTICLES[k].title, key:k}))
+    .sort((a,b)=> new Date(ARTICLES[b.key].date) - new Date(ARTICLES[a.key].date));
+  document.getElementById('topicTimeline').innerHTML = tl.map(x=>
+    `<div class="pm-tl-item"><div class="pm-tl-date">${escapeHtml(x.d)}</div><div class="pm-tl-text"><a href="#" onclick="event.preventDefault();closeOverlay('view-topic');openArticle('${x.key}')">${escapeHtml(x.t)}</a></div></div>`
+  ).join('');
+
+  let goHtml = t.articles.map(k=>{
+    const a = ARTICLES[k];
+    return `<div class="pm-go-item" onclick="openArticle('${k}')">
+      <div><div class="pm-go-kind">${escapeHtml(a.categories[0]||'Article')}</div><div class="pm-go-title">${escapeHtml(a.title)}</div></div>
+      <div class="pm-go-dur">${readTime(a.body)}</div>
+    </div>`;
+  }).join('');
+  if(t.external){
+    goHtml += t.external.map(e=>
+      `<div class="pm-go-item" onclick="window.open('${e.link}','_blank')">
+        <div><div class="pm-go-kind">${escapeHtml(e.kind)} · synthmedia.fr</div><div class="pm-go-title">${escapeHtml(e.title)}</div></div>
+        <div class="pm-go-dur">↗</div>
+      </div>`
+    ).join('');
+  }
+  document.getElementById('topicGoFurther').innerHTML = goHtml;
+
+  document.getElementById('topicActors').innerHTML = t.actors.map(a=>
+    `<div class="actor-chip"><span class="dot" style="background:${CAT_COLORS[a.c]||'#888'}"></span>${escapeHtml(a.n)}</div>`
+  ).join('');
+
+  const srcSeen = new Set(); const srcList = [];
+  t.articles.forEach(k=>ARTICLES[k].sourcesCited.forEach(s=>{
+    if(!srcSeen.has(s.t)){ srcSeen.add(s.t); srcList.push(s); }
+  }));
+  document.getElementById('topicSources').innerHTML = srcList.slice(0,6).map(s=>
+    `<a class="src-item" href="${escapeHtml(s.url)}" target="_blank" rel="noopener"><span class="k">source</span><span>${escapeHtml(s.t)}</span></a>`
+  ).join('');
+
+  updateFollowUI();
+  openOverlayEl('view-topic');
+}
+function toggleFollow(){
+  const key = state.currentTopic;
+  state.follows[key] = !state.follows[key];
+  if(!state.follows[key]) delete state.follows[key];
+  saveStore();
+  updateFollowUI();
+}
+function updateFollowUI(){
+  const key = state.currentTopic;
+  const btn = document.getElementById('topicFollowBtn');
+  const lbl = document.getElementById('topicFollowLabel');
+  const n = TOPICS[key].articles.length;
+  const filled = Math.min(5, Math.max(1, Math.round(n * 1.3)));
+  if(state.follows[key]){
+    btn.textContent = 'Vous suivez ce sujet'; btn.classList.add('on');
+    lbl.textContent = 'Compréhension '+'●'.repeat(filled)+'○'.repeat(5-filled);
+  } else {
+    btn.textContent = 'Je veux comprendre ce sujet'; btn.classList.remove('on');
+    lbl.textContent = 'Pas encore suivi';
+  }
+}
+
+/* ---------- article overlay ---------- */
+function openArticle(key){
+  const a = ARTICLES[key];
+  state.currentArticle = key;
+  document.getElementById('articleTitle').textContent = a.title;
+  document.getElementById('articleIdx').textContent = readTime(a.body);
+  document.getElementById('articleImg').src = a.image;
+  document.getElementById('articleClaim').textContent = a.claim;
+  document.getElementById('articleAuthor').textContent = a.author;
+  document.getElementById('articleAvatar').innerHTML = avatarPhoto(a.author);
+  document.getElementById('articleWhy').textContent = '« '+a.why+' »';
+  document.getElementById('articleDiscovered').innerHTML = '<b style="color:var(--ink);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;">Ce qu&#39;il faut retenir</b>'+escapeHtml(a.discovered);
+  document.getElementById('articleCards').innerHTML = a.cards.map(c=>
+    `<div class="pm-mini"><div class="lbl">${escapeHtml(c.h)}</div><p>${escapeHtml(c.t)}</p></div>`
+  ).join('');
+  document.getElementById('articleDoubt').textContent = a.doubt;
+  document.getElementById('articleBody').innerHTML =
+    `<div class="lede">${escapeHtml(a.author)} · ${escapeHtml(fmtDate(a.date))}</div>` +
+    a.body.map(b=> b.t==='h' ? `<h4>${escapeHtml(b.x)}</h4>` : `<p>${escapeHtml(b.x)}</p>`).join('');
+  document.getElementById('approfondirDur').textContent = readTime(a.body);
+  document.getElementById('articleTimeline').innerHTML = a.timeline.map(x=>
+    `<div class="pm-tl-item"><div class="pm-tl-date">${escapeHtml(x.d)}</div><div class="pm-tl-text">${escapeHtml(x.t)}</div></div>`
+  ).join('');
+  document.getElementById('articleSources').innerHTML = a.sourcesCited.map(s=>
+    `<a class="src-item" href="${escapeHtml(s.url)}" target="_blank" rel="noopener"><span class="k">source</span><span>${escapeHtml(s.t)}</span></a>`
+  ).join('');
+  document.getElementById('articleCats').innerHTML = a.categories.map(c=>
+    `<div class="actor-chip">${escapeHtml(c)}</div>`
+  ).join('');
+  document.getElementById('articlePrimaryLink').href = a.link;
+
+  // Vidéo d'accroche : activable article par article (coûteux à produire pour
+  // chaque papier). Sans vidéo, on entre directement par Comprendre.
+  const tabVoir = document.getElementById('tabVoir');
+  const playBtn = document.getElementById('playBtn');
+  const videoBadge = document.getElementById('videoBadge');
+  const seeTimeLabel = document.getElementById('seeTimeLabel');
+  if(a.video){
+    tabVoir.classList.remove('hidden');
+    document.getElementById('voirDur').textContent = a.video;
+    playBtn.classList.remove('hidden');
+    videoBadge.classList.remove('hidden');
+    videoBadge.textContent = "Vidéo d'accroche · "+a.video;
+    seeTimeLabel.textContent = "Lecture "+a.video+" — ou passez directement à Comprendre.";
+  } else {
+    tabVoir.classList.add('hidden');
+    playBtn.classList.add('hidden');
+    videoBadge.classList.add('hidden');
+    seeTimeLabel.textContent = "L'essentiel, en une phrase.";
+  }
+  updateBookmarkUI();
+  setLevel(a.video ? 'voir' : 'comprendre');
+  openOverlayEl('view-article');
+}
+function setLevel(lvl){
+  document.querySelectorAll('.pm-level').forEach(l=>l.classList.toggle('active', l.dataset.level===lvl));
+  document.querySelectorAll('.pm-level-panel').forEach(p=>p.classList.toggle('show', p.dataset.panel===lvl));
+  document.querySelector('#view-article .pm-content').scrollTop = 0;
+}
+function toggleReadLater(){
+  const key = state.currentArticle;
+  state.readLater[key] = !state.readLater[key];
+  if(!state.readLater[key]) delete state.readLater[key];
+  saveStore();
+  updateBookmarkUI();
+}
+function updateBookmarkUI(){
+  const btn = document.getElementById('articleBookmarkBtn');
+  const on = !!state.readLater[state.currentArticle];
+  btn.classList.toggle('on', on);
+  btn.textContent = on ? '★' : '☆';
+}
+
+/* =========================================================================================
+   DÉCOUVRIR — plein écran, fini, tap-to-expand + swipe
+   ========================================================================================= */
+let discoverRendered = false;
+function renderDiscover(){
+  if(discoverRendered) return;
+  const track = document.getElementById('discoverTrack');
+  const sorted = articlesSorted();
+  const palette = [["#141310","#3a3630"],["#17181a","#45474b"]];
+  let html = '';
+  sorted.forEach(([key,a],i)=>{
+    const [c1,c2] = palette[i%2];
+    html += `<div class="pm-dcard" id="dcard-${i}" data-key="${key}" style="--dc1:${c1};--dc2:${c2}">
+      <div class="bg"><img src="${a.image}" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="shade"></div>
+      <span class="idxlabel">${String(i+1).padStart(2,'0')} / ${sorted.length}</span>
+      <div class="content">
+        <div class="kicker">${escapeHtml(a.categories[0]||'')}</div>
+        <h2 class="headline">${escapeHtml(a.title)}</h2>
+        <div class="tapmore" onclick="toggleDiscoverExpand(${i})">Pourquoi c'est important <span class="chev">↓</span></div>
+        <div class="more">${escapeHtml(a.cards[2] ? a.cards[2].t : a.excerpt)}</div>
+        <div class="foot">
+          <span>${escapeHtml(a.author)}</span><span>·</span><span>${escapeHtml(relTime(a.date))}</span><span>·</span><span>${readTime(a.body)}</span>
+          <span class="rd-hint"><span class="chevleft">‹‹</span> Comprendre</span>
+        </div>
+      </div>
+    </div>`;
+  });
+  html += `<div class="pm-discover-end">
+    <div class="check" style="color:var(--ink);font-size:24px;">✓</div>
+    <div class="msg">C'est tout pour aujourd'hui.</div>
+    <div class="sub">Pas de scroll infini. ${sorted.length} sujets, chacun complet en lui-même. Revenez explorer un sujet, ou attendez la prochaine édition.</div>
+    <button class="pm-btn pm-btn-primary" onclick="switchTab('today')">Retour à l'édition</button>
+  </div>`;
+  track.innerHTML = html;
+  sorted.forEach(([key])=> setupCardSwipe(document.querySelector(`[data-key="${key}"]`), key));
+  discoverRendered = true;
+}
+function toggleDiscoverExpand(i){
+  document.getElementById('dcard-'+i).classList.toggle('expanded');
+}
+function openArticleFromDiscover(key){
+  switchTab('today');
+  openArticle(key);
+}
+function openArticleFromDiscoverSlide(key){
+  openArticleFromDiscover(key);
+  const el = document.getElementById('view-article');
+  el.classList.add('slide-in-right');
+  void el.offsetWidth; // force reflow so the starting transform applies before animating
+  requestAnimationFrame(()=>{
+    el.classList.add('slide-in-active');
+    setTimeout(()=> el.classList.remove('slide-in-right','slide-in-active'), 280);
+  });
+}
+
+/* Glisser à gauche pour ouvrir la carte (swipe magnétique) : le geste
+   remplace le bouton "Comprendre", devenu un simple indicateur. */
+function setupCardSwipe(cardEl, key){
+  if(!cardEl) return;
+  const OPEN_THRESHOLD = 70;
+  let startX = 0, startY = 0, dx = 0, axis = null, dragging = false;
+
+  cardEl.addEventListener('pointerdown', (e)=>{
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    startX = e.clientX; startY = e.clientY; dx = 0; axis = null; dragging = true;
+    cardEl.classList.remove('snapping');
+  });
+  cardEl.addEventListener('pointermove', (e)=>{
+    if(!dragging) return;
+    const mdx = e.clientX - startX, mdy = e.clientY - startY;
+    if(axis === null){
+      if(Math.abs(mdx) < 8 && Math.abs(mdy) < 8) return;
+      axis = Math.abs(mdx) > Math.abs(mdy) ? 'x' : 'y';
+      if(axis === 'x'){ try{ cardEl.setPointerCapture(e.pointerId); }catch(err){} }
+    }
+    if(axis !== 'x') return;
+    dx = mdx > 0 ? mdx * 0.25 : mdx; // légère résistance vers la droite
+    cardEl.style.transform = `translateX(${dx}px)`;
+  });
+  const release = (e)=>{
+    if(!dragging) return;
+    dragging = false;
+    if(axis === 'x'){
+      cardEl.classList.add('snapping');
+      if(dx < -OPEN_THRESHOLD){
+        cardEl.style.transform = 'translateX(-100%)';
+        setTimeout(()=> openArticleFromDiscoverSlide(key), 160);
+      } else {
+        cardEl.style.transform = 'translateX(0)';
+      }
+    }
+    axis = null;
+  };
+  cardEl.addEventListener('pointerup', release);
+  cardEl.addEventListener('pointercancel', release);
+}
+
+/* =========================================================================================
+   EXPLORER — questions + recherche fonctionnelle
+   ========================================================================================= */
+const QUESTIONS = [
+  {q:"Qui possède vraiment le « cloud souverain » européen ?", topic:"souverainete"},
+  {q:"Pourquoi la France a-t-elle débranché Palantir ?", topic:"palantir"},
+  {q:"Comment l'IA s'invite-t-elle dans la présidentielle 2027 ?", topic:"ia2027"},
+  {q:"Qui finance la politique avec l'argent de l'IA et de la crypto ?", article:"crypto-ia-elections"},
+  {q:"Pourquoi critiquer l'IA devient-il suspect aux yeux de Washington ?", topic:"resistances"},
+  {q:"Comment cartographier les réseaux du technofascisme ?", external:"cartographie_technofascisme_10.html"}
+];
+function renderExplore(){
+  document.getElementById('questionCards').innerHTML = QUESTIONS.map(item=>{
+    let sub, onclick;
+    if(item.topic){ const n = TOPICS[item.topic].articles.length; sub = n+(n>1?" publications liées":" publication liée"); onclick = `openTopic('${item.topic}')`; }
+    else if(item.article){ sub = "1 enquête dédiée"; onclick = `openArticle('${item.article}')`; }
+    else { sub = "cartographie interactive du dépôt"; onclick = `window.location.href='${item.external}'`; }
+    return `<div class="pm-qcard" onclick="${onclick}"><p class="qtxt">${escapeHtml(item.q)}</p><div class="sub">${escapeHtml(sub)}</div><span class="arrow">→</span></div>`;
+  }).join('');
+}
+const STOPWORDS = new Set(["le","la","les","de","des","du","un","une","est","sont","pour","par","avec","dans","sur",
+  "qui","que","quoi","quel","quelle","ce","cette","ces","à","et","ou","où","pourquoi","comment","vous","votre","vos",
+  "notre","nos","au","aux","en","se","son","sa","ses","on","il","elle","ils","elles","je","j","l","d","n","s","c",
+  "plus","moins","été","être","avoir","fait","faire","cet","cette","comme","tout","tous","toute","toutes","déjà",
+  "encore","alors","donc","mais","aussi","très","bien","depuis","entre","sans","vers","chez"]);
+function searchCorpus(query){
+  const q = query.trim().toLowerCase();
+  if(!q) return [];
+  const terms = q.split(/[\s'’,.?!:;«»"]+/).filter(t=>t.length>=3 && !STOPWORDS.has(t));
+  if(!terms.length) return [];
+  return Object.entries(ARTICLES).map(([key,a])=>{
+    const hay = (a.title+' '+a.excerpt+' '+a.categories.join(' ')+' '+a.cards.map(c=>c.h+' '+c.t).join(' ')+' '+a.body.map(b=>b.x).join(' ')).toLowerCase();
+    let score = 0;
+    terms.forEach(t=>{ if(hay.includes(t)) score += (a.title.toLowerCase().includes(t) ? 3 : 1); });
+    return {key, a, score};
+  }).filter(r=>r.score>0).sort((x,y)=>y.score-x.score);
+}
+function onExploreSearch(){
+  const val = document.getElementById('exploreSearch').value;
+  document.getElementById('exploreClear').classList.toggle('show', val.length>0);
+  const resultsEl = document.getElementById('exploreResults');
+  const questionsEl = document.getElementById('exploreQuestions');
+  if(!val.trim()){
+    resultsEl.classList.add('hidden'); questionsEl.classList.remove('hidden');
+    return;
+  }
+  questionsEl.classList.add('hidden'); resultsEl.classList.remove('hidden');
+  const results = searchCorpus(val);
+  resultsEl.innerHTML = results.length ? results.map(r=>
+    `<div class="sr-item" onclick="openArticle('${r.key}')"><div class="t">${escapeHtml(r.a.title)}</div><div class="m">${escapeHtml(r.a.author)} · ${escapeHtml(relTime(r.a.date))} · ${escapeHtml(r.a.categories[0]||'')}</div></div>`
+  ).join('') : `<div class="sr-empty">Aucune publication trouvée pour « ${escapeHtml(val)} ».</div>`;
+}
+function clearExploreSearch(){
+  document.getElementById('exploreSearch').value = '';
+  onExploreSearch();
+}
+
+/* =========================================================================================
+   VOUS — sujets suivis, filtres, interest graph
+   ========================================================================================= */
+let youFilter = 'tout';
+function renderYou(){
+  const filters = [
+    {k:'tout', l:'Tout'},
+    {k:'nouveau', l:'Nouveau'},
+    {k:'suivi', l:'Suivis'},
+    {k:'plustard', l:'À lire plus tard'}
+  ];
+  document.getElementById('youFilters').innerHTML = filters.map(f=>
+    `<button class="pm-filterchip ${youFilter===f.k?'active':''}" onclick="setYouFilter('${f.k}')">${escapeHtml(f.l)}</button>`
+  ).join('');
+
+  let listHtml = '';
+  const followedKeys = Object.keys(state.follows).filter(k=>state.follows[k] && TOPICS[k]);
+  const sortedFollowed = followedKeys.slice().sort((a,b)=> new Date(ARTICLES[TOPICS[b].articles[0]].date) - new Date(ARTICLES[TOPICS[a].articles[0]].date));
+
+  if(youFilter==='tout' || youFilter==='nouveau' || youFilter==='suivi'){
+    sortedFollowed.forEach(k=>{
+      const t = TOPICS[k];
+      const n = t.articles.length;
+      const filled = Math.min(5, Math.max(1, Math.round(n*1.3)));
+      const latest = t.articles.map(ak=>ARTICLES[ak]).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+      if(youFilter==='nouveau'){
+        const days = (new Date()-new Date(latest.date))/86400000;
+        if(days > 45) return;
+      }
+      listHtml += `<div class="pm-topic-row" onclick="openTopic('${k}')">
+        <div class="pm-topic-row-top">
+          <span class="pm-topic-name">${escapeHtml(t.title)}</span>
+          <span class="pm-dots">${'●'.repeat(filled)}<span class="off">${'○'.repeat(5-filled)}</span></span>
+        </div>
+        <div class="pm-topic-new"><b>${n}</b> publication${n>1?'s':''} liée${n>1?'s':''} · dernière ${escapeHtml(relTime(latest.date))}</div>
+      </div>`;
+    });
+    if(!listHtml) listHtml = `<div class="pm-topic-empty">Rien ici pour l'instant. Suivez un sujet depuis un article pour le voir apparaître.</div>`;
+  }
+  if(youFilter==='plustard'){
+    const keys = Object.keys(state.readLater).filter(k=>state.readLater[k] && ARTICLES[k]);
+    if(!keys.length){
+      listHtml = `<div class="pm-topic-empty">Aucun article marqué « à lire plus tard ». Touchez l'étoile ☆ dans un article pour l'ajouter ici.</div>`;
+    } else {
+      listHtml = keys.map(k=>{
+        const a = ARTICLES[k];
+        return `<div class="pm-readlater-item" onclick="openArticle('${k}')">
+          <div><div class="t">${escapeHtml(a.title)}</div><div class="m">${escapeHtml(a.author)} · ${readTime(a.body)}</div></div>
+          <span style="color:var(--gold);">★</span>
+        </div>`;
+      }).join('');
+    }
+  }
+  document.getElementById('youList').innerHTML = listHtml;
+
+  renderInterestGraph();
+}
+function setYouFilter(k){ youFilter = k; renderYou(); }
+
+function renderInterestGraph(){
+  const wrap = document.getElementById('interestGraph');
+  wrap.innerHTML = AXES.map(k=>{
+    const v = state.interests[k];
+    return `<div class="pm-interest-row">
+      <div class="pm-interest-top"><span>${escapeHtml(k)}</span><span>${v}/10</span></div>
+      <div class="pm-interest-bar"><div class="pm-interest-fill" style="width:${v*10}%"></div></div>
+      <div class="pm-interest-ctrl">
+        <button onclick="adjustInterest('${k}',-1)">−</button>
+        <button onclick="adjustInterest('${k}',1)">+</button>
+        <span style="font-size:9.5px;color:var(--grey);align-self:center;margin-left:4px;">plus / moins de contenu de ce type</span>
+      </div>
+    </div>`;
+  }).join('');
+  renderWhyBox();
+}
+function adjustInterest(key, delta){
+  state.interests[key] = Math.max(0, Math.min(10, state.interests[key] + delta));
+  saveStore();
+  renderInterestGraph();
+}
+function renderWhyBox(){
+  const topAxis = AXES.slice().sort((a,b)=>state.interests[b]-state.interests[a])[0];
+  const candidate = Object.entries(ARTICLES).find(([k,a])=> a.axes.includes(topAxis) && a.axes.length>1);
+  const box = document.getElementById('whyBox');
+  if(candidate){
+    const [key,a] = candidate;
+    const other = a.axes.find(x=>x!==topAxis) || a.axes[0];
+    box.innerHTML = `<b>Pourquoi cette suggestion ?</b> « ${escapeHtml(a.title)} » pourrait vous intéresser parce qu'elle croise <b>${escapeHtml(topAxis)}</b> + <b>${escapeHtml(other)}</b> — deux axes que vous priorisez. <span style="color:var(--link);cursor:pointer;text-decoration:underline;" onclick="openArticle('${key}')">Lire →</span>`;
+  } else {
+    box.innerHTML = `<b>Pourquoi cette suggestion ?</b> Ajustez les curseurs ci-dessus pour voir pourquoi Synth vous propose tel ou tel sujet.`;
+  }
+}
+
+/* =========================================================================================
+   ASSISTANT — correspondance de mots-clés sur le corpus réel
+   ========================================================================================= */
+function openAssistant(){ openOverlayEl('view-assistant'); }
+function openMenu(){ document.getElementById('siteMenu').classList.add('open'); }
+function closeMenu(){ document.getElementById('siteMenu').classList.remove('open'); }
+function askChat(){
+  const input = document.getElementById('chatInput');
+  const q = input.value.trim();
+  if(!q) return;
+  const results = searchCorpus(q);
+  appendChat(q, results);
+  input.value = '';
+}
+function askChatPreset(q){
+  document.getElementById('chatInput').value = q;
+  askChat();
+}
+function appendChat(question, results){
+  const log = document.getElementById('chatLog');
+  const div = document.createElement('div');
+  div.className = 'pm-chat';
+  if(!results.length){
+    div.innerHTML = `<div class="pm-chat-bubble"><div class="pm-chat-user">${escapeHtml(question)}</div></div>
+    <div class="pm-chat-ans"><div class="lbl">Synthèse générée à partir de notre rédaction</div>
+    <p>Aucune publication de notre corpus ne correspond directement à cette question. Essayez « Palantir », « cloud souverain », « Musk Le Pen », « argent de l'IA » ou « data centers ».</p></div>`;
+    log.appendChild(div); log.scrollTop = log.scrollHeight; return;
+  }
+  const top = results[0].a;
+  const others = results.slice(1,4);
+  const answer = top.cards[2] ? top.cards[2].t : top.excerpt;
+  div.innerHTML = `
+    <div class="pm-chat-bubble"><div class="pm-chat-user">${escapeHtml(question)}</div></div>
+    <div class="pm-chat-ans">
+      <div class="lbl">Synthèse générée à partir de notre rédaction</div>
+      <p>${escapeHtml(answer)}</p>
+      <div class="src">D'après ${results.length} publication${results.length>1?'s':''} de notre rédaction.</div>
+      <div class="pm-chat-actions">
+        <button class="pm-chip-btn" onclick="closeOverlay('view-assistant');openArticle('${results[0].key}')">Comprendre en ${readTime(top.body)}</button>
+        <button class="pm-chip-btn" onclick="toggleMatches(this)">Voir les articles (${results.length})</button>
+        <button class="pm-chip-btn" onclick="window.open('${top.link}','_blank')">Voir la source</button>
+      </div>
+      <div class="pm-chat-matches">
+        ${results.slice(0,5).map(r=>`<div class="mi" onclick="closeOverlay('view-assistant');openArticle('${r.key}')">${escapeHtml(r.a.title)} <span>· ${escapeHtml(r.a.author)}</span></div>`).join('')}
+      </div>
+      ${others.length ? `<div class="pm-followup">Voir aussi : ${others.map(o=>`<span class="pm-suggest-chip" onclick="askChatPreset('${escapeHtml(o.a.title).replace(/'/g,"&#39;")}')">${escapeHtml(o.a.title.length>34?o.a.title.slice(0,34)+'…':o.a.title)}</span>`).join('')}</div>` : ''}
+    </div>`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+function toggleMatches(btn){
+  btn.parentElement.nextElementSibling.classList.toggle('show');
+}
+
+/* =========================================================================================
+   INIT
+   ========================================================================================= */
+applyTheme();
+updateClock();
+renderToday();
+if(state.edition === 'personnelle'){
+  document.getElementById('editionChip').textContent = 'Édition personnelle';
+  document.getElementById('editionChip').classList.add('personal');
+  document.getElementById('editionStatusRow') && (document.getElementById('editionStatusRow').textContent = 'personnelle ›');
+}
+</script>
+</body>
+</html>
