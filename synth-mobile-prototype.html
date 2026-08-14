@@ -124,6 +124,27 @@
   .pm-brand .logo em{color:var(--mast-ink);font-style:normal;}
   .eyemark{display:block;flex:none;}
   .pm-searchicon{background:none;border:none;color:var(--mast-ink);font-size:17px;cursor:pointer;padding:2px;}
+  .pm-burger{background:none;border:none;color:var(--mast-ink);font-size:18px;cursor:pointer;padding:2px 2px 2px 0;line-height:1;}
+
+  .pm-sitemenu{
+    position:absolute;inset:0;z-index:60;background:var(--mast);color:var(--mast-ink);
+    display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .22s ease;
+  }
+  .pm-sitemenu.open{transform:translateX(0);}
+  .pm-sitemenu-head{flex:none;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;}
+  .pm-sitemenu-head .logo{font-family:'Coolvetica',sans-serif;font-size:21px;color:var(--mast-ink);display:flex;align-items:center;gap:2px;}
+  .pm-sitemenu-close{background:none;border:none;color:var(--mast-ink);font-size:24px;cursor:pointer;line-height:1;}
+  .pm-sitemenu-body{flex:1;overflow-y:auto;padding:10px 0 24px 0;}
+  .pm-sitemenu a, .pm-sitemenu-inert{
+    display:block;padding:15px 20px;color:var(--mast-ink);text-decoration:none;
+    font-family:'Coolvetica',sans-serif;font-size:19px;border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .pm-sitemenu a:active{background:rgba(255,255,255,.08);}
+  .pm-sitemenu-inert{color:#8a8a86;cursor:default;}
+  .pm-sitemenu-section{padding:20px 20px 6px 20px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a8a86;font-weight:700;}
+  .pm-sitemenu-contact{padding:6px 20px 16px 20px;font-size:13px;}
+  .pm-sitemenu-contact a{color:var(--cyan);text-decoration:none;}
+  .pm-sitemenu-legal{padding:6px 20px 20px 20px;font-size:11px;color:#8a8a86;}
   .pm-editionchip{
     font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--mast-ink);
     padding:4px 8px;color:var(--mast-ink);cursor:pointer;background:transparent;
@@ -140,17 +161,6 @@
     padding:2px 6px 2px 0;line-height:1;font-family:'IBM Plex Mono Synth',monospace;flex:none;
   }
 
-  .pm-ticker{
-    flex:none;background:var(--cyan);color:#04231d;overflow:hidden;white-space:nowrap;
-    border-bottom:2px solid var(--hard);position:relative;height:30px;display:flex;align-items:center;
-  }
-  .pm-ticker .tag{flex:none;background:var(--hard);color:#fff;font-size:9.5px;letter-spacing:.1em;
-    text-transform:uppercase;font-weight:700;padding:0 10px;height:100%;display:flex;align-items:center;gap:5px;z-index:2;}
-  .pm-ticker .tag .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none;}
-  .pm-ticker-track{display:flex;align-items:center;gap:36px;white-space:nowrap;
-    animation:ticker 32s linear infinite;padding-left:16px;}
-  .pm-ticker-track span{font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;}
-  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   .pm-hero{padding:18px 18px 6px 18px;}
   .pm-greet{font-family:'Coolvetica',sans-serif;font-size:26px;color:var(--ink);margin:0;}
@@ -196,14 +206,17 @@
       linear-gradient(155deg, #17181a 0%, #45474b 55%, #6e1414 130%);
   }
   .pm-visual img{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-    mix-blend-mode:luminosity;opacity:.6;
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  }
+  .pm-visual::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 100%);
   }
   .pm-visual .idx{
     position:absolute;left:12px;bottom:10px;font-family:'Coolvetica',sans-serif;
-    font-size:44px;color:var(--paper);line-height:1;opacity:.95;text-shadow:0 2px 10px rgba(0,0,0,.5);z-index:2;
+    font-size:44px;color:#fff;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.6);z-index:2;
   }
-  .pm-visual .wm{position:absolute;right:8px;bottom:8px;z-index:2;opacity:.92;}
+  .pm-visual .wm{position:absolute;right:8px;bottom:8px;z-index:2;}
   .pm-cats{padding:10px 14px 0 14px;display:flex;flex-wrap:wrap;gap:4px 8px;}
   .pm-cats span{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);font-weight:700;}
   .pm-cardbody{padding:8px 14px 14px 14px;}
@@ -232,12 +245,32 @@
   .pm-chiffre .lbl{font-size:11.5px;color:var(--ink);margin-top:10px;line-height:1.5;}
   .pm-chiffre .lbl b{color:var(--ink);}
 
+  .pm-magazine{
+    margin:0 18px 14px 18px;border:2px solid var(--ink);position:relative;cursor:pointer;
+    box-shadow:5px 5px 0 -1px var(--hard);overflow:hidden;aspect-ratio:3/4;
+    background:linear-gradient(155deg, #141310 0%, #3a3630 55%, #6e1414 130%);
+  }
+  .pm-magazine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .pm-magazine::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.82) 26%, rgba(0,0,0,0) 62%);
+  }
+  .pm-magazine .mg-wm{position:absolute;top:10px;right:10px;z-index:3;}
+  .pm-magazine .mg-content{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px;}
+  .pm-magazine .mg-eyebrow{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#e2ded2;margin-bottom:8px;opacity:.9;}
+  .pm-magazine .mg-title{font-family:'Coolvetica',sans-serif;font-size:22px;line-height:1.15;color:#fff;margin:0 0 8px 0;}
+  .pm-magazine .mg-hook{font-size:12px;line-height:1.55;color:#dcd8cd;margin:0 0 12px 0;}
+  .pm-magazine .mg-byline{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);}
+  .pm-magazine .mg-byline .pm-avatar{border-color:#fff;}
+  .pm-magazine .mg-byline-name{font-size:11.5px;color:#fff;font-weight:600;}
+  .pm-magazine .mg-byline-role{font-size:10px;color:#c8c4b8;}
+
   .pm-byline{display:flex;gap:10px;align-items:center;padding:12px 14px;border-top:1px dashed var(--line);}
   .pm-avatar{
-    width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--paper);
-    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none;
-    font-family:'IBM Plex Mono Synth',monospace;
+    width:34px;height:34px;border-radius:50%;flex:none;overflow:hidden;border:1px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
   }
+  .pm-avatar svg{display:block;width:100%;height:100%;}
   .pm-byline-name{font-size:11.5px;color:var(--ink);font-weight:600;}
   .pm-byline-role{font-size:10px;color:var(--grey);}
 
@@ -374,7 +407,9 @@
   .actor-chip .dot{width:8px;height:8px;border-radius:50%;flex:none;}
 
   .pm-sources{margin:0 18px;}
-  .src-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--ink);}
+  .src-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--ink);
+    text-decoration:none;}
+  a.src-item span:last-child{color:var(--link);text-decoration:underline;text-decoration-style:dotted;}
   .src-item:last-child{border-bottom:none;}
   .src-item .k{color:var(--grey);flex:none;font-size:10px;letter-spacing:.08em;text-transform:uppercase;width:64px;}
 
@@ -405,6 +440,23 @@
   .pm-see-claim{font-family:'Coolvetica',sans-serif;font-size:24px;line-height:1.15;color:var(--ink);margin:0 0 10px 0;}
   .pm-see-time{font-size:10.5px;color:var(--grey);}
 
+  .pm-playbtn{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;
+    width:58px;height:58px;border-radius:50%;background:rgba(10,10,10,.6);border:2px solid #fff;
+    color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding-left:3px;
+  }
+  .pm-videobadge{
+    position:absolute;top:10px;left:12px;z-index:3;background:var(--hard);color:#fff;
+    font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .pm-videobadge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none;}
+
+  .pm-generated-tag{
+    margin:0 18px 14px 18px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    color:#7a4b00;background:rgba(255,188,73,.18);border:1px solid var(--gold);display:inline-block;padding:5px 10px;
+  }
+
   .pm-deepen{padding:0 18px 18px 18px;font-size:13px;line-height:1.75;color:var(--ink);}
   .pm-deepen p{margin:0 0 14px 0;}
   .pm-deepen h4{font-family:'Coolvetica',sans-serif;font-size:15px;margin:22px 0 8px 0;color:var(--ink);}
@@ -424,7 +476,7 @@
   .pm-dcard{height:100%;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;
     justify-content:flex-end;padding:0;color:var(--paper);overflow:hidden;}
   .pm-dcard .bg{position:absolute;inset:0;background:linear-gradient(165deg, var(--dc1,#141310) 0%, var(--dc2,#3a3630) 55%, var(--red) 140%);}
-  .pm-dcard .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.55;}
+  .pm-dcard .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .pm-dcard .bg::after{content:"";position:absolute;inset:0;
     background-image:repeating-linear-gradient(135deg, rgba(244,241,234,0.06) 0 2px, transparent 2px 16px);}
   .pm-dcard .shade{position:absolute;inset:0;background:linear-gradient(to top, rgba(14,13,11,.94) 0%, rgba(14,13,11,.5) 42%, rgba(14,13,11,.15) 68%, transparent 82%);}
@@ -548,16 +600,15 @@
     <!-- ===================== TODAY ===================== -->
     <section class="pm-view" id="view-today" data-view>
       <div class="pm-topbar">
-        <div class="pm-brand"><span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span></div>
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span>
+        </div>
         <div class="pm-topbar-actions">
           <button class="pm-editionchip" id="editionChip" onclick="toggleEdition()">Édition commune</button>
           <button class="pm-searchicon" onclick="openAssistant()" aria-label="Comprendre">⌕</button>
           <button class="themedot" onclick="toggleTheme()" aria-label="Mode sombre"></button>
         </div>
-      </div>
-      <div class="pm-ticker">
-        <span class="tag"><span class="dot"></span>En bref</span>
-        <div class="pm-ticker-track" id="tickerToday"></div>
       </div>
       <div class="pm-content" id="todayContent">
         <!-- rendered by renderToday() -->
@@ -575,12 +626,11 @@
     <!-- ===================== EXPLORE ===================== -->
     <section class="pm-view hidden" id="view-explore" data-view>
       <div class="pm-topbar">
-        <div class="pm-brand"><span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span></div>
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span>
+        </div>
         <div class="pm-topbar-actions"><button class="themedot" onclick="toggleTheme()"></button></div>
-      </div>
-      <div class="pm-ticker">
-        <span class="tag"><span class="dot"></span>Explorer</span>
-        <div class="pm-ticker-track" id="tickerExplore"></div>
       </div>
       <div class="pm-content">
         <div class="pm-ask">
@@ -603,12 +653,11 @@
     <!-- ===================== VOUS ===================== -->
     <section class="pm-view hidden" id="view-you" data-view>
       <div class="pm-topbar">
-        <div class="pm-brand"><span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span></div>
+        <div class="pm-brand">
+          <button class="pm-burger" onclick="openMenu()" aria-label="Menu">☰</button>
+          <span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span>
+        </div>
         <div class="pm-topbar-actions"><button class="themedot" onclick="toggleTheme()"></button></div>
-      </div>
-      <div class="pm-ticker">
-        <span class="tag"><span class="dot"></span>Vous</span>
-        <div class="pm-ticker-track" id="tickerYou"></div>
       </div>
       <div class="pm-content">
         <div class="pm-section-label" style="margin-top:18px;">Ce que vous cherchez à comprendre</div>
@@ -691,7 +740,7 @@
         </div>
       </div>
       <div class="pm-levels">
-        <div class="pm-level active" data-level="voir" onclick="setLevel('voir')">Voir<small>10-20s</small></div>
+        <div class="pm-level active" data-level="voir" id="tabVoir" onclick="setLevel('voir')">Voir<small id="voirDur">10-20s</small></div>
         <div class="pm-level" data-level="comprendre" onclick="setLevel('comprendre')">Comprendre<small>1-3 min</small></div>
         <div class="pm-level" data-level="approfondir" onclick="setLevel('approfondir')">Approfondir<small id="approfondirDur">8-15 min</small></div>
         <div class="pm-level" data-level="verifier" onclick="setLevel('verifier')">Vérifier<small>sources</small></div>
@@ -699,10 +748,16 @@
       <div class="pm-content">
         <div class="pm-level-panel show" data-panel="voir">
           <div class="pm-see">
-            <div class="pm-visual"><img id="articleImg" src="" alt="" loading="lazy" onerror="this.style.display='none'"><span class="idx" id="articleIdx">01</span><svg class="wm" width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></div>
+            <div class="pm-visual" id="voirVisual">
+              <img id="articleImg" src="" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="idx" id="articleIdx">01</span>
+              <svg class="wm" width="26" height="26" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg>
+              <span class="pm-videobadge hidden" id="videoBadge">Vidéo d'accroche</span>
+              <button class="pm-playbtn hidden" id="playBtn" onclick="event.stopPropagation();setLevel('comprendre')" aria-label="Lire l'accroche">▶</button>
+            </div>
             <div class="pm-see-body">
               <h2 class="pm-see-claim" id="articleClaim">…</h2>
-              <div class="pm-see-time">L'essentiel, en une phrase.</div>
+              <div class="pm-see-time" id="seeTimeLabel">L'essentiel, en une phrase.</div>
             </div>
           </div>
         </div>
@@ -712,8 +767,9 @@
             <div class="pm-avatar" id="articleAvatar">NH</div>
             <div><div class="pm-byline-name" id="articleAuthor">—</div><div class="pm-byline-role">Journaliste</div></div>
           </div>
-          <div style="margin:0 18px 14px 18px;padding:12px 14px;border:1px solid var(--line);font-size:11.5px;line-height:1.6;color:var(--ink);font-style:italic;" id="articleWhy"></div>
+          <div class="pm-generated-tag">Synthèse générée · résumé structuré de l'article</div>
           <div class="pm-hscroll" id="articleCards"></div>
+          <div style="margin:16px 18px 0 18px;padding:12px 14px;border:1px solid var(--line);font-size:11.5px;line-height:1.6;color:var(--ink);font-style:italic;" id="articleWhy"></div>
           <div style="margin:14px 18px 0 18px;padding:12px 14px;border:1px solid var(--line);font-size:11.5px;line-height:1.6;color:var(--ink);" id="articleDiscovered"></div>
           <div class="pm-doubt-box"><div class="h">Ce sur quoi j'ai encore un doute</div><p id="articleDoubt">…</p></div>
         </div>
@@ -774,6 +830,26 @@
       <button class="navbtn" data-tab="you" onclick="switchTab('you')"><span class="ic">●</span>Vous</button>
     </nav>
 
+    <!-- ===================== MENU (site) ===================== -->
+    <div class="pm-sitemenu" id="siteMenu">
+      <div class="pm-sitemenu-head">
+        <span class="logo">Synth<svg class="eyemark" width="20" height="20" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="#fff"/><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="#00ffe0"/><circle cx="20" cy="20" r="4" fill="#000"/></svg></span>
+        <button class="pm-sitemenu-close" onclick="closeMenu()" aria-label="Fermer le menu">×</button>
+      </div>
+      <div class="pm-sitemenu-body">
+        <a href="https://synthmedia.fr/" target="_blank" rel="noopener">Accueil</a>
+        <a href="https://synthmedia.fr/qui-sommes-nous/" target="_blank" rel="noopener">Qu'est-ce que Synth Média ?</a>
+        <a href="https://synthmedia.fr/manifeste-de-synth/" target="_blank" rel="noopener">Notre manifeste</a>
+        <a href="https://synthmedia.fr/comment-nous-contacter/" target="_blank" rel="noopener">Comment nous contacter ?</a>
+        <a href="https://journalism.design/interventions-medias-et-conference/" target="_blank" rel="noopener">Dans les médias</a>
+        <a href="https://synth.tpopsite.com/" target="_blank" rel="noopener">Boutique</a>
+        <div class="pm-sitemenu-section">Contact rapide</div>
+        <div class="pm-sitemenu-contact"><a href="mailto:hello@synthmedia.fr">hello@synthmedia.fr</a></div>
+        <div class="pm-sitemenu-section">Informations</div>
+        <div class="pm-sitemenu-legal">Mentions légales · Données personnelles<br><span style="opacity:.7;">(liens à confirmer — non fournis)</span></div>
+      </div>
+    </div>
+
     </div>
   </div>
 </div>
@@ -803,7 +879,7 @@ const ARTICLES = {
     title:"États-Unis : les critiques des technologies considérés comme des « terroristes d'extrême-gauche »",
     link:"https://synthmedia.fr/industrie-de-lia/critiques-technologies-terroristes/",
     author:"Nastasia Hadjadji", initials:"NH",
-    date:"2026-07-29T13:58:02Z",
+    date:"2026-07-29T13:58:02Z", video:"0:41",
     image:"https://synthmedia.fr/wp-content/uploads/2026/07/no-datacenters.jpg",
     categories:["Data centers","Éthique","Industrie de l'IA","Politiques","Vie démocratique","luddisme"],
     axes:["Intelligence artificielle","Vie démocratique & élections"],
@@ -833,7 +909,12 @@ const ARTICLES = {
       {d:"16 juil. 2026", t:"Le Département d'État annonce des moyens internationaux pour cette lutte."},
       {d:"29 juil. 2026", t:"Publication de cet article."}
     ],
-    sourcesCited:["Communiqué de la Maison Blanche, 16 juillet 2026","Documents internes FBI / Department of Homeland Security","Rapport Europol EU-TE-SAT 2026","Enquête du magazine Wired"]
+    sourcesCited:[
+      {t:"Communiqué de la Maison Blanche, 16 juillet 2026", url:"https://www.whitehouse.gov/releases/2026/07/trump-administration-unleashes-global-campaign-to-crush-radical-left-terrorism/"},
+      {t:"Documents internes FBI / DHS, révélés par Wired", url:"https://www.wired.com/story/us-law-enforcement-warns-of-anti-tech-extremism/"},
+      {t:"Rapport Europol EU-TE-SAT 2026", url:"https://www.europol.europa.eu/cms/sites/default/files/documents/EU-TE-SAT-2026.pdf"},
+      {t:"« Renaissance Luddite » — enquête liée de Synth", url:"https://synthmedia.fr/data-centers/resistances-technologiques-renaissance-luddite/"}
+    ]
   },
 
   "dependances-numeriques":{
@@ -872,7 +953,11 @@ const ARTICLES = {
       {d:"15 juil. 2026", t:"Publication du rapport de la commission d'enquête parlementaire (1 200 pages, 112 auditions)."},
       {d:"23 juil. 2026", t:"Publication de cet article."}
     ],
-    sourcesCited:["Rapport de la commission d'enquête parlementaire, 15 juillet 2026","Données de l'Ugap (centrale d'achat public)","Entretien avec Cyrielle Chatelain, rapporteure du texte"]
+    sourcesCited:[
+      {t:"Rapport de la commission d'enquête parlementaire, 15 juillet 2026", url:"https://www.assemblee-nationale.fr/dyn/17/rapports/cenum/l17b3054-t1_rapport-enquete.pdf"},
+      {t:"Commission d'enquête sur les vulnérabilités numériques — Assemblée nationale", url:"https://www.assemblee-nationale.fr/dyn/17/organes/autres-commissions/commissions-enquete/ce-vulnerabilites-numeriques"},
+      {t:"Auditions de Mistral AI et des GAFAM devant la commission", url:"https://www.assemblee-nationale.fr/dyn/actualites-accueil-hub/vulnerabilites-du-secteur-du-numerique-en-france-auditions-de-mistral-ai-de-representants-des-gafam-en-france-et-de-cedric-o"}
+    ]
   },
 
   "musk-lepen":{
@@ -910,7 +995,12 @@ const ARTICLES = {
       {d:"16 juil. 2026", t:"Nouveau soutien public de Musk à Marine Le Pen sur X ; réactions du RN sur France 2 et RTL."},
       {d:"16 juil. 2026", t:"Publication de cet article."}
     ],
-    sourcesCited:["Publications d'Elon Musk sur X","Déclarations de Sébastien Chenu (France 2) et Jean-Philippe Tanguy (RTL)","Luc Kouban, CEVIPOF — Les ressorts cachés du vote RN (2024)"]
+    sourcesCited:[
+      {t:"Publication d'Elon Musk sur X, juillet 2026", url:"https://x.com/elonmusk/status/2077359803454673313?s=20"},
+      {t:"Réaction de Sébastien Chenu sur France 2", url:"https://x.com/telematin/status/2077647674212306952?s=20"},
+      {t:"Réaction de Jean-Philippe Tanguy sur RTL", url:"https://www.youtube.com/watch?v=XWX1h3qr0EI"},
+      {t:"Luc Kouban, CEVIPOF — Les ressorts cachés du vote RN (2024)", url:"https://www.sciencespo.fr/cevipof/fr/actualites/les-ressorts-caches-du-vote-rn/"}
+    ]
   },
 
   "irlande-ue":{
@@ -948,7 +1038,12 @@ const ARTICLES = {
       {d:"7 juil. 2026", t:"Le Premier ministre irlandais promet à Strasbourg un rôle de « médiateur impartial »."},
       {d:"12 juil. 2026", t:"Publication de cet article."}
     ],
-    sourcesCited:["IDA Ireland (agence gouvernementale des investissements étrangers)","Entretien avec Julien Nocetti, chercheur à l'Ifri","Entretien avec Mark Dempsey, ARTICLE 19","Tribune de l'eurodéputé Michael McNamara"]
+    sourcesCited:[
+      {t:"IDA Ireland (agence gouvernementale des investissements étrangers)", url:"https://www.idaireland.com/explore-your-sector/business-sectors/technology"},
+      {t:"Tribune de l'eurodéputé Michael McNamara", url:"https://www.theparliamentmagazine.eu/news/article/oped-the-irish-presidency-can-shape-the-next-phase-of-europes-digital-rulebook"},
+      {t:"Nomination d'une ex-lobbyiste de Meta à la DPC — noyb", url:"https://noyb.eu/en/former-meta-lobbyist-named-dpc-commissioner-meta-now-officially-regulates-itself"},
+      {t:"Demande de l'Irish Council for Civil Liberties, avril 2026", url:"https://www.iccl.ie/wp-content/uploads/2026/04/ICCL-EU-Affairs-Committee-22-April-2026.pdf"}
+    ]
   },
 
   "retailleau-ia":{
@@ -986,14 +1081,18 @@ const ARTICLES = {
       {d:"3 juin 2026", t:"La Commission européenne dévoile ses mesures de souveraineté technologique."},
       {d:"7 juil. 2026", t:"Bruno Retailleau présente son programme au Machina Summit, Station F."}
     ],
-    sourcesCited:["Programme « L'IA au service des Français et de leur indépendance », juillet 2026","Sondage Elabe, juin 2026","Déclarations de Constance Nebulla (OpenDataFrance)"]
+    sourcesCited:[
+      {t:"Sondage Elabe sur l'intelligence artificielle, juin 2026", url:"https://elabe.fr/intelligence-artificielle/"},
+      {t:"Programme « L'IA au service des Français et de leur indépendance »", url:"https://synthmedia.fr/politiques/bruno-retailleau-reve-pour-2027-dun-etat-administre-par-une-ia-souveraine/"},
+      {t:"Déclarations de Constance Nebulla (OpenDataFrance)", url:"https://synthmedia.fr/politiques/bruno-retailleau-reve-pour-2027-dun-etat-administre-par-une-ia-souveraine/"}
+    ]
   },
 
   "eurosatory-palantir":{
     title:"Au salon de l'armement Eurosatory, la France cherche son Palantir européen",
     link:"https://synthmedia.fr/geopolitique-numerique/reportage-eurosatory-palantir-europeen/",
     author:"Nastasia Hadjadji", initials:"NH",
-    date:"2026-06-29T14:25:25Z",
+    date:"2026-06-29T14:25:25Z", video:"1:02",
     image:"https://synthmedia.fr/wp-content/uploads/2026/06/Command-AI.jpg",
     categories:["Économie","Géopolitique numérique","DefTech","Mistral","Palantir"],
     axes:["Défense & sécurité","Argent de la tech"],
@@ -1022,14 +1121,19 @@ const ARTICLES = {
       {d:"19 juin 2026", t:"La ministre des Armées annonce ériger l'IA de défense en intérêt essentiel de sécurité."},
       {d:"29 juin 2026", t:"Publication de ce reportage, réalisé sur le salon Eurosatory à Villepinte."}
     ],
-    sourcesCited:["Gicat, organisateur du salon Eurosatory","Stockholm International Peace Research Institute (SIPRI)","Entretiens avec Nicolas Minvielle et Jean-Baptiste Paing (DGA)"]
+    sourcesCited:[
+      {t:"Stockholm International Peace Research Institute (SIPRI), rapport 2026", url:"https://www.sipri.org/sites/default/files/2026-04/2604_milex_2025.pdf"},
+      {t:"Rapport financier annuel de Palantir Technologies (10-K 2025)", url:"https://investors.palantir.com/files/2025%20FY%20PLTR%2010-K.pdf"},
+      {t:"« Le manifeste de Palantir pour la domination » — Le Grand Continent", url:"https://legrandcontinent.eu/fr/2026/04/20/le-manifeste-de-palantir-pour-la-domination/"},
+      {t:"Coalition d'ONG contre l'IA militaire — AccessNow", url:"https://www.accessnow.org/press-release/ai-accelerated-warfare-must-stop/"}
+    ]
   },
 
   "cloud-sovereignty-washing":{
     title:"Cloud souverain : Bruxelles ouvre la porte au « sovereignty-washing »",
     link:"https://synthmedia.fr/international/ia-act-regulations-internationales/cloud-souverain-bruxelles-sovereignty-washing/",
     author:"Nastasia Hadjadji", initials:"NH",
-    date:"2026-06-22T21:24:35Z",
+    date:"2026-06-22T21:24:35Z", video:"0:52",
     image:"https://synthmedia.fr/wp-content/uploads/2026/06/cloud-supreme-1.jpg",
     categories:["Data centers","Europe","IA Act & régulations internationales","régulation","souveraineté numérique","Union Européenne"],
     axes:["Souveraineté numérique","Europe & régulation"],
@@ -1061,7 +1165,12 @@ const ARTICLES = {
       {d:"avril 2026", t:"S3NS (Thalès-Google) remporte un appel d'offres de 180 millions d'euros pour un cloud souverain."},
       {d:"22 juin 2026", t:"Publication de cet article."}
     ],
-    sourcesCited:["Cloud and AI Development Act, Commission européenne, 3 juin 2026","Audition au Sénat d'Anton Carniaux (Microsoft France)","Lettre du CISPE, mars 2026","Entretien avec Leïla Chaibi, eurodéputée LFI"]
+    sourcesCited:[
+      {t:"Cloud and AI Development Act, Commission européenne, 3 juin 2026", url:"https://digital-strategy.ec.europa.eu/en/policies/cloud-and-ai-development-act"},
+      {t:"Audition au Sénat d'Anton Carniaux (Microsoft France)", url:"https://www.senat.fr/compte-rendu-commissions/20250609/ce_commande_publique.html#toc2"},
+      {t:"Lettre commune des fournisseurs cloud européens (CISPE), mars 2026", url:"https://www.cispe.cloud/website_cispe/wp-content/uploads/2026/03/Cloud-CEOs-Joint-Letter-March-17-2026-FINAL.pdf"},
+      {t:"Appel d'offres cloud souverain de la Commission, avril 2026", url:"https://france.representation.ec.europa.eu/informations/souverainete-numerique-la-commission-octroie-180-millions-deuros-quatre-fournisseurs-europeens-2026-04-17_fr"}
+    ]
   },
 
   "palantir-dgsi":{
@@ -1097,7 +1206,11 @@ const ARTICLES = {
       {d:"2019 / 2022 / déc. 2025", t:"Renouvellements successifs du contrat DGSI-Palantir."},
       {d:"16 juin 2026", t:"Sébastien Lecornu annonce la fin du contrat avec Palantir."}
     ],
-    sourcesCited:["Déclaration de Sébastien Lecornu, 16 juin 2026","Audition de Laurent Nuñez à l'Assemblée nationale","Entretien avec Olivier Dellenbach (ChapsVision)","Politico"]
+    sourcesCited:[
+      {t:"« La DGSI reconduit Palantir » — chronique d'une dépendance assumée (Synth)", url:"https://synthmedia.fr/etats-unis/la-dgsi-reconduit-palantir-chronique-dune-dependance-assumee-en-pleine-tension-transatlantique/"},
+      {t:"Politico — la DGSI va remplacer Palantir par ChapsVision", url:"https://www.politico.eu/article/la-dgsi-va-remplacer-palantir-par-chapsvision-annonce-sebastien-lecornu/"},
+      {t:"Réaction d'Olivier Dellenbach (ChapsVision)", url:"https://www.linkedin.com/in/olivierdellenbach/recent-activity/all/"}
+    ]
   },
 
   "crypto-ia-elections":{
@@ -1136,7 +1249,12 @@ const ARTICLES = {
       {d:"10 juin 2026", t:"Publication de cet article ; plus de 408 millions de dollars déjà mobilisés pour les midterms."},
       {d:"nov. 2026", t:"Élections de mi-mandat américaines."}
     ],
-    sourcesCited:["Outil Tech Influence Watch, Molly White","Révélations du magazine Wired sur Build American AI","Arrêt Citizens United vs FEC, Cour suprême des États-Unis, 2010"]
+    sourcesCited:[
+      {t:"Outil Tech Influence Watch, Molly White", url:"https://influence.citationneeded.news/"},
+      {t:"Fiche du Super PAC FairShake", url:"https://influence.citationneeded.news/2026/networks/fairshake"},
+      {t:"The New York Times — l'argent de l'IA dans les midterms", url:"https://www.nytimes.com/2026/03/29/business/trump-artificial-intelligence-pac-midterms.html"},
+      {t:"Build American AI (groupe « dark money » pro-IA)", url:"https://www.buildamericanai.org/"}
+    ]
   },
 
   "rn-ia-communication":{
@@ -1172,7 +1290,11 @@ const ARTICLES = {
       {d:"3 juin 2026", t:"France Inter révèle le projet d'IA interne du RN."},
       {d:"7 juil. 2026", t:"Verdict attendu dans l'affaire des assistants d'eurodéputés de Marine Le Pen."}
     ],
-    sourcesCited:["Révélation France Inter, 3 juin 2026","Réquisitions du parquet, février 2026","Déclarations de Sébastien Chenu (C8)"]
+    sourcesCited:[
+      {t:"Révélation France Inter, 3 juin 2026", url:"https://www.radiofrance.fr/franceinter/podcasts/l-info-de-france-inter/presidentielle-le-rn-cree-son-propre-outil-ia-pour-rendre-son-programme-plus-accessible-a-ses-cadres-et-militants-5223600"},
+      {t:"Réquisitions du parquet, février 2026", url:"https://www.leclubdesjuristes.com/en-bref/affaire-des-assistants-parlementaires-du-rn-les-requisitions-du-parquet-14124/"},
+      {t:"Programme du RN bouclé — France Info", url:"https://www.franceinfo.fr/elections/presidentielle/presidentielle-2027-le-rassemblement-national-boucle-son-programme-en-attendant-de-designer-son-candidat_8013449.html"}
+    ]
   }
 };
 
@@ -1341,14 +1463,18 @@ function eyeWatermark(size){
 function catList(cats){
   return `<div class="pm-cats">${cats.slice(0,5).map(c=>`<span>${escapeHtml(c)}</span>`).join('')}</div>`;
 }
-function renderTickers(){
-  const items = articlesSorted().map(([k,a])=> a.title.toUpperCase());
-  const text = items.join('&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;');
-  const track = `<span>${text}</span><span>${text}</span>`;
-  ['tickerToday','tickerExplore','tickerYou'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.innerHTML = track;
-  });
+const AVATAR_PALETTE = ['#37415C','#54162B','#9A726E','#181A2F','#6e1414','#242E49'];
+function avatarPhoto(name){
+  // Pas de photo réelle disponible pour les journalistes du flux : silhouette
+  // stylisée (pas d'initiales) plutôt qu'une photo inventée.
+  let hash = 0;
+  for(let i=0;i<name.length;i++) hash = (hash*31 + name.charCodeAt(i)) >>> 0;
+  const bg = AVATAR_PALETTE[hash % AVATAR_PALETTE.length];
+  return `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="40" height="40" fill="${bg}"/>
+    <circle cx="20" cy="16" r="7" fill="#fff" fill-opacity=".92"/>
+    <path d="M4 38c0-9.5 7-15 16-15s16 5.5 16 15" fill="#fff" fill-opacity=".92"/>
+  </svg>`;
 }
 
 /* =========================================================================================
@@ -1471,15 +1597,17 @@ function renderToday(){
 
   const reportage = ARTICLES[reportageKey];
   html += `<div class="pm-section-label">Prendre du recul</div>`;
-  html += `<div class="pm-card" onclick="openArticle('${reportageKey}')">
-    <div class="pm-visual"><img src="${reportage.image}" alt="" loading="lazy" onerror="this.style.display='none'">${eyeWatermark(24)}</div>
-    ${catList(['Reportage'].concat(reportage.categories.slice(0,3)))}
-    <div class="pm-cardbody"><h2 class="pm-title">${escapeHtml(reportage.title)}</h2><p class="pm-hook">${escapeHtml(reportage.excerpt)}</p>
-      <div class="pm-readmore">Lire plus →</div>
-    </div>
-    <div class="pm-byline">
-      <div class="pm-avatar">${reportage.initials}</div>
-      <div><div class="pm-byline-name">${escapeHtml(reportage.author)}</div><div class="pm-byline-role">Journaliste</div></div>
+  html += `<div class="pm-magazine" onclick="openArticle('${reportageKey}')">
+    <img src="${reportage.image}" alt="" loading="lazy" onerror="this.style.display='none'">
+    <div class="mg-wm">${eyeWatermark(24)}</div>
+    <div class="mg-content">
+      <div class="mg-eyebrow">Reportage · ${readTime(reportage.body)}</div>
+      <h2 class="mg-title">${escapeHtml(reportage.title)}</h2>
+      <p class="mg-hook">${escapeHtml(reportage.excerpt)}</p>
+      <div class="mg-byline">
+        <div class="pm-avatar">${avatarPhoto(reportage.author)}</div>
+        <div><div class="mg-byline-name">${escapeHtml(reportage.author)}</div><div class="mg-byline-role">Journaliste</div></div>
+      </div>
     </div>
   </div>`;
 
@@ -1507,11 +1635,15 @@ function renderToday(){
 
   const longform = ARTICLES[longformKey];
   html += `<div class="pm-section-label">Format long</div>`;
-  html += `<div class="pm-card pm-card-sm" onclick="openArticle('${longformKey}')" style="cursor:pointer;">
-    <div class="pm-cardbody" style="padding-left:14px;">
-      <div class="pm-eyebrow">Enquête · ${readTime(longform.body)}</div>
-      <h2 class="pm-title">${escapeHtml(longform.title)}</h2>
-      <p class="pm-hook">${escapeHtml(longform.excerpt)}</p>
+  html += `<div class="pm-card" onclick="openArticle('${longformKey}')">
+    <div class="pm-visual"><img src="${longform.image}" alt="" loading="lazy" onerror="this.style.display='none'">${eyeWatermark(24)}</div>
+    ${catList(['Enquête'].concat(longform.categories.slice(0,3)))}
+    <div class="pm-cardbody"><h2 class="pm-title">${escapeHtml(longform.title)}</h2><p class="pm-hook">${escapeHtml(longform.excerpt)}</p>
+      <div class="pm-readmore">Lire plus →</div>
+    </div>
+    <div class="pm-byline">
+      <div class="pm-avatar">${avatarPhoto(longform.author)}</div>
+      <div><div class="pm-byline-name">${escapeHtml(longform.author)}</div><div class="pm-byline-role">Journaliste</div></div>
     </div>
   </div>`;
 
@@ -1630,10 +1762,12 @@ function openTopic(key){
     `<div class="actor-chip"><span class="dot" style="background:${CAT_COLORS[a.c]||'#888'}"></span>${escapeHtml(a.n)}</div>`
   ).join('');
 
-  const srcSet = new Set();
-  t.articles.forEach(k=>ARTICLES[k].sourcesCited.forEach(s=>srcSet.add(s)));
-  document.getElementById('topicSources').innerHTML = Array.from(srcSet).slice(0,6).map(s=>
-    `<div class="src-item"><span class="k">source</span><span>${escapeHtml(s)}</span></div>`
+  const srcSeen = new Set(); const srcList = [];
+  t.articles.forEach(k=>ARTICLES[k].sourcesCited.forEach(s=>{
+    if(!srcSeen.has(s.t)){ srcSeen.add(s.t); srcList.push(s); }
+  }));
+  document.getElementById('topicSources').innerHTML = srcList.slice(0,6).map(s=>
+    `<a class="src-item" href="${escapeHtml(s.url)}" target="_blank" rel="noopener"><span class="k">source</span><span>${escapeHtml(s.t)}</span></a>`
   ).join('');
 
   updateFollowUI();
@@ -1670,9 +1804,9 @@ function openArticle(key){
   document.getElementById('articleImg').src = a.image;
   document.getElementById('articleClaim').textContent = a.claim;
   document.getElementById('articleAuthor').textContent = a.author;
-  document.getElementById('articleAvatar').textContent = a.initials;
+  document.getElementById('articleAvatar').innerHTML = avatarPhoto(a.author);
   document.getElementById('articleWhy').textContent = '« '+a.why+' »';
-  document.getElementById('articleDiscovered').innerHTML = '<b style="color:var(--ink);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;">Ce que j&#39;ai découvert</b>'+escapeHtml(a.discovered);
+  document.getElementById('articleDiscovered').innerHTML = '<b style="color:var(--ink);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;">Ce qu&#39;il faut retenir</b>'+escapeHtml(a.discovered);
   document.getElementById('articleCards').innerHTML = a.cards.map(c=>
     `<div class="pm-mini"><div class="lbl">${escapeHtml(c.h)}</div><p>${escapeHtml(c.t)}</p></div>`
   ).join('');
@@ -1685,14 +1819,34 @@ function openArticle(key){
     `<div class="pm-tl-item"><div class="pm-tl-date">${escapeHtml(x.d)}</div><div class="pm-tl-text">${escapeHtml(x.t)}</div></div>`
   ).join('');
   document.getElementById('articleSources').innerHTML = a.sourcesCited.map(s=>
-    `<div class="src-item"><span class="k">source</span><span>${escapeHtml(s)}</span></div>`
+    `<a class="src-item" href="${escapeHtml(s.url)}" target="_blank" rel="noopener"><span class="k">source</span><span>${escapeHtml(s.t)}</span></a>`
   ).join('');
   document.getElementById('articleCats').innerHTML = a.categories.map(c=>
     `<div class="actor-chip">${escapeHtml(c)}</div>`
   ).join('');
   document.getElementById('articlePrimaryLink').href = a.link;
+
+  // Vidéo d'accroche : activable article par article (coûteux à produire pour
+  // chaque papier). Sans vidéo, on entre directement par Comprendre.
+  const tabVoir = document.getElementById('tabVoir');
+  const playBtn = document.getElementById('playBtn');
+  const videoBadge = document.getElementById('videoBadge');
+  const seeTimeLabel = document.getElementById('seeTimeLabel');
+  if(a.video){
+    tabVoir.classList.remove('hidden');
+    document.getElementById('voirDur').textContent = a.video;
+    playBtn.classList.remove('hidden');
+    videoBadge.classList.remove('hidden');
+    videoBadge.textContent = "Vidéo d'accroche · "+a.video;
+    seeTimeLabel.textContent = "Lecture "+a.video+" — ou passez directement à Comprendre.";
+  } else {
+    tabVoir.classList.add('hidden');
+    playBtn.classList.add('hidden');
+    videoBadge.classList.add('hidden');
+    seeTimeLabel.textContent = "L'essentiel, en une phrase.";
+  }
   updateBookmarkUI();
-  setLevel('voir');
+  setLevel(a.video ? 'voir' : 'comprendre');
   openOverlayEl('view-article');
 }
 function setLevel(lvl){
@@ -1913,6 +2067,8 @@ function renderWhyBox(){
    ASSISTANT — correspondance de mots-clés sur le corpus réel
    ========================================================================================= */
 function openAssistant(){ openOverlayEl('view-assistant'); }
+function openMenu(){ document.getElementById('siteMenu').classList.add('open'); }
+function closeMenu(){ document.getElementById('siteMenu').classList.remove('open'); }
 function askChat(){
   const input = document.getElementById('chatInput');
   const q = input.value.trim();
@@ -1967,7 +2123,6 @@ function toggleMatches(btn){
 applyTheme();
 updateClock();
 renderToday();
-renderTickers();
 if(state.edition === 'personnelle'){
   document.getElementById('editionChip').textContent = 'Édition personnelle';
   document.getElementById('editionChip').classList.add('personal');
