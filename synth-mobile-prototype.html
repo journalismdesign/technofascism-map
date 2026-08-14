@@ -93,6 +93,7 @@
     .screen{border-radius:0;}
     .notch{display:none;}
     .labnote{display:none;}
+    .statusbar{display:none;}
   }
 
   /* ---------- generic ---------- */
@@ -1271,11 +1272,15 @@ function loadStore(){
   try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }catch(e){ return {}; }
 }
 function saveStore(){
-  const s = loadStore();
-  localStorage.setItem(STORE_KEY, JSON.stringify({
-    theme: state.theme, edition: state.edition, follows: state.follows,
-    readLater: state.readLater, interests: state.interests
-  }));
+  // Le stockage local peut être indisponible (aperçu en bac à sable, navigation privée,
+  // contexte cross-origin) : l'interface doit rester utilisable pendant la session même
+  // si la persistance entre visites échoue silencieusement.
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      theme: state.theme, edition: state.edition, follows: state.follows,
+      readLater: state.readLater, interests: state.interests
+    }));
+  }catch(e){ /* stockage indisponible : on continue sans persistance */ }
 }
 const saved = loadStore();
 let state = {
