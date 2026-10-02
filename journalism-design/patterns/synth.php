@@ -37,31 +37,31 @@
 
 <!-- wp:list {"className":"is-style-index"} -->
 <ul class="wp-block-list is-style-index"><!-- wp:list-item -->
-<li>des infrastructures numériques ;</li>
+<li>des infrastructures numériques</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>des entreprises technologiques ;</li>
+<li>des entreprises technologiques</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>des systèmes d’intelligence artificielle ;</li>
+<li>des systèmes d’intelligence artificielle</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>de leurs modèles économiques ;</li>
+<li>de leurs modèles économiques</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>des enjeux environnementaux ;</li>
+<li>des enjeux environnementaux</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>des transformations du travail ;</li>
+<li>des transformations du travail</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>et des rapports de pouvoir qu’ils produisent.</li>
+<li>et des rapports de pouvoir qu’ils produisent</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 

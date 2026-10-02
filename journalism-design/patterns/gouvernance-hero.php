@@ -39,19 +39,19 @@
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
 <ul class="wp-block-list is-style-index jd-questions"><!-- wp:list-item -->
-<li>de quoi l’on dépend ;</li>
+<li>de quoi l’on dépend</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>pourquoi ;</li>
+<li>pourquoi</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>avec quelles conséquences ;</li>
+<li>avec quelles conséquences</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>et comment reprendre la main si nécessaire.</li>
+<li>et comment reprendre la main si nécessaire</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 

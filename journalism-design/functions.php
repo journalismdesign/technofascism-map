@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'JD_VERSION', '1.0.0' );
+define( 'JD_VERSION', '1.1.0' );
 define( 'JD_DIR', get_template_directory() );
 define( 'JD_URI', get_template_directory_uri() );
 
@@ -47,7 +47,6 @@ add_action( 'wp_enqueue_scripts', 'jd_enqueue' );
  * Catégories de motifs.
  */
 function jd_pattern_categories() {
-	register_block_pattern_category( 'jd-pages', array( 'label' => __( 'Journalism.design — Pages complètes', 'journalism-design' ) ) );
 	register_block_pattern_category( 'jd-sections', array( 'label' => __( 'Journalism.design — Sections', 'journalism-design' ) ) );
 	register_block_pattern_category( 'jd-cta', array( 'label' => __( 'Journalism.design — Appels à l’action', 'journalism-design' ) ) );
 }

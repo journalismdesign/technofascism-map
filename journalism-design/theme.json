@@ -17,8 +17,7 @@
 				{ "slug": "ink-2", "name": "Ardoise", "color": "#26282b" },
 				{ "slug": "muted", "name": "Gris texte", "color": "#5f5b51" },
 				{ "slug": "line", "name": "Filet", "color": "#c6c0b2" },
-				{ "slug": "accent", "name": "Rouge signal", "color": "#c81e1e" },
-				{ "slug": "accent-light", "name": "Rouge clair", "color": "#ff5a4a" }
+				{ "slug": "accent", "name": "Cyan signal", "color": "#00FFE0" }
 			]
 		},
 		"spacing": {
@@ -127,7 +126,7 @@
 			"link": {
 				"color": { "text": "currentColor" },
 				"typography": { "textDecoration": "underline" },
-				":hover": { "color": { "text": "var:preset|color|accent" } }
+				":hover": { "color": { "text": "var:preset|color|ink" } }
 			},
 			"heading": {
 				"typography": {
@@ -151,7 +150,7 @@
 					"letterSpacing": "0.08em",
 					"lineHeight": "1.4"
 				},
-				"color": { "text": "var:preset|color|accent" }
+				"color": { "text": "var:preset|color|ink" }
 			},
 			"button": {
 				"color": { "background": "var:preset|color|ink", "text": "var:preset|color|paper" },
@@ -164,8 +163,8 @@
 					"letterSpacing": "0.06em"
 				},
 				"spacing": { "padding": { "top": "0.95em", "bottom": "0.95em", "left": "1.4em", "right": "1.4em" } },
-				":hover": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|paper" } },
-				":focus": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|paper" } }
+				":hover": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|ink" } },
+				":focus": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|ink" } }
 			},
 			"caption": { "typography": { "fontFamily": "var:preset|font-family|mono", "fontSize": "var:preset|font-size|xs" } }
 		},

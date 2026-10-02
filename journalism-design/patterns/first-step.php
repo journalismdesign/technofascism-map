@@ -8,8 +8,8 @@
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-cta","backgroundColor":"accent","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section jd-cta has-paper-color has-accent-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","verticalAlignment":"bottom"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-cta","backgroundColor":"accent","textColor":"ink","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section jd-cta has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","verticalAlignment":"bottom"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-bottom"><!-- wp:column {"verticalAlignment":"bottom","width":"60%"} -->
 <div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:60%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Première étape</p>

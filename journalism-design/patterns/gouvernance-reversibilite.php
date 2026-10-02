@@ -31,39 +31,39 @@
 <!-- wp:column {"width":"64%"} -->
 <div class="wp-block-column" style="flex-basis:64%"><!-- wp:list {"className":"is-style-columns"} -->
 <ul class="wp-block-list is-style-columns"><!-- wp:list-item -->
-<li>la portabilité des données ;</li>
+<li>la portabilité des données</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>les formats utilisés ;</li>
+<li>les formats utilisés</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>l’interopérabilité ;</li>
+<li>l’interopérabilité</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>les compétences conservées en interne ;</li>
+<li>les compétences conservées en interne</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>la propriété intellectuelle ;</li>
+<li>la propriété intellectuelle</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>la localisation des données ;</li>
+<li>la localisation des données</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>la juridiction applicable ;</li>
+<li>la juridiction applicable</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>la dépendance économique ;</li>
+<li>la dépendance économique</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>la capacité à migrer.</li>
+<li>la capacité à migrer</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>

@@ -32,7 +32,7 @@ function jd_register_block_styles() {
 			'principle' => __( 'Principe (numéroté)', 'journalism-design' ),
 		),
 		'core/button'    => array(
-			'accent' => __( 'Rouge', 'journalism-design' ),
+			'accent' => __( 'Cyan', 'journalism-design' ),
 			'ghost'  => __( 'Contour', 'journalism-design' ),
 		),
 		'core/columns'   => array(

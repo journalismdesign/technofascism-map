@@ -39,19 +39,19 @@
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
 <ul class="wp-block-list is-style-index jd-questions"><!-- wp:list-item -->
-<li>ce dont elle a réellement besoin ;</li>
+<li>ce dont elle a réellement besoin</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>quels compromis elle accepte ;</li>
+<li>quels compromis elle accepte</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>quelles dépendances elle souhaite éviter ;</li>
+<li>quelles dépendances elle souhaite éviter</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>et quelles capacités elle veut conserver en interne.</li>
+<li>et quelles capacités elle veut conserver en interne</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>

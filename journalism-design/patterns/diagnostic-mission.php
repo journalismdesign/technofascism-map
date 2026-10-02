@@ -21,23 +21,23 @@
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
 <ul class="wp-block-list is-style-index jd-questions"><!-- wp:list-item -->
-<li>ce qui fonctionne ;</li>
+<li>ce qui fonctionne</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>ce qui constitue une dépendance ;</li>
+<li>ce qui constitue une dépendance</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>ce qui présente un risque ;</li>
+<li>ce qui présente un risque</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>ce qui pourrait être amélioré ;</li>
+<li>ce qui pourrait être amélioré</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>et les transformations qui méritent réellement d’être engagées.</li>
+<li>et les transformations qui méritent réellement d’être engagées</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->

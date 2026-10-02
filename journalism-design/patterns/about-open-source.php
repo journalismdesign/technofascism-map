@@ -31,27 +31,27 @@
 
 <!-- wp:list {"className":"is-style-arrows"} -->
 <ul class="wp-block-list is-style-arrows"><!-- wp:list-item -->
-<li>d’inspecter les systèmes ;</li>
+<li>d’inspecter les systèmes</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>de conserver l’accès aux données ;</li>
+<li>de conserver l’accès aux données</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>de réduire certaines dépendances ;</li>
+<li>de réduire certaines dépendances</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>de mutualiser des ressources ;</li>
+<li>de mutualiser des ressources</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>de favoriser l’interopérabilité ;</li>
+<li>de favoriser l’interopérabilité</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>et de maintenir des alternatives.</li>
+<li>et de maintenir des alternatives</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 

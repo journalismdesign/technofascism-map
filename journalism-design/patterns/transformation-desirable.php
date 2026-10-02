@@ -39,23 +39,23 @@
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
 <ul class="wp-block-list is-style-index jd-questions"><!-- wp:list-item -->
-<li>souveraineté ;</li>
+<li>souveraineté</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>design produit ;</li>
+<li>design produit</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>usages ;</li>
+<li>usages</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>organisation ;</li>
+<li>organisation</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>expérience utilisateur.</li>
+<li>expérience utilisateur</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 

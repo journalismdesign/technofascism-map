@@ -9,11 +9,16 @@ Thème blocs (Full Site Editing) pour journalism.design. Tout le contenu est con
 ## Installation
 
 1. Zipper le dossier `journalism-design/` puis l'importer dans *Apparence › Thèmes › Ajouter › Téléverser*, ou le copier dans `wp-content/themes/`.
-2. Activer le thème. À l'activation :
-   - les pages ci-dessous sont créées si elles n'existent pas encore (une page existante n'est jamais modifiée) ;
+2. Activer le thème. À l'activation, les pages ci-dessous sont **préremplies avec leurs blocs Gutenberg** (aucune composition à choisir) :
+   - les pages absentes sont créées, les pages vides sont remplies ;
+   - une page qui existe déjà avec son propre contenu est conservée et signalée par une alerte dans l'administration ;
    - « Accueil » devient la page d'accueil ;
    - les permaliens passent en `/%postname%/` s'ils étaient au format par défaut.
-3. Pour recréer une page supprimée : *Apparence › Contenu Journalism.design*.
+
+   Le même préremplissage a lieu au premier passage dans l'administration après une mise à jour du thème, sans réactivation.
+3. *Apparence › Contenu Journalism.design* : état de chaque page, boutons « Créer », « Remplir » ou « Remplacer ». Avant tout remplacement, la version actuelle est enregistrée dans les révisions de la page.
+
+Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : seul le grand titre placé dans le contenu apparaît (par exemple « Concevoir un numérique utile, désirable et maîtrisé. » sur l'accueil).
 
 | Page | Adresse | Statut à la création |
 | --- | --- | --- |
@@ -30,14 +35,14 @@ Thème blocs (Full Site Editing) pour journalism.design. Tout le contenu est con
 ## Modifier le site
 
 - **Textes des pages** : *Pages › modifier*. Chaque section est un groupe de blocs ordinaire : on peut la déplacer, la dupliquer ou la supprimer.
-- **Ajouter une section** : dans l'outil d'insertion, onglet *Compositions*, catégories « Journalism.design — Sections » et « Appels à l'action ». Pour une nouvelle page, les modèles « Journalism.design — Pages complètes » sont proposés à la création.
+- **Ajouter une section** : dans l'outil d'insertion, onglet *Compositions*, catégories « Journalism.design — Sections » et « Appels à l'action ».
 - **Menu, en-tête, pied de page** : *Apparence › Éditeur › Compositions › Parties de modèle*.
-- **Couleurs et typographies** : *Apparence › Éditeur › Styles*.
+- **Couleurs et typographies** : *Apparence › Éditeur › Styles*. Couleur d'accent : cyan `#00FFE0`. Trop claire pour du texte sur fond papier, elle sert d'aplat (boutons, bandeau d'appel à l'action, pastilles, surlignage au survol) avec du texte noir, et de couleur de texte sur fonds sombres.
 - **Styles de blocs du thème** (panneau *Styles* d'un bloc sélectionné) :
   - Paragraphe : Surtitre (mono), Chapô, Question (grand titre), Encadré tarif
   - Liste : Index à filets, Flèches, Étiquettes, Deux colonnes à filets
   - Groupe : Carte, Filet épais au-dessus, Principe (numéroté)
-  - Bouton : Rouge, Contour
+  - Bouton : Cyan, Contour
   - Colonnes : Colonnes séparées par des filets
 
 ## Formulaire de contact
@@ -82,7 +87,7 @@ journalism-design/
 │   └── setup-content.php  plan du site et création des pages
 ├── patterns/            une section = un fichier (33 sections)
 ├── parts/               en-tête, pied de page
-├── templates/           page-editorial (pages du thème), page, single, index, archive, search, 404
+├── templates/           page (sans titre affiché), page-editorial (identique, compatibilité), single, index, archive, search, 404
 └── assets/
     ├── css/theme.css
     └── fonts/           woff2 + licences OFL
