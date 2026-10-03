@@ -45,6 +45,18 @@ Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : se
   - Bouton : Cyan, Contour
   - Colonnes : Colonnes séparées par des filets
 
+## Logos
+
+Trois versions dans `assets/images/` (fond transparent, marges rognées) :
+
+| Fichier | Usage |
+| --- | --- |
+| `logo-journalism-design.png` (noir + cyan) | en-tête, page de connexion |
+| `logo-journalism-design-fond-sombre.png` (blanc + cyan) | pied de page (fond noir) |
+| `logo-journalism-design-noir.png` (noir) | version imprimée |
+
+Les logos de l'en-tête et du pied de page sont des blocs Image : on peut les remplacer dans *Apparence › Éditeur › Compositions › Parties de modèle*.
+
 ## Formulaire de contact
 
 Bloc *Code court* contenant `[jd_contact]` (page Contact). Les demandes sont envoyées par e-mail à l'adresse d'administration du site (*Réglages › Général*) et **ne sont pas stockées** dans la base. Pour un envoi fiable, configurer un SMTP (par exemple avec une extension d'envoi d'e-mails).
@@ -90,5 +102,6 @@ journalism-design/
 ├── templates/           page (sans titre affiché), page-editorial (identique, compatibilité), single, index, archive, search, 404
 └── assets/
     ├── css/theme.css
+    ├── images/          logos
     └── fonts/           woff2 + licences OFL
 ```

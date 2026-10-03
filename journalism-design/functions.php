@@ -51,3 +51,28 @@ function jd_pattern_categories() {
 	register_block_pattern_category( 'jd-cta', array( 'label' => __( 'Journalism.design — Appels à l’action', 'journalism-design' ) ) );
 }
 add_action( 'init', 'jd_pattern_categories', 9 );
+
+/**
+ * Logo sur la page de connexion.
+ */
+function jd_login_logo() {
+	$logo = get_theme_file_uri( 'assets/images/logo-journalism-design.png' );
+	echo '<style>
+		body.login { background: #f4f1ea; }
+		#login h1 a { background-image: url(' . esc_url( $logo ) . '); background-size: contain; background-position: center; width: 100%; max-width: 320px; height: 44px; }
+		.login #backtoblog a, .login #nav a { color: #141310; }
+		body.login.wp-core-ui .button-primary { background: #141310; border-color: #141310; border-radius: 0; }
+		body.login.wp-core-ui .button-primary:hover, body.login.wp-core-ui .button-primary:focus { background: #00ffe0; border-color: #141310; color: #141310; }
+	</style>';
+}
+add_action( 'login_enqueue_scripts', 'jd_login_logo' );
+
+function jd_login_url() {
+	return home_url( '/' );
+}
+add_filter( 'login_headerurl', 'jd_login_url' );
+
+function jd_login_title() {
+	return get_bloginfo( 'name' );
+}
+add_filter( 'login_headertext', 'jd_login_title' );

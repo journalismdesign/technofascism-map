@@ -10,7 +10,9 @@
  */
 ?>
 <!-- wp:group {"align":"full","className":"jd-header","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-<div class="wp-block-group alignfull jd-header"><!-- wp:site-title {"level":0} /-->
+<div class="wp-block-group alignfull jd-header"><!-- wp:image {"sizeSlug":"full","linkDestination":"custom","className":"jd-logo"} -->
+<figure class="wp-block-image size-full jd-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-journalism-design.png' ) ); ?>" alt="Journalism.design — accueil"/></a></figure>
+<!-- /wp:image -->
 
 <!-- wp:group {"className":"jd-header__right","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
 <div class="wp-block-group jd-header__right"><!-- wp:navigation {"overlayMenu":"mobile","className":"jd-nav","layout":{"type":"flex","justifyContent":"right"}} -->

@@ -61,8 +61,13 @@ strong { font-weight: 650; }
 	padding-right: var(--wp--style--root--padding-right);
 	gap: 1.5rem;
 }
-.jd-header .wp-block-site-title { margin: 0; white-space: nowrap; line-height: 1; }
-.jd-header .wp-block-site-title a:hover { color: var(--wp--preset--color--ink); background: var(--wp--preset--color--accent); }
+/* Logos (assets/images) */
+.jd-logo, .jd-footer__logo { margin: 0 !important; flex: none; }
+.jd-logo a, .jd-footer__logo a { display: block; line-height: 0; }
+.jd-logo a:hover, .jd-footer__logo a:hover { background: none !important; }
+.jd-logo img { width: clamp(170px, 17vw, 250px); height: auto; display: block; }
+.jd-footer__logo img { width: min(100%, 440px); height: auto; display: block; }
+.jd-footer__logo { margin-bottom: 1.5rem !important; }
 .jd-header__right { gap: clamp(1rem, 2vw, 2rem); }
 
 .jd-nav .wp-block-navigation__container { gap: clamp(0.9rem, 1.6vw, 1.75rem); }
@@ -565,16 +570,6 @@ h6.wp-block-heading { margin-bottom: 0.75rem; }
 .jd-footer { padding-top: var(--wp--preset--spacing--60); padding-bottom: var(--wp--preset--spacing--40); }
 .jd-footer a { text-decoration: none; }
 .jd-footer a:hover { color: var(--wp--preset--color--accent); background: none; }
-.jd-footer__brand {
-	font-family: var(--jd-display);
-	font-weight: 800;
-	font-stretch: 78%;
-	text-transform: uppercase;
-	font-size: var(--wp--preset--font-size--xxl);
-	line-height: 0.9;
-	letter-spacing: -0.015em;
-	margin: 0 0 1.25rem;
-}
 .jd-footer__tagline { font-size: var(--wp--preset--font-size--l); line-height: 1.3; max-width: 22ch; }
 .jd-footer__meta { color: rgba(244, 241, 234, 0.65); font-size: var(--wp--preset--font-size--s); }
 .jd-footer h6 { color: var(--wp--preset--color--accent); border-top: 1px solid rgba(244, 241, 234, 0.25); padding-top: 0.75rem; }
@@ -614,7 +609,11 @@ h6.wp-block-heading { margin-bottom: 0.75rem; }
 }
 
 @media print {
-	.jd-site-header, .jd-footer, .jd-form { display: none !important; }
+	.jd-footer, .jd-form { display: none !important; }
+	.jd-site-header { position: static; border: 0; }
+	.jd-header__right { display: none !important; }
+	/* Logo noir à l'impression */
+	.jd-logo img { content: url("../images/logo-journalism-design-noir.png"); }
 	.has-ink-background-color, .has-ink-2-background-color, .has-accent-background-color { background: none !important; color: #000 !important; }
 }
 
