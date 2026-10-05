@@ -30,7 +30,7 @@
 
 <!-- wp:navigation-link {"label":"À propos","url":"<?php echo jd_url( 'a-propos' ); ?>","kind":"custom","isTopLevelLink":true} /-->
 
-<!-- wp:navigation-link {"label":"SYNTH ↗","url":"<?php echo jd_external_url( 'synth' ); ?>","kind":"custom","opensInNewTab":true,"className":"jd-nav-external","isTopLevelLink":true} /-->
+<!-- wp:navigation-link {"label":"SYNTH ↗","url":"<?php echo jd_url( 'synth' ); ?>","kind":"custom","className":"jd-nav-external","isTopLevelLink":true} /-->
 
 <!-- wp:navigation-link {"label":"Prendre contact →","url":"<?php echo jd_url( 'contact' ); ?>","kind":"custom","className":"jd-nav-cta-mobile","isTopLevelLink":true} /-->
 <!-- /wp:navigation -->

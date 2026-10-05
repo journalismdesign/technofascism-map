@@ -158,12 +158,13 @@ def band(k, body, bg=None, c='', anchor=None):
         layout='constrained', anchor=anchor)
 
 
-def hero(k, title, cols, extra=None):
-    children = [kicker(k), H(1, title, 'jd-hero__title', align='wide')]
+def hero(k, title, cols, extra=None, bg=None, before=None):
+    children = [kicker(k)] + (before or []) + [H(1, title, 'jd-hero__title', align='wide')]
     if cols:
         children.append(COLUMNS(cols, c='jd-hero__cols'))
     children += extra or []
-    return GROUP(children, c='jd-section jd-hero', tag='section', align='full', layout='constrained')
+    fg = {'ink': 'paper'}.get(bg)
+    return GROUP(children, c='jd-section jd-hero', tag='section', align='full', bg=bg, fg=fg, layout='constrained')
 
 
 def cell(title, paras, lead=None):
@@ -234,7 +235,7 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
                 P('Ces choix pèsent ailleurs que dans le budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent ; les dépendances qu’ils installent deviennent coûteuses à défaire.'),
             ], '45%'),
             COLUMN([
-                P('La question n’est donc plus seulement :'),
+                P('La question n’est donc plus :'),
                 P('« Quel outil choisir ? »', 'is-style-question jd-strike'),
                 P('Mais :'),
                 LIST(['À quoi doit-il réellement servir ?', 'Quelles données peut-on lui confier ?',
@@ -254,7 +255,7 @@ S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique,
             cell('Proportion', ['Confier à un grand modèle génératif une tâche qu’un script simple accomplit mobilise de l’énergie et crée une dépendance sans contrepartie. Nous dimensionnons les outils selon le besoin et intégrons leur coût environnemental à l’analyse.']),
             cell('Réversibilité', ['Une organisation doit pouvoir changer de fournisseur, récupérer ses données et garder ses compétences. Nous vérifions cette possibilité avant l’adoption d’un outil, plutôt qu’au moment de partir.']),
             cell('Ouverture', ['Logiciels libres, standards ouverts et communs numériques permettent d’inspecter les systèmes et de garder une alternative. Nous les privilégions quand ils répondent au besoin, et nous expliquons les compromis quand un outil propriétaire s’impose.']),
-            cell('Regard journalistique', ['Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission.']),
+            cell('Un regard informé', ['Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission.']),
         ], 'jd-cells--3'),
     ]))
 
@@ -552,11 +553,10 @@ S['about-gerald'] = ('À propos — Gérald Holubowicz (biographie)', 'jd-sectio
             COLUMN([IMAGE("<?php echo esc_url( get_theme_file_uri( 'assets/images/gerald-holubowicz.jpg' ) ); ?>",
                           'Portrait de Gérald Holubowicz', 'jd-portrait')], '28%'),
             COLUMN([
-                P('Journaliste, auteur, réalisateur et spécialiste de l’innovation éditoriale, Gérald Holubowicz travaille depuis plus de quinze ans à l’intersection des médias et des technologies numériques.', 'is-style-lead'),
-                P('Photojournaliste puis auteur de projets documentaires interactifs, il a cofondé le studio Chewbahat et présidé Storycode Paris, où il a organisé plus d’une centaine de conférences et une vingtaine d’ateliers consacrés aux nouvelles écritures.'),
-                P('Il a ensuite travaillé sur des enjeux de produit et d’innovation éditoriale pour Libération, Condé Nast et le Groupe Les Échos–Le Parisien.'),
-                P('Depuis 2017, ses recherches portent notamment sur les deepfakes, les médias synthétiques puis l’intelligence artificielle générative et leurs conséquences sur l’information, le travail et les industries créatives.'),
-                P('Il intervient aujourd’hui auprès d’organisations pour les aider à transformer cette compréhension critique en décisions, méthodes et outils concrets.'),
+                P('Journaliste, entrepreneur des médias et consultant en transformation éditoriale, Gérald Holubowicz travaille depuis plus de vingt ans sur les mutations de l’information, des usages numériques et des organisations.', 'is-style-lead'),
+                P('Il a accompagné des médias comme Libération, Condé Nast et le Groupe Les Échos–Le Parisien sur des enjeux de produit, d’innovation et de stratégie éditoriale, après avoir développé et dirigé plusieurs projets à la croisée du journalisme, du documentaire et des nouvelles écritures numériques.'),
+                P('Chercheur et observateur des médias synthétiques depuis 2017, il analyse les effets de l’intelligence artificielle sur l’information, le travail, les industries créatives et, plus largement, sur nos sociétés. Il enseigne et forme depuis plus de quinze ans journalistes, étudiants et professionnels à ces transformations.'),
+                P('Il dirige aujourd’hui journalism.design et a fondé SYNTH, média indépendant consacré aux conséquences politiques, économiques, sociales et culturelles de la technologie et de l’IA. Il accompagne parallèlement médias et organisations dans leurs stratégies de transformation éditoriale et numérique.'),
             ], '72%'),
         ], c='jd-inner'),
     ]))
@@ -601,6 +601,35 @@ S['about-responsable'] = ('Un numérique responsable n’est pas un numérique f
         P('Il s’agit de proportionner les moyens technologiques aux besoins.', 'is-style-lead'),
         P('Faire accomplir par un grand modèle génératif une tâche qu’un script simple réglerait n’a souvent aucun intérêt. Conserver indéfiniment des volumes considérables de données non plus.'),
         P('Nous intégrons la question environnementale à l’analyse des architectures, des usages et des fournisseurs, partout où elle pèse dans la décision.'),
+    ]))
+
+# ---- Page SYNTH
+SYNTH_LOGO = IMAGE("<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-synth-fond-sombre.png' ) ); ?>", 'Synth.', 'jd-synth-logo')
+
+S['synth-hero'] = ('SYNTH — Ouverture de page', 'jd-sections', 'synth, média, hero', hero(
+    'Média indépendant', 'Observer les rapports de pouvoir <em>créés par la technologie</em>', [
+        COLUMN([
+            P('Journalism.design édite <strong><em>SYNTH</em></strong>, un média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.', 'is-style-lead'),
+        ], '58%'),
+        COLUMN([BUTTONS(BTN('Découvrir SYNTH ↗', EXT['synth'], external=True))], '42%', 'bottom'),
+    ], bg='ink', before=[SYNTH_LOGO]))
+
+S['synth-link'] = ('SYNTH — Lien avec les missions', 'jd-sections', 'synth, journalisme, conseil', band(
+    'SYNTH et nos missions', [
+        H(2, 'SYNTH observe ces transformations. <em>Journalism.design aide les organisations à agir face à elles.</em>'),
+        COLUMNS([
+            COLUMN([
+                P('Ce travail journalistique nourrit en permanence notre compréhension :', 'is-style-lead'),
+                LIST(['des infrastructures numériques', 'des entreprises technologiques', 'des systèmes d’intelligence artificielle',
+                      'de leurs modèles économiques', 'des enjeux environnementaux', 'des transformations du travail',
+                      'et des rapports de pouvoir qu’ils produisent'], 'is-style-index jd-questions'),
+            ], '60%'),
+            COLUMN([panel([
+                kicker('Lire SYNTH'),
+                P('Le média est publié sur synthmedia.fr.'),
+                BUTTONS(BTN('Découvrir SYNTH ↗', EXT['synth'], external=True)),
+            ])], '40%', c='jd-sticky-col'),
+        ], c='jd-inner'),
     ]))
 
 # ---- Contact

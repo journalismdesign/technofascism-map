@@ -40,7 +40,7 @@
 
 <!-- wp:column {"width":"55%"} -->
 <div class="wp-block-column" style="flex-basis:55%"><!-- wp:paragraph -->
-<p>La question n’est donc plus seulement :</p>
+<p>La question n’est donc plus :</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"is-style-question jd-strike"} -->

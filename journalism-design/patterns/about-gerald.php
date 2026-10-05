@@ -32,23 +32,19 @@
 
 <!-- wp:column {"width":"72%"} -->
 <div class="wp-block-column" style="flex-basis:72%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journaliste, auteur, réalisateur et spécialiste de l’innovation éditoriale, Gérald Holubowicz travaille depuis plus de quinze ans à l’intersection des médias et des technologies numériques.</p>
+<p class="is-style-lead">Journaliste, entrepreneur des médias et consultant en transformation éditoriale, Gérald Holubowicz travaille depuis plus de vingt ans sur les mutations de l’information, des usages numériques et des organisations.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Photojournaliste puis auteur de projets documentaires interactifs, il a cofondé le studio Chewbahat et présidé Storycode Paris, où il a organisé plus d’une centaine de conférences et une vingtaine d’ateliers consacrés aux nouvelles écritures.</p>
+<p>Il a accompagné des médias comme Libération, Condé Nast et le Groupe Les Échos–Le Parisien sur des enjeux de produit, d’innovation et de stratégie éditoriale, après avoir développé et dirigé plusieurs projets à la croisée du journalisme, du documentaire et des nouvelles écritures numériques.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Il a ensuite travaillé sur des enjeux de produit et d’innovation éditoriale pour Libération, Condé Nast et le Groupe Les Échos–Le Parisien.</p>
+<p>Chercheur et observateur des médias synthétiques depuis 2017, il analyse les effets de l’intelligence artificielle sur l’information, le travail, les industries créatives et, plus largement, sur nos sociétés. Il enseigne et forme depuis plus de quinze ans journalistes, étudiants et professionnels à ces transformations.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Depuis 2017, ses recherches portent notamment sur les deepfakes, les médias synthétiques puis l’intelligence artificielle générative et leurs conséquences sur l’information, le travail et les industries créatives.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Il intervient aujourd’hui auprès d’organisations pour les aider à transformer cette compréhension critique en décisions, méthodes et outils concrets.</p>
+<p>Il dirige aujourd’hui journalism.design et a fondé SYNTH, média indépendant consacré aux conséquences politiques, économiques, sociales et culturelles de la technologie et de l’IA. Il accompagne parallèlement médias et organisations dans leurs stratégies de transformation éditoriale et numérique.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

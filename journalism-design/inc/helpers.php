@@ -38,7 +38,7 @@ function jd_external_url( $key ) {
 	$urls = apply_filters(
 		'jd_external_urls',
 		array(
-			'synth'      => '#', // À renseigner : URL de SYNTH.
+			'synth'      => 'https://synthmedia.fr',
 			'inferences' => '#', // À renseigner : URL d'Inférences.
 			'ressources' => '#', // À renseigner : page ou rubrique Ressources.
 		)

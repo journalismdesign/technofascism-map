@@ -66,7 +66,7 @@
 
 <!-- wp:group {"className":"is-style-principle","layout":{"type":"default"}} -->
 <div class="wp-block-group is-style-principle"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Regard journalistique</h3>
+<h3 class="wp-block-heading">Un regard informé</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->

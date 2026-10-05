@@ -52,6 +52,10 @@ function jd_site_map() {
 				'title'    => 'À propos',
 				'sections' => array( 'about-hero', 'approach', 'about-gerald', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
 			),
+			'synth'                      => array(
+				'title'    => 'SYNTH',
+				'sections' => array( 'synth-hero', 'synth-link', 'first-step' ),
+			),
 			'contact'                    => array(
 				'title'    => 'Contact',
 				'sections' => array( 'contact' ),

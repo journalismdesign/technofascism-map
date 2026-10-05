@@ -215,7 +215,7 @@ p em, li em { font-style: italic; }
 .jd-split {
 	margin-top: var(--wp--preset--spacing--50) !important;
 	padding-top: var(--wp--preset--spacing--30);
-	border-top: 1px solid var(--jd-ink);
+	border-top: 1px solid currentColor;
 	gap: var(--wp--preset--spacing--50) !important;
 }
 @media (max-width: 781px) { .jd-hero .jd-hero__title { padding-right: 0; line-height: 1.02; } }
@@ -532,6 +532,7 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 
 /* Logo SYNTH (section sur fond encre) */
 .jd-synth-logo { margin: 0 0 var(--wp--preset--spacing--40) !important; }
+.jd-hero .jd-synth-logo { margin: var(--wp--preset--spacing--40) auto 0 !important; }
 .jd-synth-logo img { display: block; width: clamp(200px, 26vw, 340px); height: auto; }
 
 /* ---------- Bandeau défilant ---------- */

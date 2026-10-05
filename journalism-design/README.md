@@ -31,6 +31,7 @@ Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : se
 | Formations | `/formations/` | publiée |
 | Cas clients | `/cas-clients/` | **brouillon** : gabarit à remplir |
 | À propos | `/a-propos/` | publiée |
+| SYNTH | `/synth/` | publiée (bouton vers https://synthmedia.fr) |
 | Contact | `/contact/` | publiée |
 | Mentions légales | `/mentions-legales/` | **brouillon** : gabarit à remplir |
 
@@ -88,16 +89,16 @@ Les questions à choix se modifient avec le filtre `jd_contact_fields`, le desti
 
 Les URL suivantes n'étaient pas connues au moment de la création du thème et pointent vers `#` :
 
-- SYNTH (menu, pied de page, section SYNTH)
 - Inférences (pied de page)
 - Ressources (pied de page)
+
+L'entrée « SYNTH ↗ » du menu et du pied de page mène à la page `/synth/` du site ; les boutons « Découvrir SYNTH ↗ » mènent à https://synthmedia.fr (nouvel onglet).
 
 On peut les corriger directement dans l'éditeur, ou d'un coup avec un petit mu-plugin :
 
 ```php
 <?php
 add_filter( 'jd_external_urls', function ( $urls ) {
-	$urls['synth']      = 'https://…';
 	$urls['inferences'] = 'https://…';
 	$urls['ressources'] = 'https://…';
 	return $urls;

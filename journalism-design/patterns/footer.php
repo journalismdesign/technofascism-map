@@ -82,7 +82,7 @@ $jd_privacy = get_privacy_policy_url() ? esc_url( get_privacy_policy_url() ) : j
 
 <!-- wp:list {"className":"jd-footer__links"} -->
 <ul class="wp-block-list jd-footer__links"><!-- wp:list-item -->
-<li><a href="<?php echo jd_external_url( 'synth' ); ?>" target="_blank" rel="noreferrer noopener">SYNTH ↗</a></li>
+<li><a href="<?php echo jd_url( 'synth' ); ?>">SYNTH ↗</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
