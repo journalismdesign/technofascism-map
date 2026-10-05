@@ -17,7 +17,7 @@ Thème blocs (Full Site Editing) pour journalism.design. Tout le contenu est con
    - les permaliens passent en `/%postname%/` s'ils étaient au format par défaut.
 
    Le même préremplissage a lieu au premier passage dans l'administration après une mise à jour du thème, sans réactivation.
-3. **Mise à jour du thème** : une page dont le contenu inséré par le thème n'a pas été modifié reçoit automatiquement la nouvelle version (l'ancienne reste dans les révisions). Une page modifiée à la main, ou créée par une version antérieure à 1.2.0, est seulement signalée par une alerte : à remplacer depuis l'outil ci-dessous.
+3. **Mise à jour du thème** (téléversement du nouveau .zip, puis « Remplacer l'actuel par la version téléversée ») : au premier passage dans l'administration, les pages qui contiennent le contenu du thème reçoivent automatiquement la nouvelle version, et une alerte le confirme. L'ancienne version de chaque page est conservée dans ses révisions. Seules les pages créées depuis la version 1.2.0 et modifiées à la main sont laissées telles quelles et signalées.
 4. *Apparence › Contenu Journalism.design* : état de chaque page, boutons « Créer », « Remplir » ou « Remplacer ». Avant tout remplacement, la version actuelle est enregistrée dans les révisions de la page.
 
 Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : seul le grand titre placé dans le contenu apparaît (par exemple « Concevoir un numérique utile, désirable et maîtrisé. » sur l'accueil).

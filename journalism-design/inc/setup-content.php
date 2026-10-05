@@ -182,8 +182,12 @@ function jd_fill_page( $slug, $page, $force = false, $upgrade = false ) {
 		delete_post_meta( $existing->ID, '_wp_page_template' );
 	}
 
-	$empty   = jd_page_is_empty( $existing );
-	$updated = $upgrade && ! $empty && jd_page_is_pristine( $existing ) && ! jd_page_is_current( $existing );
+	$empty = jd_page_is_empty( $existing );
+	// Contenu inséré par une version du thème antérieure à 1.2.0, qui ne
+	// mémorisait pas d'empreinte : il est mis à jour comme un contenu non
+	// modifié (l'ancienne version est conservée dans les révisions).
+	$legacy  = ! get_post_meta( $existing->ID, '_jd_content_hash', true ) && jd_page_has_theme_content( $existing );
+	$updated = $upgrade && ! $empty && ! jd_page_is_current( $existing ) && ( $legacy || jd_page_is_pristine( $existing ) );
 	if ( ! $force && ! $empty && ! $updated ) {
 		return 'kept';
 	}
@@ -263,6 +267,10 @@ function jd_install_content( $force = false, $only = null, $upgrade = false ) {
 	}
 	update_option( 'jd_pages_kept', $kept, false );
 	update_option( 'jd_pages_outdated', $outdated, false );
+	$auto = array_keys( array_filter( $report, function ( $status ) { return 'updated' === $status; } ) );
+	if ( $auto ) {
+		update_option( 'jd_pages_updated', $auto, false );
+	}
 	update_option( 'jd_content_version', JD_VERSION );
 	return $report;
 }
@@ -300,15 +308,30 @@ function jd_admin_notice() {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		return;
 	}
-	$screen = get_current_screen();
-	if ( $screen && 'appearance_page_jd-content' === $screen->id ) {
-		return;
-	}
+	$screen   = get_current_screen();
 	$map      = jd_site_map();
 	$messages = array(
 		'jd_pages_kept'     => __( 'Journalism.design : ces pages existaient déjà avec leur propre contenu et n’ont pas été préremplies :', 'journalism-design' ),
-		'jd_pages_outdated' => __( 'Journalism.design : ces pages contiennent une version précédente du thème, modifiée depuis, et n’ont pas reçu le nouveau design :', 'journalism-design' ),
+		'jd_pages_outdated' => __( 'Journalism.design : ces pages contiennent une version précédente du thème que vous avez modifiée, et n’ont pas reçu la nouvelle version :', 'journalism-design' ),
 	);
+	$updated = (array) get_option( 'jd_pages_updated', array() );
+	$visible = $screen && in_array( $screen->id, array( 'dashboard', 'edit-page', 'themes' ), true );
+	if ( $updated && $visible ) {
+		$titles = array();
+		foreach ( $updated as $slug ) {
+			$titles[] = isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $slug;
+		}
+		printf(
+			'<div class="notice notice-success is-dismissible"><p>%1$s <strong>%2$s</strong>. %3$s</p></div>',
+			esc_html__( 'Journalism.design : pages mises à jour avec la nouvelle version du thème :', 'journalism-design' ),
+			esc_html( implode( ', ', $titles ) ),
+			esc_html__( 'Les versions précédentes sont conservées dans les révisions de chaque page.', 'journalism-design' )
+		);
+		delete_option( 'jd_pages_updated' );
+	}
+	if ( $screen && 'appearance_page_jd-content' === $screen->id ) {
+		return;
+	}
 	foreach ( $messages as $option => $message ) {
 		$slugs = (array) get_option( $option, array() );
 		if ( ! $slugs ) {
