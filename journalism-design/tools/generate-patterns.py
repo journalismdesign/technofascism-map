@@ -301,6 +301,8 @@ S['formations-teaser'] = ('Formations — encart', 'jd-sections', 'formation, at
 
 S['synth'] = ('SYNTH — média', 'jd-sections', 'synth, média, journalisme', band(
     'SYNTH', [
+        IMAGE("<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-synth-fond-sombre.png' ) ); ?>",
+              'Synth.', 'jd-synth-logo'),
         H(2, 'Observer les rapports de pouvoir <em>créés par la technologie</em>'),
         COLUMNS([
             COLUMN([

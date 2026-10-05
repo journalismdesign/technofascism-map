@@ -73,6 +73,7 @@ Trois versions dans `assets/images/` (fond transparent, marges rognées) :
 | `logo-journalism-design.png` (noir + cyan) | en-tête, pied de page, page de connexion |
 | `logo-journalism-design-fond-sombre.png` (blanc + cyan) | disponible pour les fonds encre |
 | `logo-journalism-design-noir.png` (noir) | version imprimée |
+| `logo-synth-fond-sombre.png` (blanc + cyan) | section SYNTH (fond encre) |
 | `gerald-holubowicz.jpg` (200 × 200, métadonnées EXIF retirées) | portrait de la biographie (page À propos) |
 
 Les logos de l'en-tête et du pied de page sont des blocs Image : on peut les remplacer dans *Apparence › Éditeur › Compositions › Parties de modèle*.

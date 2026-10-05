@@ -530,6 +530,10 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 .jd-portrait { margin: 0 !important; }
 .jd-portrait img { display: block; width: 100%; max-width: 220px; height: auto; border: 1px solid var(--jd-ink); }
 
+/* Logo SYNTH (section sur fond encre) */
+.jd-synth-logo { margin: 0 0 var(--wp--preset--spacing--40) !important; }
+.jd-synth-logo img { display: block; width: clamp(200px, 26vw, 340px); height: auto; }
+
 /* ---------- Bandeau défilant ---------- */
 
 .jd-marquee {

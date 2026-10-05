@@ -19,7 +19,11 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
-<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"jd-synth-logo"} -->
+<figure class="wp-block-image size-full jd-synth-logo"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-synth-fond-sombre.png' ) ); ?>" alt="Synth."/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading -->
 <h2 class="wp-block-heading">Observer les rapports de pouvoir <em>créés par la technologie</em></h2>
 <!-- /wp:heading -->
 
