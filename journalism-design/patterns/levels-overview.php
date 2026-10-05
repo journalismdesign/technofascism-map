@@ -3,7 +3,7 @@
  * Title: Trois niveaux d’intervention (cartes)
  * Slug: journalism-design/levels-overview
  * Categories: jd-sections
- * Keywords: expertises, offres, niveaux
+ * Keywords: expertises, interventions, niveaux
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -14,7 +14,7 @@
 <section id="expertises" class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Expertises</p>
+<p class="is-style-eyebrow">Interventions</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -38,7 +38,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"jd-link"} -->
-<p class="jd-link"><a href="<?php echo jd_url( 'diagnostic-strategie' ); ?>">Découvrir →</a></p>
+<p class="jd-link"><a href="<?php echo jd_url( 'diagnostic-strategie' ); ?>">Méthode et contenu →</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -56,7 +56,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"jd-link"} -->
-<p class="jd-link"><a href="<?php echo jd_url( 'transformation-prototypage' ); ?>">Découvrir →</a></p>
+<p class="jd-link"><a href="<?php echo jd_url( 'transformation-prototypage' ); ?>">Méthode et contenu →</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -74,7 +74,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"jd-link"} -->
-<p class="jd-link"><a href="<?php echo jd_url( 'gouvernance-souverainete' ); ?>">Découvrir →</a></p>
+<p class="jd-link"><a href="<?php echo jd_url( 'gouvernance-souverainete' ); ?>">Méthode et contenu →</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

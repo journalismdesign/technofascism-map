@@ -28,7 +28,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Cela suppose notamment de réfléchir à :</p>
+<p>Cela suppose notamment d’examiner :</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-columns"} -->

@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Formations — encart d’accueil
+ * Title: Formations — encart
  * Slug: journalism-design/formations-teaser
  * Categories: jd-sections
  * Keywords: formation, ateliers
@@ -26,7 +26,7 @@
 <!-- wp:columns {"verticalAlignment":"bottom","align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-bottom jd-inner"><!-- wp:column {"width":"60%"} -->
 <div class="wp-block-column" style="flex-basis:60%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Une organisation ne peut pas maîtriser ses technologies si seules quelques personnes comprennent leur fonctionnement.</p>
+<p class="is-style-lead">Une organisation ne maîtrise pas ses technologies si seules quelques personnes en comprennent le fonctionnement.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

@@ -28,15 +28,15 @@
 
 <!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous observons comment votre organisation utilise réellement le numérique et l’intelligence artificielle.</p>
+<p class="is-style-lead">Nous regardons comment votre organisation se sert réellement du numérique et de l’intelligence artificielle, y compris là où personne ne l’a déclaré.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Nous cartographions les outils, les workflows, les données, les irritants, les dépendances et les usages informels.</p>
+<p>La cartographie couvre les outils, les workflows, les données, les irritants et les dépendances, ainsi que les usages qui se sont installés de manière informelle.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>L’objectif n’est pas de produire un audit informatique supplémentaire.</p>
+<p>Le diagnostic mesure les marges de manœuvre qui restent à l’organisation face à ses fournisseurs, une question que les audits informatiques classiques laissent généralement de côté.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

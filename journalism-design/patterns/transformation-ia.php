@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous intervenons notamment sur des usages tels que :</p>
+<p class="is-style-lead">Nous intervenons notamment sur les usages suivants.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-tags"} -->
@@ -83,7 +83,11 @@
 <!-- wp:list-item -->
 <li>Diffusion et déclinaisons</li>
 <!-- /wp:list-item --></ul>
-<!-- /wp:list --></div>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Pour chacun, nous examinons aussi ce qu’il ne faut pas confier à une machine : les tâches qui engagent un jugement humain et les données qui ne doivent pas sortir de l’organisation.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

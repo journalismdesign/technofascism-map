@@ -461,16 +461,15 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 .jd-card > p:nth-last-child(2) { margin-bottom: 1.5rem; }
 .jd-link a { text-decoration: none; }
 
-/* Aplat cyan (un seul par vue) */
+/* Encadré fileté (tarifs, conditions) */
 .jd-panel {
 	padding: 1.5rem !important;
-	border: 1px solid var(--jd-ink);
+	border: 1px solid currentColor;
 }
 .jd-panel > * { margin-block: 0; }
 .jd-panel .is-style-price { font-size: clamp(1.6rem, 2.1vw, 2.15rem) !important; }
 .jd-panel > * + * { margin-top: 1rem; }
 .jd-panel .wp-block-buttons { margin-top: 1.5rem; }
-.jd-panel .is-style-eyebrow { color: var(--jd-ink) !important; }
 .jd-sticky-col .jd-panel { position: sticky; top: calc(var(--jd-header-h) + 1.5rem); }
 
 /* ---------- Boutons : ombre dure décalée de 6 px ---------- */
@@ -525,12 +524,11 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream);
 }
 .has-accent-background-color .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-cream) !important; }
-/* Aplat cyan posé sur une bande encre */
-.has-ink-background-color .jd-panel .wp-block-button:not(.is-style-ghost):not(.is-style-accent) .wp-block-button__link {
-	background: var(--jd-ink);
-	color: var(--jd-cyan);
-	border-color: var(--jd-ink);
-}
+
+
+/* Portrait */
+.jd-portrait { margin: 0 !important; }
+.jd-portrait img { display: block; width: 100%; max-width: 220px; height: auto; border: 1px solid var(--jd-ink); }
 
 /* ---------- Bandeau défilant ---------- */
 
@@ -681,3 +679,12 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 	.has-ink-background-color, .has-accent-background-color { background: none !important; color: #000 !important; }
 	.wp-block-button__link { box-shadow: none !important; }
 }
+
+/* ---------- Compatibilité avec le contenu des versions précédentes ----------
+   Ces couleurs ont été retirées de la palette en 1.2.0 ; sans ces règles, un
+   texte crème pouvait se retrouver sur fond crème. */
+.has-ink-2-background-color { background-color: var(--jd-ink) !important; color: var(--jd-cream); }
+.has-paper-2-background-color { background-color: var(--jd-cream) !important; }
+.has-muted-color, .has-line-color { color: var(--jd-ink) !important; }
+.has-accent-light-color { color: var(--jd-cyan) !important; }
+.has-accent-light-background-color { background-color: var(--jd-cyan) !important; }

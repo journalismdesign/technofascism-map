@@ -20,11 +20,11 @@
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Des règles <em>utilisables</em></h2>
+<h2 class="wp-block-heading">Des règles <em>applicables</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Une politique numérique n’est utile que si les équipes peuvent réellement l’appliquer.</p>
+<p class="is-style-lead">Une politique numérique ne sert à rien si les équipes ne peuvent pas l’appliquer.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
@@ -81,14 +81,14 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"45%"} -->
-<div class="wp-block-column" style="flex-basis:45%"><!-- wp:group {"className":"jd-panel","backgroundColor":"accent","textColor":"ink","layout":{"type":"default"}} -->
-<div class="wp-block-group jd-panel has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:paragraph -->
-<p>Ces missions sont réalisées <strong>sur devis</strong>, en fonction de la taille de l’organisation, de son environnement numérique et du niveau d’accompagnement nécessaire.</p>
+<div class="wp-block-column" style="flex-basis:45%"><!-- wp:group {"className":"jd-panel","layout":{"type":"default"}} -->
+<div class="wp-block-group jd-panel"><!-- wp:paragraph -->
+<p>Ces missions sont réalisées <strong>sur devis</strong>, selon la taille de l’organisation, son environnement numérique et le niveau d’accompagnement nécessaire.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Construire notre doctrine numérique →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Prendre contact →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

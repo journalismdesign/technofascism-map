@@ -3,7 +3,7 @@
  * Title: SYNTH — média
  * Slug: journalism-design/synth
  * Categories: jd-sections
- * Keywords: synth, média, newsletter
+ * Keywords: synth, média, journalisme
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -26,7 +26,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design édite également <strong><em>SYNTH</em></strong>, média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
+<p class="is-style-lead">Journalism.design édite <strong><em>SYNTH</em></strong>, un média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->

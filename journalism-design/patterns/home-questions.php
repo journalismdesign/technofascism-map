@@ -1,20 +1,20 @@
 <?php
 /**
- * Title: Accueil — La technologie n’est pas une stratégie
+ * Title: Accueil — Notre position
  * Slug: journalism-design/home-questions
  * Categories: jd-sections
- * Keywords: constat, questions, stratégie
+ * Keywords: constat, position, questions, stratégie
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<!-- wp:group {"tagName":"section","anchor":"position","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
+<section id="position" class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Le constat</p>
+<p class="is-style-eyebrow">Notre position</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -26,11 +26,15 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"45%"} -->
 <div class="wp-block-column" style="flex-basis:45%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Les organisations accumulent aujourd’hui les outils numériques et les systèmes d’intelligence artificielle plus rapidement qu’elles ne définissent les règles permettant de les utiliser.</p>
+<p class="is-style-lead">Les organisations adoptent des outils numériques et des systèmes d’IA plus vite qu’elles ne fixent les règles de leur usage.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Microsoft, Google, Adobe, OpenAI, Anthropic, Notion, Salesforce ou de nouveaux services spécialisés interviennent progressivement dans des fonctions de plus en plus critiques.</p>
+<p>Microsoft, Google, Adobe, OpenAI, Anthropic, Notion, Salesforce et des services plus spécialisés prennent en charge des fonctions de plus en plus critiques. Chaque abonnement déplace un peu de contrôle sur les données, les formats et les prix vers des entreprises dont les intérêts ne coïncident pas forcément avec ceux de leurs clients.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Ces choix pèsent ailleurs que dans le budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent ; les dépendances qu’ils installent deviennent coûteuses à défaire.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -74,7 +78,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design aide les organisations à répondre à ces questions avant que les choix techniques ne deviennent des dépendances structurelles.</p>
+<p class="is-style-lead">Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

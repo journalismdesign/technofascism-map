@@ -24,19 +24,15 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Il s’agit de mettre les moyens technologiques en proportion avec les besoins.</p>
+<p class="is-style-lead">Il s’agit de proportionner les moyens technologiques aux besoins.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Utiliser un grand modèle génératif pour effectuer une tâche qu’un script simple pourrait accomplir n’est pas nécessairement pertinent.</p>
+<p>Faire accomplir par un grand modèle génératif une tâche qu’un script simple réglerait n’a souvent aucun intérêt. Conserver indéfiniment des volumes considérables de données non plus.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Stocker indéfiniment des volumes considérables de données non plus.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Nous intégrons donc la question environnementale dans l’analyse des architectures, des usages et des fournisseurs lorsque cette dimension est significative.</p>
+<p>Nous intégrons la question environnementale à l’analyse des architectures, des usages et des fournisseurs, partout où elle pèse dans la décision.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

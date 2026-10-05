@@ -28,11 +28,11 @@
 
 <!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Une transformation numérique ne devrait pas commencer par le choix d’un logiciel.</p>
+<p class="is-style-lead">Une transformation numérique commence mal quand elle commence par le choix d’un logiciel.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Elle devrait commencer par une question :</p>
+<p>Elle devrait partir d’une question :</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"is-style-question"} -->
@@ -44,15 +44,11 @@
 <!-- wp:columns {"align":"wide","className":"jd-split"} -->
 <div class="wp-block-columns alignwide jd-split"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design conçoit et teste avec vos équipes de nouvelles façons de travailler en combinant lorsque cela est pertinent :</p>
+<p class="is-style-lead">Journalism.design conçoit et teste avec vos équipes d’autres façons de travailler, en combinant selon les cas :</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Le but n’est pas de remplacer systématiquement les technologies propriétaires.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Il est de retrouver la capacité de <strong>choisir</strong>.</p>
+<p>Remplacer par principe toutes les technologies propriétaires n’aurait pas de sens. L’enjeu est de pouvoir choisir à nouveau, en connaissant le prix de chaque option.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

@@ -26,23 +26,15 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Les logiciels libres, l’open source, les standards ouverts et les communs numériques constituent souvent de puissants outils de souveraineté.</p>
+<p class="is-style-lead">Les logiciels libres, l’open source, les standards ouverts et les communs numériques sont souvent de puissants outils de souveraineté.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Nous les privilégions lorsqu’ils répondent réellement aux besoins de l’organisation.</p>
+<p>Nous les privilégions lorsqu’ils répondent réellement aux besoins de l’organisation, sans en faire une solution universelle.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Nous ne les considérons cependant pas comme des solutions universelles.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Un outil propriétaire peut parfois être le meilleur choix.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Notre travail consiste précisément à permettre à l’organisation de comprendre <strong>les compromis qu’elle accepte en le choisissant.</strong></p>
+<p>Un outil propriétaire est parfois le meilleur choix. Notre travail consiste alors à rendre visibles les compromis que l’organisation accepte en le choisissant.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

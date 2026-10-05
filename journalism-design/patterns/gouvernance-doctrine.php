@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous aidons les organisations à formaliser leurs choix.</p>
+<p class="is-style-lead">Nous aidons les organisations à formaliser leurs choix par écrit, pour qu’ils tiennent face aux changements d’équipe et aux nouvelles offres du marché.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":6} -->

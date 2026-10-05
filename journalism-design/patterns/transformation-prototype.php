@@ -26,11 +26,11 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"45%"} -->
 <div class="wp-block-column" style="flex-basis:45%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Une démonstration technologique peut être impressionnante sans être utilisable au quotidien.</p>
+<p class="is-style-lead">Une démonstration technologique peut impressionner sans résister au travail quotidien.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Nous préférons tester les solutions dans les conditions réelles de l’organisation.</p>
+<p>Nous testons donc les solutions dans les conditions réelles de l’organisation, avec les personnes qui devront s’en servir.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

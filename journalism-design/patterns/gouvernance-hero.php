@@ -26,17 +26,17 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Une organisation n’est jamais totalement indépendante technologiquement.</p>
+<p class="is-style-lead">Aucune organisation n’est totalement indépendante technologiquement.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>La souveraineté ne consiste donc pas à supprimer toutes les dépendances.</p>
+<p>La souveraineté consiste à connaître ses dépendances et à garder la possibilité d’en sortir.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":6} -->
-<h6 class="wp-block-heading">Elle consiste à savoir</h6>
+<h6 class="wp-block-heading">Elle suppose de savoir</h6>
 <!-- /wp:heading -->
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
@@ -58,7 +58,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Journalism.design accompagne les organisations dans la conception de règles et de stratégies permettant de conserver la maîtrise de leurs données, de leurs outils et de leurs capacités de production.</p>
+<p>Nous aidons les organisations à se doter de règles et de stratégies qui leur laissent la maîtrise de leurs données, de leurs outils et de leur capacité de production.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

@@ -60,6 +60,8 @@ Le thème applique le design system « Le design de journalism.design » :
 
 Le cyan n'est jamais utilisé en petit texte sur fond crème.
 
+Le contenu créé par une version antérieure à 1.2.0 utilisait des couleurs retirées depuis (ardoise, crème foncé…). Des règles de compatibilité en fin de `theme.css` les ramènent à la palette actuelle, pour qu'aucun texte ne se retrouve illisible avant le remplacement des pages.
+
 Les sections (`patterns/`) sont générées par `tools/generate-patterns.py` (Python 3, sans dépendance) pour garantir un balisage Gutenberg valide : modifier ce script puis le relancer plutôt que d'éditer les fichiers à la main.
 
 ## Logos
@@ -71,6 +73,7 @@ Trois versions dans `assets/images/` (fond transparent, marges rognées) :
 | `logo-journalism-design.png` (noir + cyan) | en-tête, pied de page, page de connexion |
 | `logo-journalism-design-fond-sombre.png` (blanc + cyan) | disponible pour les fonds encre |
 | `logo-journalism-design-noir.png` (noir) | version imprimée |
+| `gerald-holubowicz.jpg` (200 × 200, métadonnées EXIF retirées) | portrait de la biographie (page À propos) |
 
 Les logos de l'en-tête et du pied de page sont des blocs Image : on peut les remplacer dans *Apparence › Éditeur › Compositions › Parties de modèle*.
 

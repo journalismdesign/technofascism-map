@@ -32,12 +32,12 @@
 
 <!-- wp:navigation-link {"label":"SYNTH ↗","url":"<?php echo jd_external_url( 'synth' ); ?>","kind":"custom","opensInNewTab":true,"className":"jd-nav-external","isTopLevelLink":true} /-->
 
-<!-- wp:navigation-link {"label":"Parler d’un projet →","url":"<?php echo jd_url( 'contact' ); ?>","kind":"custom","className":"jd-nav-cta-mobile","isTopLevelLink":true} /-->
+<!-- wp:navigation-link {"label":"Prendre contact →","url":"<?php echo jd_url( 'contact' ); ?>","kind":"custom","className":"jd-nav-cta-mobile","isTopLevelLink":true} /-->
 <!-- /wp:navigation -->
 
 <!-- wp:buttons {"className":"jd-header__cta"} -->
 <div class="wp-block-buttons jd-header__cta"><!-- wp:button {"className":"is-style-accent"} -->
-<div class="wp-block-button is-style-accent"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Parler d’un projet →</a></div>
+<div class="wp-block-button is-style-accent"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Prendre contact →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

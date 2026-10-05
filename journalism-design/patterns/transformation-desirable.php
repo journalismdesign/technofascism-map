@@ -26,21 +26,17 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Les solutions ouvertes, européennes ou souveraines ne peuvent pas être adoptées durablement si elles dégradent fortement l’expérience de travail.</p>
+<p class="is-style-lead">Une solution ouverte, européenne ou souveraine qui dégrade le travail des équipes finit par être abandonnée.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>L’objectif n’est pas de construire l’environnement numérique le plus idéologiquement pur.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Il est de construire <strong>le meilleur compromis possible entre efficacité, autonomie et responsabilité.</strong></p>
+<p>Nous cherchons le compromis le plus tenable entre efficacité, autonomie et responsabilité, en sachant qu’aucun environnement numérique n’est irréprochable.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":6} -->
-<h6 class="wp-block-heading">Notre approche croise donc</h6>
+<h6 class="wp-block-heading">Notre approche croise</h6>
 <!-- /wp:heading -->
 
 <!-- wp:list {"className":"is-style-index jd-questions"} -->
@@ -65,14 +61,14 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:group {"className":"jd-panel","backgroundColor":"accent","textColor":"ink","layout":{"type":"default"}} -->
-<div class="wp-block-group jd-panel has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:paragraph -->
-<p>Les missions sont construites <strong>sur devis</strong> après analyse du périmètre et des objectifs.</p>
+<!-- wp:group {"className":"jd-panel","layout":{"type":"default"}} -->
+<div class="wp-block-group jd-panel"><!-- wp:paragraph -->
+<p>Les missions sont construites <strong>sur devis</strong>, après analyse du périmètre et des objectifs.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Étudier un workflow →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Prendre contact →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

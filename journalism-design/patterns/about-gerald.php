@@ -23,7 +23,15 @@
 <h2 class="wp-block-heading">Gérald <em>Holubowicz</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:columns {"align":"wide","className":"jd-inner"} -->
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"28%"} -->
+<div class="wp-block-column" style="flex-basis:28%"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"jd-portrait"} -->
+<figure class="wp-block-image size-full jd-portrait"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/gerald-holubowicz.jpg' ) ); ?>" alt="Portrait de Gérald Holubowicz"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"72%"} -->
+<div class="wp-block-column" style="flex-basis:72%"><!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Journaliste, auteur, réalisateur et spécialiste de l’innovation éditoriale, Gérald Holubowicz travaille depuis plus de quinze ans à l’intersection des médias et des technologies numériques.</p>
 <!-- /wp:paragraph -->
 
@@ -42,6 +50,8 @@
 <!-- wp:paragraph -->
 <p>Il intervient aujourd’hui auprès d’organisations pour les aider à transformer cette compréhension critique en décisions, méthodes et outils concrets.</p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

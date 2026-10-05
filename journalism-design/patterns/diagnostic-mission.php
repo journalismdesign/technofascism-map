@@ -20,7 +20,7 @@
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Il s’agit de <em>déterminer :</em></h2>
+<h2 class="wp-block-heading">Ce que le diagnostic <em>établit</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->

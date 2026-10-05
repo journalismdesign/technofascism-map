@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Formations — Exemples et appel à l’action
+ * Title: Formations — Exemples
  * Slug: journalism-design/formations-list
  * Categories: jd-sections
  * Keywords: formation, ateliers, catalogue
@@ -88,7 +88,7 @@
 <!-- wp:columns {"verticalAlignment":"bottom","align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-bottom jd-inner"><!-- wp:column {"width":"60%"} -->
 <div class="wp-block-column" style="flex-basis:60%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Les interventions sont adaptées au niveau des équipes, aux métiers concernés et aux objectifs de l’organisation.</p>
+<p class="is-style-lead">Chaque intervention est adaptée au niveau des équipes, aux métiers concernés et aux objectifs de l’organisation.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -99,7 +99,7 @@
 <!-- wp:column {"verticalAlignment":"bottom","width":"40%"} -->
 <div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:40%"><!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Construire une formation →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Prendre contact →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>

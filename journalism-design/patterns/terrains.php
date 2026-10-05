@@ -10,8 +10,8 @@
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Pour qui</p>
@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design travaille particulièrement avec les organisations dont le fonctionnement dépend fortement de la production, de la circulation ou de la transformation de l’information.</p>
+<p class="is-style-lead">Nous travaillons surtout avec des organisations dont l’activité repose sur la production et la circulation de l’information.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-columns"} -->
@@ -74,7 +74,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"className":"jd-note"} -->
-<p class="jd-note">Mais nos méthodes peuvent également être mobilisées dans d’autres organisations confrontées aux mêmes problématiques d’IA, de données et de dépendance numérique.</p>
+<p class="jd-note">Les mêmes questions d’IA, de données et de dépendance numérique se posent ailleurs, et nos méthodes s’y appliquent aussi.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

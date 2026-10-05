@@ -26,7 +26,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
 <div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design est indépendant des éditeurs, plateformes et fournisseurs que nous évaluons.</p>
+<p class="is-style-lead">Journalism.design est indépendant des éditeurs, plateformes et fournisseurs qu’il évalue.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -34,7 +34,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Lorsque la mise en œuvre nécessite des compétences techniques spécialisées — développement, infrastructure, cybersécurité, migration ou intégration — nous pouvons travailler avec les équipes existantes ou des partenaires spécialisés.</p>
+<p>Quand la mise en œuvre demande des compétences spécialisées en développement, infrastructure, cybersécurité, migration ou intégration, nous travaillons avec les équipes existantes ou avec des partenaires choisis pour l’occasion.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
