@@ -459,6 +459,7 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 }
 .jd-card .jd-link { margin-top: auto !important; }
 .jd-card > p:nth-last-child(2) { margin-bottom: 1.5rem; }
+.jd-card .jd-card__num { text-transform: uppercase; }
 .jd-link a { text-decoration: none; }
 
 /* Encadré fileté (tarifs, conditions) */
@@ -525,6 +526,34 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 }
 .has-accent-background-color .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-cream) !important; }
 
+
+/* Grille à deux cellules (cas clients) */
+@media (min-width: 782px) { .jd-cells--2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+
+/* Noms de références en grand italique serif, entre filets */
+.jd-names {
+	list-style: none;
+	padding: 0 !important;
+	margin-left: 0;
+	border-top: 1px solid currentColor;
+}
+.jd-names > li {
+	margin: 0;
+	padding: 0.5rem 0 0.6rem;
+	border-bottom: 1px solid currentColor;
+	font-family: var(--jd-serif);
+	font-style: italic;
+	font-size: clamp(1.6rem, 3vw, 2.6rem);
+	line-height: 1.05;
+	letter-spacing: -0.025em;
+}
+/* Lien filé hors carte */
+.jd-link--inline { display: inline-block; padding-right: 1rem; }
+.jd-link--inline a:hover { text-decoration: underline; }
+
+/* Cartes sur fond encre */
+.has-ink-background-color .jd-card:hover { color: var(--jd-ink); }
+.has-ink-background-color .jd-card:hover .jd-link { border-color: var(--jd-ink); }
 
 /* Portrait */
 .jd-portrait { margin: 0 !important; }

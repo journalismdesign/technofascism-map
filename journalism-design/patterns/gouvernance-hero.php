@@ -12,7 +12,7 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-hero","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull jd-section jd-hero"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Expertise 03</p>
+<p class="is-style-eyebrow">Étape 03 · Maîtriser</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->
@@ -31,6 +31,10 @@
 
 <!-- wp:paragraph -->
 <p>La souveraineté consiste à connaître ses dépendances et à garder la possibilité d’en sortir.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Une dépendance mal choisie se paie aussi en argent : coûts de sortie, hausses tarifaires subies, compétences perdues.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

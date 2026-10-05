@@ -29,7 +29,7 @@ Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : se
 | Transformation & prototypage | `/transformation-prototypage/` | publiée |
 | Gouvernance & souveraineté | `/gouvernance-souverainete/` | publiée |
 | Formations | `/formations/` | publiée |
-| Cas clients | `/cas-clients/` | **brouillon** : gabarit à remplir |
+| Cas clients | `/cas-clients/` | publiée (missions récentes et références) |
 | À propos | `/a-propos/` | publiée |
 | SYNTH | `/synth/` | publiée (bouton vers https://synthmedia.fr) |
 | Contact | `/contact/` | publiée |
@@ -87,10 +87,12 @@ Les questions à choix se modifient avec le filtre `jd_contact_fields`, le desti
 
 ## À compléter
 
-Les URL suivantes n'étaient pas connues au moment de la création du thème et pointent vers `#` :
+Les URL suivantes ne sont pas encore connues ; tant qu'elles valent `#`, les liens correspondants sont masqués dans le pied de page :
 
-- Inférences (pied de page)
-- Ressources (pied de page)
+- Inférences
+- Ressources
+
+La page Mentions légales reste en brouillon (gabarit à remplir) ; son lien n'apparaît dans le pied de page qu'une fois la page publiée. Même chose pour « Confidentialité », qui dépend de la page de politique de confidentialité de WordPress (*Réglages › Confidentialité*).
 
 L'entrée « SYNTH ↗ » du menu et du pied de page mène à la page `/synth/` du site ; les boutons « Découvrir SYNTH ↗ » mènent à https://synthmedia.fr (nouvel onglet).
 

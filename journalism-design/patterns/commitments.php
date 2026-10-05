@@ -3,7 +3,7 @@
  * Title: Ce qui nous engage
  * Slug: journalism-design/commitments
  * Categories: jd-sections
- * Keywords: engagements, éthique, indépendance, sobriété
+ * Keywords: engagements, éthique, efficacité, indépendance, sobriété
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -20,11 +20,21 @@
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Une position <em>avant une offre</em></h2>
+<h2 class="wp-block-heading">Efficacité, autonomie, <em>responsabilité</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"className":"jd-cells jd-cells--3","layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->
 <div class="wp-block-group jd-cells jd-cells--3"><!-- wp:group {"className":"is-style-principle","layout":{"type":"default"}} -->
+<div class="wp-block-group is-style-principle"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Efficacité</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Un outil se juge sur ce qu’il améliore dans le travail réel : temps, qualité, coûts. Ces effets sont testés avec les équipes avant tout déploiement.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"is-style-principle","layout":{"type":"default"}} -->
 <div class="wp-block-group is-style-principle"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Indépendance</h3>
 <!-- /wp:heading -->
@@ -70,7 +80,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission.</p>
+<p>Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission, avec une séparation éditoriale stricte.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

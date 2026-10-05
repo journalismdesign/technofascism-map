@@ -209,15 +209,16 @@ S = {}
 
 # ---- Accueil
 S['home-hero'] = ('Accueil — Ouverture', 'jd-sections', 'hero, accueil, ouverture', hero(
-    'Conseil indépendant · Numérique et IA',
-    'Concevoir un numérique utile, désirable et <em>maîtrisé.</em>',
+    'Concevoir un numérique utile, désirable et maîtrisé',
+    'Transformer vos usages numériques et IA <em>sans perdre le contrôle.</em>',
     [
         COLUMN([
-            P('Journalism.design aide les organisations à se servir du numérique et de l’intelligence artificielle sans remettre leurs données ni leurs savoir-faire entre les mains d’une poignée de fournisseurs.', 'is-style-lead'),
-            P('Nous ne vendons aucun logiciel et ne touchons aucune commission. Le travail porte sur les usages réels des équipes, sur les dépendances qu’ils installent et sur les règles qu’une organisation se donne pour décider de ce qu’elle confie à une machine.'),
+            P('Nous aidons les organisations à améliorer leurs workflows, expérimenter de nouveaux usages de l’IA et réduire leurs dépendances technologiques — des premiers prototypes à la gouvernance.', 'is-style-lead'),
+            P('Journalism.design est un cabinet indépendant fondé et dirigé par Gérald Holubowicz, qui réunit selon les missions des équipes de spécialistes. Nous ne vendons aucun logiciel et ne touchons aucune commission.'),
         ], '58%'),
         COLUMN([
-            BUTTONS(CONTACT_BTN(), BTN('Lire notre position ↓', url('', 'position'), 'ghost')),
+            BUTTONS(BTN('Réserver une journée de diagnostic →', url('contact')),
+                    BTN('Voir les cas clients →', url('cas-clients'), 'ghost')),
         ], '42%', 'bottom'),
     ]))
 
@@ -232,7 +233,8 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
             COLUMN([
                 P('Les organisations adoptent des outils numériques et des systèmes d’IA plus vite qu’elles ne fixent les règles de leur usage.', 'is-style-lead'),
                 P('Microsoft, Google, Adobe, OpenAI, Anthropic, Notion, Salesforce et des services plus spécialisés prennent en charge des fonctions de plus en plus critiques. Chaque abonnement déplace un peu de contrôle sur les données, les formats et les prix vers des entreprises dont les intérêts ne coïncident pas forcément avec ceux de leurs clients.'),
-                P('Ces choix pèsent ailleurs que dans le budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent ; les dépendances qu’ils installent deviennent coûteuses à défaire.'),
+                P('Cette dépendance a un coût économique : abonnements récurrents, outils en doublon, contrats qui s’empilent, workflows inefficaces, migrations coûteuses, compétences internes qui s’érodent, erreurs de l’IA qu’il faut corriger.'),
+                P('Elle pèse aussi hors du budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent.'),
             ], '45%'),
             COLUMN([
                 P('La question n’est donc plus :'),
@@ -242,20 +244,21 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
                       'De quoi nous rend-il dépendants ?', 'Pourrons-nous encore travailler sans lui demain ?',
                       'Existe-t-il une alternative plus maîtrisable ?',
                       'Que voulons-nous automatiser — et que voulons-nous préserver ?'], 'is-style-index jd-questions'),
-                P('Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles.', 'is-style-lead'),
+                P('Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles, en cherchant l’équilibre entre efficacité, autonomie et responsabilité.', 'is-style-lead'),
             ], '55%'),
         ], c='jd-inner'),
     ], bg='ink', anchor='position'))
 
-S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique, indépendance, sobriété', band(
+S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique, efficacité, indépendance, sobriété', band(
     'Ce qui nous engage', [
-        H(2, 'Une position <em>avant une offre</em>'),
+        H(2, 'Efficacité, autonomie, <em>responsabilité</em>'),
         cells([
+            cell('Efficacité', ['Un outil se juge sur ce qu’il améliore dans le travail réel : temps, qualité, coûts. Ces effets sont testés avec les équipes avant tout déploiement.']),
             cell('Indépendance', ['Aucun éditeur ni aucune plateforme ne nous rémunère. Recommander un logiciel plutôt qu’un autre ne nous rapporte rien.']),
             cell('Proportion', ['Confier à un grand modèle génératif une tâche qu’un script simple accomplit mobilise de l’énergie et crée une dépendance sans contrepartie. Nous dimensionnons les outils selon le besoin et intégrons leur coût environnemental à l’analyse.']),
             cell('Réversibilité', ['Une organisation doit pouvoir changer de fournisseur, récupérer ses données et garder ses compétences. Nous vérifions cette possibilité avant l’adoption d’un outil, plutôt qu’au moment de partir.']),
             cell('Ouverture', ['Logiciels libres, standards ouverts et communs numériques permettent d’inspecter les systèmes et de garder une alternative. Nous les privilégions quand ils répondent au besoin, et nous expliquons les compromis quand un outil propriétaire s’impose.']),
-            cell('Un regard informé', ['Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission.']),
+            cell('Un regard informé', ['Le travail de <em>SYNTH</em>, le média que nous éditons, sur les entreprises technologiques, l’IA et leurs effets sur le travail et l’environnement nourrit chaque mission, avec une séparation éditoriale stricte.']),
         ], 'jd-cells--3'),
     ]))
 
@@ -271,24 +274,24 @@ S['approach'] = ('Notre approche — cinq principes', 'jd-sections', 'approche, 
         ], 'jd-cells--3'),
     ]))
 
-S['levels-overview'] = ('Trois niveaux d’intervention (cartes)', 'jd-sections', 'expertises, interventions, niveaux', band(
-    'Interventions', [
-        H(2, 'Trois niveaux <em>d’intervention</em>'),
+S['levels-overview'] = ('Trois étapes : comprendre, transformer, maîtriser (cartes)', 'jd-sections', 'expertises, interventions, étapes, offre', band(
+    'Trois étapes', [
+        H(2, 'Comprendre, transformer, <em>maîtriser</em>'),
         GROUP([
-            card('01', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Comprendre ses usages, ses dépendances et ses marges de manœuvre.'),
-            card('02', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Construire des alternatives qui fonctionnent réellement.'),
-            card('03', 'Gouvernance &amp; souveraineté numérique', url('gouvernance-souverainete'), 'Choisir ses dépendances plutôt que les subir.'),
+            card('01 · Comprendre', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Cartographier les usages, workflows, outils, données et dépendances. Identifier ce qu’il faut conserver, améliorer ou transformer.'),
+            card('02 · Transformer', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Concevoir et tester de nouveaux workflows, automatisations et usages de l’IA avec les équipes avant de les déployer.'),
+            card('03 · Maîtriser', 'Gouvernance &amp; souveraineté', url('gouvernance-souverainete'), 'Définir les règles, architectures et alternatives permettant de conserver la maîtrise des données, des compétences et des fournisseurs.'),
         ], c='jd-cells jd-cells--3 jd-cards', layout='grid', grid_min='15rem'),
-    ], anchor='expertises'))
+    ], bg='ink', anchor='expertises'))
 
 S['terrains'] = ('Nos terrains d’intervention', 'jd-sections', 'clients, secteurs, terrains', band(
     'Pour qui', [
         H(2, 'Nos terrains <em>d’intervention</em>'),
-        P('Nous travaillons surtout avec des organisations dont l’activité repose sur la production et la circulation de l’information.', 'is-style-lead'),
-        LIST(['Médias', 'Agences', 'Studios', 'Directions communication', 'Équipes marketing', 'Institutions',
-              'Organisations culturelles', 'Associations', 'Structures de l’ESS', 'Établissements d’enseignement',
-              'Entreprises disposant d’équipes éditoriales ou créatives'], 'is-style-columns'),
-        P('Les mêmes questions d’IA, de données et de dépendance numérique se posent ailleurs, et nos méthodes s’y appliquent aussi.', 'jd-note'),
+        P('Nous travaillons avec des organisations intensives en information, en contenus et en connaissances.', 'is-style-lead'),
+        LIST(['Médias', 'Agences', 'Directions communication et marketing', 'Cabinets de conseil', 'Think tanks',
+              'Institutions', 'Organisations culturelles', 'Établissements d’enseignement', 'ONG et associations',
+              'Structures de l’ESS', 'Organisations professionnelles',
+              'Entreprises disposant d’équipes éditoriales, créatives ou de gestion des connaissances'], 'is-style-columns'),
     ]))
 
 S['formations-teaser'] = ('Formations — encart', 'jd-sections', 'formation, ateliers', band(
@@ -323,13 +326,39 @@ S['synth'] = ('SYNTH — média', 'jd-sections', 'synth, média, journalisme', b
 S['first-step'] = ('Prendre contact (appel à l’action)', 'jd-cta', 'cta, contact', GROUP([
     kicker('Prendre contact', align='center'),
     H(2, 'Commençons par le problème, <em>pas par l’outil.</em>', text_align='center'),
-    P('Décrivez votre situation : les outils en place, ce qui coince, ce que vous tenez à préserver. Un premier échange permet de savoir si nous pouvons être utiles.', 'is-style-lead', align='center'),
-    BUTTONS(BTN('Écrire →', url('contact')), center=True),
+    P('Décrivez votre situation : les outils en place, ce qui coince, ce que vous tenez à préserver. Un premier échange permet de savoir si nous pouvons être utiles, et par où commencer.', 'is-style-lead', align='center'),
+    BUTTONS(BTN('Prendre contact →', url('contact')), center=True),
 ], c='jd-section jd-cta', tag='section', align='full', bg='accent', fg='ink', layout='constrained'))
+
+S['use-cases'] = ('Accueil — Chantiers concrets', 'jd-sections', 'cas d’usage, chantiers, IA, workflows', band(
+    'Chantiers', [
+        H(2, 'Ce que nous faisons <em>concrètement</em>'),
+        P('Des missions courtes ou des accompagnements de plusieurs semaines, sur des problèmes que les équipes rencontrent déjà.', 'is-style-lead'),
+        LIST(['Sécuriser les usages de ChatGPT, Claude ou d’autres assistants déjà présents dans les équipes',
+              'Passer d’expérimentations IA dispersées à un système opérationnel',
+              'Automatiser un workflow sans dégrader la qualité',
+              'Construire et tester un prototype avec les équipes',
+              'Choisir entre un SaaS, une API ou un modèle local',
+              'Améliorer un processus de production',
+              'Réduire les coûts logiciels et les outils en doublon',
+              'Mettre en place une doctrine IA',
+              'Former une équipe'], 'is-style-columns'),
+        H(6, 'Sur des chaînes de production comme'),
+        LIST(['Recherche et documentation', 'Analyse de corpus', 'Transcription', 'Préparation éditoriale',
+              'Image et vidéo', 'Storyboard', 'Motion design', 'Maquette vers production', 'Diffusion et déclinaisons'], 'is-style-tags'),
+        P(f'<a href="{url("transformation-prototypage")}">Voir la méthode de prototypage →</a>', 'jd-link jd-link--inline'),
+    ]))
+
+S['references-teaser'] = ('Accueil — Références', 'jd-sections', 'références, clients, preuves', band(
+    'Références', [
+        H(2, 'Missions et <em>références</em>'),
+        LIST(['The Editorialist', 'France Télévisions / Samsa', 'Libération', 'Condé Nast', 'Les Échos–Le Parisien'], 'jd-names'),
+        P(f'<a href="{url("cas-clients")}">Voir les cas clients →</a>', 'jd-link jd-link--inline'),
+    ], c='jd-section--rule'))
 
 # ---- Diagnostic & stratégie
 S['diagnostic-hero'] = ('Diagnostic & stratégie — Ouverture', 'jd-sections', 'diagnostic, stratégie, hero', hero(
-    'Expertise 01', 'Diagnostic &amp; <em>stratégie</em>', [
+    'Étape 01 · Comprendre', 'Diagnostic &amp; <em>stratégie</em>', [
         COLUMN([P('Comprendre ses usages, ses dépendances et ses marges de manœuvre.', 'is-style-question')], '50%'),
         COLUMN([
             P('Nous regardons comment votre organisation se sert réellement du numérique et de l’intelligence artificielle, y compris là où personne ne l’a déclaré.', 'is-style-lead'),
@@ -351,31 +380,32 @@ S['diagnostic-mission'] = ('Diagnostic & stratégie — Objectifs et contenu de 
                       'Identification des données sensibles', 'Analyse des dépendances numériques', 'Évaluation de la réversibilité',
                       'Identification des opportunités d’automatisation',
                       'Analyse des solutions européennes, libres ou open source pertinentes',
+                      'Repérage des outils en doublon et des coûts récurrents',
                       'Priorisation des transformations', 'Feuille de route'], 'is-style-arrows'),
             ], '45%'),
         ], c='jd-inner'),
     ], bg='ink'))
 
-S['diagnostic-day'] = ('Diagnostic & stratégie — Une première journée (tarif)', 'jd-cta', 'tarif, journée, diagnostic, prix', band(
-    'Pour commencer', [
+S['diagnostic-day'] = ('Journée de diagnostic (offre d’entrée, tarif)', 'jd-cta', 'tarif, journée, diagnostic, prix, offre', band(
+    'Point de départ', [
         H(2, 'Une journée <em>pour y voir clair</em>'),
         COLUMNS([
             COLUMN([
-                P('Pour une première approche, nous proposons une <strong>journée de diagnostic stratégique</strong> : entretiens, analyse des principaux workflows, restitution.', 'is-style-lead'),
-                P('Elle permet d’identifier les premiers enjeux et de décider, en connaissance de cause, s’il vaut la peine d’aller plus loin.'),
-            ], '50%'),
+                P('Une journée de diagnostic de vos usages numériques et IA : workflows, outils, données, dépendances et possibilités d’automatisation.', 'is-style-lead'),
+                P('Entretiens, analyse des principaux workflows et restitution. Vous repartez avec les problèmes prioritaires et une feuille de route.'),
+                P('Le diagnostic peut ensuite déboucher sur une mission plus large, construite sur devis selon le périmètre, la taille des équipes et les problèmes identifiés.'),
+            ], '55%'),
             COLUMN([panel([
-                kicker('Tarif'),
+                kicker('Journée de diagnostic stratégique'),
                 P('À partir de 1&nbsp;500&nbsp;€&nbsp;HT.', 'is-style-price'),
-                P('Les diagnostics approfondis et les accompagnements font l’objet d’un devis, établi selon le périmètre, la taille des équipes et les problèmes identifiés.'),
-                BUTTONS(CONTACT_BTN()),
-            ])], '50%'),
+                BUTTONS(BTN('Réserver une journée →', url('contact'))),
+            ])], '45%'),
         ], c='jd-inner'),
     ]))
 
 # ---- Transformation & prototypage
 S['transformation-hero'] = ('Transformation & prototypage — Ouverture', 'jd-sections', 'transformation, prototypage, hero', hero(
-    'Expertise 02', 'Transformation &amp; <em>prototypage</em>', [
+    'Étape 02 · Transformer', 'Transformation &amp; <em>prototypage</em>', [
         COLUMN([P('Construire des alternatives qui fonctionnent réellement.', 'is-style-question')], '50%'),
         COLUMN([
             P('Une transformation numérique commence mal quand elle commence par le choix d’un logiciel.', 'is-style-lead'),
@@ -451,11 +481,12 @@ S['transformation-desirable'] = ('Transformation — Une alternative doit être 
 
 # ---- Gouvernance & souveraineté
 S['gouvernance-hero'] = ('Gouvernance & souveraineté — Ouverture', 'jd-sections', 'gouvernance, souveraineté, hero', hero(
-    'Expertise 03', 'Gouvernance &amp; <em>souveraineté numérique</em>', [
+    'Étape 03 · Maîtriser', 'Gouvernance &amp; <em>souveraineté numérique</em>', [
         COLUMN([
             P('Choisir ses dépendances plutôt que les subir.', 'is-style-question'),
             P('Aucune organisation n’est totalement indépendante technologiquement.', 'is-style-lead'),
             P('La souveraineté consiste à connaître ses dépendances et à garder la possibilité d’en sortir.'),
+            P('Une dépendance mal choisie se paie aussi en argent : coûts de sortie, hausses tarifaires subies, compétences perdues.'),
         ], '50%'),
         COLUMN([
             H(6, 'Elle suppose de savoir'),
@@ -537,7 +568,10 @@ S['formations-list'] = ('Formations — Exemples', 'jd-sections', 'formation, at
 # ---- À propos
 S['about-hero'] = ('À propos — Ouverture', 'jd-sections', 'à propos, hero, conviction', hero(
     'À propos', 'Éditorial. Produit. Technologie. <em>Organisation.</em>', [
-        COLUMN([P('Journalism.design accompagne les organisations dont les pratiques sont transformées par le numérique et l’intelligence artificielle.', 'is-style-lead')], '50%'),
+        COLUMN([
+            P('Journalism.design est un cabinet indépendant fondé et dirigé par Gérald Holubowicz.', 'is-style-lead'),
+            P('Selon les missions, il constitue des équipes avec des spécialistes du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration, ou travaille avec les équipes déjà en place.'),
+        ], '50%'),
         COLUMN([
             P('Notre approche repose sur une conviction :'),
             '<!-- wp:quote {"className":"jd-conviction"} -->\n<blockquote class="wp-block-quote jd-conviction">' +
@@ -568,7 +602,6 @@ S['about-independence'] = ('À propos — Nous ne vendons pas de technologie', '
             COLUMN([
                 P('Journalism.design est indépendant des éditeurs, plateformes et fournisseurs qu’il évalue.', 'is-style-lead'),
                 P('Nous ne sommes pas rémunérés pour recommander un logiciel plutôt qu’un autre.'),
-                P('Quand la mise en œuvre demande des compétences spécialisées en développement, infrastructure, cybersécurité, migration ou intégration, nous travaillons avec les équipes existantes ou avec des partenaires choisis pour l’occasion.'),
             ], '50%'),
             COLUMN([
                 H(6, 'Notre rôle consiste à aider une organisation à déterminer'),
@@ -656,7 +689,7 @@ S['contact'] = ('Contact — Premier échange (formulaire)', 'jd-sections, jd-ct
 # ---- Cas clients (gabarits)
 S['cases-hero'] = ('Cas clients — Ouverture', 'jd-sections', 'cas clients, références, hero', hero(
     'Cas clients', 'Cas <em>clients</em>', [
-        COLUMN([P('[À rédiger : texte d’introduction de la page.]', 'is-style-lead')], '60%'),
+        COLUMN([P('Missions récentes de journalism.design et organisations avec lesquelles Gérald Holubowicz a travaillé.', 'is-style-lead')], '60%'),
     ]))
 
 S['case-study'] = ('Cas client — fiche (gabarit à remplir)', 'jd-sections', 'cas client, étude de cas, référence', band(
@@ -669,6 +702,37 @@ S['case-study'] = ('Cas client — fiche (gabarit à remplir)', 'jd-sections', '
             GROUP([H(6, 'Résultats'), P('[Effets constatés, décisions prises, livrables.]')], c='is-style-principle'),
         ], 'jd-cells--3'),
     ]))
+
+def case(name, issue, actions, deliverables=None):
+    ch = [H(3, name), P(issue, 'is-style-lead'), H(6, 'Intervention'), LIST(actions, 'is-style-arrows')]
+    if deliverables:
+        ch += [H(6, 'Livrables'), LIST(deliverables, 'is-style-arrows')]
+    return GROUP(ch, c='is-style-principle')
+
+
+S['cases-missions'] = ('Cas clients — Missions récentes', 'jd-sections', 'cas clients, missions, études de cas', band(
+    'Missions récentes', [
+        H(2, 'Missions <em>journalism.design</em>'),
+        cells([
+            case('The Editorialist', 'Transformation des opérations éditoriales et créatives par l’IA.',
+                 ['Audit des workflows', 'Confidentialité des données', 'Production multimodale', 'Automatisation'],
+                 ['Recommandations d’architecture']),
+            case('France Télévisions / Samsa', 'Doctrine et usages de l’IA.',
+                 ['Diagnostic', 'Formation', 'Ateliers métiers', 'Workflows'],
+                 ['Recommandations']),
+        ], 'jd-cells--2'),
+    ]))
+
+S['cases-references'] = ('Cas clients — Références antérieures', 'jd-sections', 'références, médias, parcours', band(
+    'Parcours', [
+        H(2, 'Références <em>médias</em>'),
+        P('Gérald Holubowicz a accompagné ces groupes de médias sur des enjeux de produit, d’innovation et de stratégie éditoriale.', 'is-style-lead'),
+        cells([
+            GROUP([H(3, 'Libération'), P('Produit et transformation éditoriale.')], c='is-style-principle'),
+            GROUP([H(3, 'Condé Nast'), P('Produit numérique.')], c='is-style-principle'),
+            GROUP([H(3, 'Les Échos–Le Parisien'), P('Produit et innovation éditoriale.')], c='is-style-principle'),
+        ], 'jd-cells--3'),
+    ], bg='ink'))
 
 S['legal'] = ('Mentions légales (gabarit à remplir)', 'jd-sections', 'mentions légales, éditeur, hébergeur', hero(
     'Mentions légales', 'Mentions <em>légales</em>', None) + '\n\n' + band('Informations', [

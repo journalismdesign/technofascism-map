@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous travaillons surtout avec des organisations dont l’activité repose sur la production et la circulation de l’information.</p>
+<p class="is-style-lead">Nous travaillons avec des organisations intensives en information, en contenus et en connaissances.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"is-style-columns"} -->
@@ -37,15 +37,15 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Studios</li>
+<li>Directions communication et marketing</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Directions communication</li>
+<li>Cabinets de conseil</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Équipes marketing</li>
+<li>Think tanks</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -57,7 +57,11 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Associations</li>
+<li>Établissements d’enseignement</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>ONG et associations</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -65,17 +69,13 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Établissements d’enseignement</li>
+<li>Organisations professionnelles</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Entreprises disposant d’équipes éditoriales ou créatives</li>
+<li>Entreprises disposant d’équipes éditoriales, créatives ou de gestion des connaissances</li>
 <!-- /wp:list-item --></ul>
-<!-- /wp:list -->
-
-<!-- wp:paragraph {"className":"jd-note"} -->
-<p class="jd-note">Les mêmes questions d’IA, de données et de dépendance numérique se posent ailleurs, et nos méthodes s’y appliquent aussi.</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

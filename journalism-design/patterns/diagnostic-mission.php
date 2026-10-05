@@ -87,6 +87,10 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
+<li>Repérage des outils en doublon et des coûts récurrents</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
 <li>Priorisation des transformations</li>
 <!-- /wp:list-item -->
 

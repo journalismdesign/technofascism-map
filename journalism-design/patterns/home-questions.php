@@ -34,7 +34,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Ces choix pèsent ailleurs que dans le budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent ; les dépendances qu’ils installent deviennent coûteuses à défaire.</p>
+<p>Cette dépendance a un coût économique : abonnements récurrents, outils en doublon, contrats qui s’empilent, workflows inefficaces, migrations coûteuses, compétences internes qui s’érodent, erreurs de l’IA qu’il faut corriger.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Elle pèse aussi hors du budget. Les grands modèles consomment de l’énergie, de l’eau et du matériel, et ils modifient le travail de celles et ceux qui les utilisent.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -78,7 +82,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles.</p>
+<p class="is-style-lead">Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles, en cherchant l’équilibre entre efficacité, autonomie et responsabilité.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

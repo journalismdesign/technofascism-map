@@ -22,7 +22,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"60%"} -->
 <div class="wp-block-column" style="flex-basis:60%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">[À rédiger : texte d’introduction de la page.]</p>
+<p class="is-style-lead">Missions récentes de journalism.design et organisations avec lesquelles Gérald Holubowicz a travaillé.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

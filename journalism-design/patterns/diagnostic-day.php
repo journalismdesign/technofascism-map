@@ -1,9 +1,9 @@
 <?php
 /**
- * Title: Diagnostic & stratégie — Une première journée (tarif)
+ * Title: Journée de diagnostic (offre d’entrée, tarif)
  * Slug: journalism-design/diagnostic-day
  * Categories: jd-cta
- * Keywords: tarif, journée, diagnostic, prix
+ * Keywords: tarif, journée, diagnostic, prix, offre
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -14,7 +14,7 @@
 <section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Pour commencer</p>
+<p class="is-style-eyebrow">Point de départ</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -24,33 +24,33 @@
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","className":"jd-inner"} -->
-<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Pour une première approche, nous proposons une <strong>journée de diagnostic stratégique</strong> : entretiens, analyse des principaux workflows, restitution.</p>
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"55%"} -->
+<div class="wp-block-column" style="flex-basis:55%"><!-- wp:paragraph {"className":"is-style-lead"} -->
+<p class="is-style-lead">Une journée de diagnostic de vos usages numériques et IA : workflows, outils, données, dépendances et possibilités d’automatisation.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Elle permet d’identifier les premiers enjeux et de décider, en connaissance de cause, s’il vaut la peine d’aller plus loin.</p>
+<p>Entretiens, analyse des principaux workflows et restitution. Vous repartez avec les problèmes prioritaires et une feuille de route.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Le diagnostic peut ensuite déboucher sur une mission plus large, construite sur devis selon le périmètre, la taille des équipes et les problèmes identifiés.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:group {"className":"jd-panel","layout":{"type":"default"}} -->
+<!-- wp:column {"width":"45%"} -->
+<div class="wp-block-column" style="flex-basis:45%"><!-- wp:group {"className":"jd-panel","layout":{"type":"default"}} -->
 <div class="wp-block-group jd-panel"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Tarif</p>
+<p class="is-style-eyebrow">Journée de diagnostic stratégique</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"is-style-price"} -->
 <p class="is-style-price">À partir de 1&nbsp;500&nbsp;€&nbsp;HT.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>Les diagnostics approfondis et les accompagnements font l’objet d’un devis, établi selon le périmètre, la taille des équipes et les problèmes identifiés.</p>
-<!-- /wp:paragraph -->
-
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Prendre contact →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Réserver une journée →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

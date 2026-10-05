@@ -31,10 +31,6 @@
 
 <!-- wp:paragraph -->
 <p>Nous ne sommes pas rémunérés pour recommander un logiciel plutôt qu’un autre.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Quand la mise en œuvre demande des compétences spécialisées en développement, infrastructure, cybersécurité, migration ou intégration, nous travaillons avec les équipes existantes ou avec des partenaires choisis pour l’occasion.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

@@ -23,7 +23,7 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'marquee', 'home-questions', 'commitments', 'levels-overview', 'synth', 'terrains', 'first-step' ),
+				'sections' => array( 'home-hero', 'marquee', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
@@ -44,13 +44,11 @@ function jd_site_map() {
 			),
 			'cas-clients'                => array(
 				'title'    => 'Cas clients',
-				'sections' => array( 'cases-hero', 'case-study' ),
-				// Brouillon : aucun cas client n'a été fourni, rien n'est inventé.
-				'status'   => 'draft',
+				'sections' => array( 'cases-hero', 'cases-missions', 'cases-references', 'first-step' ),
 			),
 			'a-propos'                   => array(
 				'title'    => 'À propos',
-				'sections' => array( 'about-hero', 'approach', 'about-gerald', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
+				'sections' => array( 'about-hero', 'about-gerald', 'approach', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
 			),
 			'synth'                      => array(
 				'title'    => 'SYNTH',
@@ -199,13 +197,17 @@ function jd_fill_page( $slug, $page, $force = false, $upgrade = false ) {
 		// Sauvegarde explicite de la version actuelle avant remplacement.
 		_wp_put_post_revision( $existing );
 	}
-	$result = wp_update_post(
-		array(
-			'ID'           => $existing->ID,
-			'post_content' => $content,
-		),
-		true
+	$target = isset( $page['status'] ) ? $page['status'] : 'publish';
+	$args   = array(
+		'ID'           => $existing->ID,
+		'post_content' => $content,
 	);
+	// Une page du thème autrefois livrée en brouillon (ex. Cas clients) est
+	// publiée quand le thème fournit désormais son contenu.
+	if ( 'draft' === $existing->post_status && 'publish' === $target ) {
+		$args['post_status'] = 'publish';
+	}
+	$result = wp_update_post( $args, true );
 	if ( is_wp_error( $result ) ) {
 		return 'error';
 	}

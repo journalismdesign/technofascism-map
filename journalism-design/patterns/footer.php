@@ -9,7 +9,15 @@
  * @package journalism-design
  */
 
-$jd_privacy = get_privacy_policy_url() ? esc_url( get_privacy_policy_url() ) : jd_url( 'politique-de-confidentialite' );
+// Liens légaux : uniquement vers des pages publiées (pas de lien vers une 404).
+$jd_legal_links = array();
+$jd_legal_page  = get_page_by_path( 'mentions-legales' );
+if ( $jd_legal_page && 'publish' === $jd_legal_page->post_status ) {
+	$jd_legal_links[] = '<a href="' . esc_url( get_permalink( $jd_legal_page ) ) . '">Mentions légales</a>';
+}
+if ( get_privacy_policy_url() ) {
+	$jd_legal_links[] = '<a href="' . esc_url( get_privacy_policy_url() ) . '">Confidentialité</a>';
+}
 ?>
 <!-- wp:group {"align":"full","className":"jd-footer","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull jd-footer"><!-- wp:columns {"align":"wide","className":"jd-footer__cols"} -->
@@ -67,11 +75,11 @@ $jd_privacy = get_privacy_policy_url() ? esc_url( get_privacy_policy_url() ) : j
 
 <!-- wp:list-item -->
 <li><a href="<?php echo jd_url( 'contact' ); ?>">Contact</a></li>
-<!-- /wp:list-item -->
+<!-- /wp:list-item --><?php if ( '#' !== jd_external_url( 'ressources' ) ) : // Lien masqué tant que l'URL n'est pas renseignée. ?>
 
 <!-- wp:list-item -->
 <li><a href="<?php echo jd_external_url( 'ressources' ); ?>">Ressources</a></li>
-<!-- /wp:list-item --></ul>
+<!-- /wp:list-item --><?php endif; ?></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
 
@@ -83,18 +91,18 @@ $jd_privacy = get_privacy_policy_url() ? esc_url( get_privacy_policy_url() ) : j
 <!-- wp:list {"className":"jd-footer__links"} -->
 <ul class="wp-block-list jd-footer__links"><!-- wp:list-item -->
 <li><a href="<?php echo jd_url( 'synth' ); ?>">SYNTH ↗</a></li>
-<!-- /wp:list-item -->
+<!-- /wp:list-item --><?php if ( '#' !== jd_external_url( 'inferences' ) ) : // Lien masqué tant que l'URL n'est pas renseignée. ?>
 
 <!-- wp:list-item -->
 <li><a href="<?php echo jd_external_url( 'inferences' ); ?>">Inférences</a></li>
-<!-- /wp:list-item --></ul>
+<!-- /wp:list-item --><?php endif; ?></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
 <!-- wp:group {"align":"wide","className":"jd-footer__bottom","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
 <div class="wp-block-group alignwide jd-footer__bottom"><!-- wp:paragraph -->
-<p><a href="<?php echo jd_url( 'mentions-legales' ); ?>">Mentions légales</a> · <a href="<?php echo $jd_privacy; ?>">Confidentialité</a></p>
+<p><?php echo implode( ' · ', $jd_legal_links ); // phpcs:ignore WordPress.Security.EscapeOutput -- liens échappés ci-dessus ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
