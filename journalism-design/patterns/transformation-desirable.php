@@ -5,21 +5,27 @@
  * Categories: jd-sections
  * Keywords: alternative, désirable, souveraineté, design
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"55%"} -->
-<div class="wp-block-column" style="flex-basis:55%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Parti pris</p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Une alternative doit être désirable</h2>
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Une alternative doit <em>être désirable</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:columns {"align":"wide","className":"jd-inner"} -->
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Les solutions ouvertes, européennes ou souveraines ne peuvent pas être adoptées durablement si elles dégradent fortement l’expérience de travail.</p>
 <!-- /wp:paragraph -->
 
@@ -32,8 +38,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"45%"} -->
-<div class="wp-block-column" style="flex-basis:45%"><!-- wp:heading {"level":6} -->
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"level":6} -->
 <h6 class="wp-block-heading">Notre approche croise donc</h6>
 <!-- /wp:heading -->
 
@@ -59,17 +65,19 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:group {"className":"is-style-card jd-price","layout":{"type":"default"}} -->
-<div class="wp-block-group is-style-card jd-price"><!-- wp:paragraph -->
+<!-- wp:group {"className":"jd-panel","backgroundColor":"accent","textColor":"ink","layout":{"type":"default"}} -->
+<div class="wp-block-group jd-panel has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:paragraph -->
 <p>Les missions sont construites <strong>sur devis</strong> après analyse du périmètre et des objectifs.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-accent"} -->
-<div class="wp-block-button is-style-accent"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Étudier un workflow →</a></div>
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Étudier un workflow →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

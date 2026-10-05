@@ -5,27 +5,29 @@
  * Categories: jd-sections
  * Keywords: doctrine, IA, questions, politique
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"40%"} -->
-<div class="wp-block-column" style="flex-basis:40%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Doctrine</p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Une doctrine numérique &amp; IA</h2>
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Une doctrine <em>numérique &amp; IA</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Nous aidons les organisations à formaliser leurs choix.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column -->
+<!-- /wp:paragraph -->
 
-<!-- wp:column {"width":"60%"} -->
-<div class="wp-block-column" style="flex-basis:60%"><!-- wp:heading {"level":6} -->
+<!-- wp:heading {"level":6} -->
 <h6 class="wp-block-heading">Parmi les questions traitées</h6>
 <!-- /wp:heading -->
 

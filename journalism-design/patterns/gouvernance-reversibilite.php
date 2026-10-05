@@ -5,31 +5,33 @@
  * Categories: jd-sections
  * Keywords: réversibilité, portabilité, dépendance
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-reversibility","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section jd-reversibility has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:paragraph {"align":"wide","className":"is-style-eyebrow"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Le droit à la réversibilité numérique</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"wide"} -->
-<p>Avant d’adopter un nouvel outil, une organisation devrait pouvoir répondre à une question simple :</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"align":"wide","className":"jd-big-question"} -->
-<h2 class="wp-block-heading alignwide jd-big-question">Pourrons-nous encore fonctionner sans lui dans trois ans ?</h2>
-<!-- /wp:heading -->
-
-<!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"36%"} -->
-<div class="wp-block-column" style="flex-basis:36%"><!-- wp:paragraph -->
-<p>Cela suppose notamment de réfléchir à :</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"64%"} -->
-<div class="wp-block-column" style="flex-basis:64%"><!-- wp:list {"className":"is-style-columns"} -->
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:paragraph {"className":"is-style-lead"} -->
+<p class="is-style-lead">Avant d’adopter un nouvel outil, une organisation devrait pouvoir répondre à une question simple :</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"jd-big-question"} -->
+<h2 class="wp-block-heading jd-big-question">Pourrons-nous encore fonctionner sans lui <em>dans trois ans ?</em></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Cela suppose notamment de réfléchir à :</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-columns"} -->
 <ul class="wp-block-list is-style-columns"><!-- wp:list-item -->
 <li>la portabilité des données</li>
 <!-- /wp:list-item -->

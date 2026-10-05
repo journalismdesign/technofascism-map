@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'JD_VERSION', '1.1.0' );
+define( 'JD_VERSION', '1.2.0' );
 define( 'JD_DIR', get_template_directory() );
 define( 'JD_URI', get_template_directory_uri() );
 
@@ -40,6 +40,13 @@ function jd_enqueue() {
 		array(),
 		JD_VERSION . '.' . filemtime( JD_DIR . '/assets/css/theme.css' )
 	);
+	wp_enqueue_script(
+		'journalism-design-marquee',
+		JD_URI . '/assets/js/marquee.js',
+		array(),
+		JD_VERSION . '.' . filemtime( JD_DIR . '/assets/js/marquee.js' ),
+		array( 'in_footer' => true, 'strategy' => 'defer' )
+	);
 }
 add_action( 'wp_enqueue_scripts', 'jd_enqueue' );
 
@@ -58,11 +65,13 @@ add_action( 'init', 'jd_pattern_categories', 9 );
 function jd_login_logo() {
 	$logo = get_theme_file_uri( 'assets/images/logo-journalism-design.png' );
 	echo '<style>
-		body.login { background: #f4f1ea; }
+		body.login { background: #F4EFE7; }
 		#login h1 a { background-image: url(' . esc_url( $logo ) . '); background-size: contain; background-position: center; width: 100%; max-width: 320px; height: 44px; }
-		.login #backtoblog a, .login #nav a { color: #141310; }
-		body.login.wp-core-ui .button-primary { background: #141310; border-color: #141310; border-radius: 0; }
-		body.login.wp-core-ui .button-primary:hover, body.login.wp-core-ui .button-primary:focus { background: #00ffe0; border-color: #141310; color: #141310; }
+		.login form { border: 1px solid #0A0F0E; border-radius: 0; box-shadow: 6px 6px 0 #0A0F0E; background: #F4EFE7; }
+		.login input[type=text], .login input[type=password] { border-radius: 0; border-color: #0A0F0E; background: #F4EFE7; }
+		.login #backtoblog a, .login #nav a { color: #0A0F0E; }
+		body.login.wp-core-ui .button-primary { background: #0A0F0E; border-color: #0A0F0E; color: #01FFE0; border-radius: 0; box-shadow: 4px 4px 0 #01FFE0; }
+		body.login.wp-core-ui .button-primary:hover, body.login.wp-core-ui .button-primary:focus { background: #0A0F0E; color: #01FFE0; box-shadow: none; transform: translate(4px, 4px); }
 	</style>';
 }
 add_action( 'login_enqueue_scripts', 'jd_login_logo' );

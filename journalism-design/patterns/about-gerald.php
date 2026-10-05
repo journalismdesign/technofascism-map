@@ -5,23 +5,25 @@
  * Categories: jd-sections
  * Keywords: biographie, fondateur, portrait, équipe
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"paper-2","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section has-paper-2-background-color has-background"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"38%"} -->
-<div class="wp-block-column" style="flex-basis:38%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Fondateur</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Gérald Holubowicz</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"62%"} -->
-<div class="wp-block-column" style="flex-basis:62%"><!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Gérald <em>Holubowicz</em></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Journaliste, auteur, réalisateur et spécialiste de l’innovation éditoriale, Gérald Holubowicz travaille depuis plus de quinze ans à l’intersection des médias et des technologies numériques.</p>
 <!-- /wp:paragraph -->
 

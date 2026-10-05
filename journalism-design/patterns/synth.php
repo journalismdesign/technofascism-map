@@ -5,22 +5,28 @@
  * Categories: jd-sections
  * Keywords: synth, média, newsletter
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-synth","backgroundColor":"ink-2","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section jd-synth has-paper-color has-ink-2-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"is-style-ruled"} -->
-<div class="wp-block-columns alignwide is-style-ruled"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">SYNTH</p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Observer les rapports de pouvoir créés par la technologie</h2>
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Observer les rapports de pouvoir <em>créés par la technologie</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Journalism.design édite également <strong>SYNTH</strong>, média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
+<!-- wp:columns {"align":"wide","className":"jd-inner"} -->
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
+<p class="is-style-lead">Journalism.design édite également <strong><em>SYNTH</em></strong>, média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
@@ -35,8 +41,8 @@
 <p>Ce travail journalistique nourrit en permanence notre compréhension :</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-index"} -->
-<ul class="wp-block-list is-style-index"><!-- wp:list-item -->
+<!-- wp:list {"className":"is-style-arrows"} -->
+<ul class="wp-block-list is-style-arrows"><!-- wp:list-item -->
 <li>des infrastructures numériques</li>
 <!-- /wp:list-item -->
 
@@ -65,9 +71,11 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:paragraph {"className":"jd-synth__motto"} -->
-<p class="jd-synth__motto"><strong>SYNTH observe ces transformations.</strong><br><strong>Journalism.design aide les organisations à agir face à elles.</strong></p>
+<!-- wp:paragraph {"className":"jd-motto"} -->
+<p class="jd-motto"><strong>SYNTH observe ces transformations.</strong><br><strong>Journalism.design aide les organisations à agir face à elles.</strong></p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

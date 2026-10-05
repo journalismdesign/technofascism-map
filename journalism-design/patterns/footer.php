@@ -11,11 +11,11 @@
 
 $jd_privacy = get_privacy_policy_url() ? esc_url( get_privacy_policy_url() ) : jd_url( 'politique-de-confidentialite' );
 ?>
-<!-- wp:group {"align":"full","className":"jd-footer","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull jd-footer has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-footer__cols"} -->
+<!-- wp:group {"align":"full","className":"jd-footer","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull jd-footer"><!-- wp:columns {"align":"wide","className":"jd-footer__cols"} -->
 <div class="wp-block-columns alignwide jd-footer__cols"><!-- wp:column {"width":"40%"} -->
 <div class="wp-block-column" style="flex-basis:40%"><!-- wp:image {"sizeSlug":"full","linkDestination":"custom","className":"jd-footer__logo"} -->
-<figure class="wp-block-image size-full jd-footer__logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-journalism-design-fond-sombre.png' ) ); ?>" alt="Journalism.design"/></a></figure>
+<figure class="wp-block-image size-full jd-footer__logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-journalism-design.png' ) ); ?>" alt="Journalism.design"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"className":"jd-footer__tagline"} -->

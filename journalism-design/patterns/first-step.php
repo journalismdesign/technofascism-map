@@ -5,31 +5,27 @@
  * Categories: jd-cta
  * Keywords: cta, diagnostic, tarif, contact
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-cta","backgroundColor":"accent","textColor":"ink","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section jd-cta has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","verticalAlignment":"bottom"} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-bottom"><!-- wp:column {"verticalAlignment":"bottom","width":"60%"} -->
-<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:60%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Première étape</p>
+<section class="wp-block-group alignfull jd-section jd-cta has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:paragraph {"align":"center","className":"is-style-eyebrow"} -->
+<p class="is-style-eyebrow has-text-align-center">Première étape</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Commençons par le problème, pas par l’outil.</h2>
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Commençons par le problème, <em>pas par l’outil.</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Vous pouvez commencer par une <strong>journée de diagnostic stratégique à partir de 1 500 € HT</strong>. Elle permet d’examiner votre situation avec un regard extérieur, d’identifier les principaux enjeux et de déterminer les prochaines étapes utiles.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column -->
+<!-- wp:paragraph {"align":"center","className":"is-style-lead"} -->
+<p class="is-style-lead has-text-align-center">Vous pouvez commencer par une <strong>journée de diagnostic stratégique à partir de 1&nbsp;500&nbsp;€&nbsp;HT</strong>. Elle permet d’examiner votre situation avec un regard extérieur, d’identifier les principaux enjeux et de déterminer les prochaines étapes utiles.</p>
+<!-- /wp:paragraph -->
 
-<!-- wp:column {"verticalAlignment":"bottom","width":"40%"} -->
-<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:40%"><!-- wp:buttons -->
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Parler de votre organisation →</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></section>
+<!-- /wp:buttons --></section>
 <!-- /wp:group -->

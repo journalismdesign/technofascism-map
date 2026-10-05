@@ -5,21 +5,27 @@
  * Categories: jd-cta
  * Keywords: tarif, journée, diagnostic, prix
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"58%"} -->
-<div class="wp-block-column" style="flex-basis:58%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Pour commencer</p>
-<!-- /wp:paragraph -->
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Une première journée pour commencer</h2>
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Une première journée <em>pour commencer</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:columns {"align":"wide","className":"jd-inner"} -->
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Pour les organisations qui souhaitent d’abord clarifier leur situation, nous proposons une <strong>journée de diagnostic stratégique</strong>.</p>
 <!-- /wp:paragraph -->
 
@@ -28,26 +34,28 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"bottom","width":"42%"} -->
-<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:42%"><!-- wp:group {"className":"is-style-card jd-price","layout":{"type":"default"}} -->
-<div class="wp-block-group is-style-card jd-price"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:group {"className":"jd-panel","backgroundColor":"accent","textColor":"ink","layout":{"type":"default"}} -->
+<div class="wp-block-group jd-panel has-ink-color has-accent-background-color has-text-color has-background"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Journée de diagnostic stratégique</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"is-style-price"} -->
-<p class="is-style-price">À partir de 1 500 € HT.</p>
+<p class="is-style-price">À partir de 1&nbsp;500&nbsp;€&nbsp;HT.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"fontSize":"s"} -->
-<p class="has-s-font-size">Les diagnostics approfondis et accompagnements sont ensuite proposés <strong>sur devis</strong>, selon le périmètre, la taille des équipes et les problématiques identifiées.</p>
+<!-- wp:paragraph -->
+<p>Les diagnostics approfondis et accompagnements sont ensuite proposés <strong>sur devis</strong>, selon le périmètre, la taille des équipes et les problématiques identifiées.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-accent"} -->
-<div class="wp-block-button is-style-accent"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Organiser un diagnostic →</a></div>
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Organiser un diagnostic →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

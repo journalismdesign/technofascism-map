@@ -5,22 +5,44 @@
  * Categories: jd-sections
  * Keywords: open source, logiciel libre, communs
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Notre rapport à l’open source et aux communs</p>
-<!-- /wp:paragraph -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<p class="is-style-eyebrow">Open source et communs</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">L’ouverture est un moyen de conserver du pouvoir d’agir.</h2>
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">L’ouverture est un moyen de conserver <em>du pouvoir d’agir.</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:columns {"align":"wide","className":"jd-inner"} -->
+<div class="wp-block-columns alignwide jd-inner"><!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Les logiciels libres, l’open source, les standards ouverts et les communs numériques constituent souvent de puissants outils de souveraineté.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Nous les privilégions lorsqu’ils répondent réellement aux besoins de l’organisation.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Nous ne les considérons cependant pas comme des solutions universelles.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Un outil propriétaire peut parfois être le meilleur choix.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Notre travail consiste précisément à permettre à l’organisation de comprendre <strong>les compromis qu’elle accepte en le choisissant.</strong></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -53,23 +75,9 @@
 <!-- wp:list-item -->
 <li>et de maintenir des alternatives</li>
 <!-- /wp:list-item --></ul>
-<!-- /wp:list -->
-
-<!-- wp:paragraph -->
-<p>Nous les privilégions lorsqu’ils répondent réellement aux besoins de l’organisation.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Nous ne les considérons cependant pas comme des solutions universelles.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Un outil propriétaire peut parfois être le meilleur choix.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Notre travail consiste précisément à permettre à l’organisation de comprendre <strong>les compromis qu’elle accepte en le choisissant.</strong></p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:list --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
 <!-- /wp:group -->

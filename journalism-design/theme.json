@@ -4,22 +4,22 @@
 	"settings": {
 		"appearanceTools": true,
 		"useRootPaddingAwareAlignments": true,
-		"layout": { "contentSize": "760px", "wideSize": "1320px" },
+		"layout": { "contentSize": "760px", "wideSize": "1280px" },
 		"color": {
 			"defaultPalette": false,
 			"defaultGradients": false,
 			"defaultDuotone": false,
-			"custom": true,
+			"custom": false,
+			"customGradient": false,
 			"palette": [
-				{ "slug": "paper", "name": "Papier", "color": "#f4f1ea" },
-				{ "slug": "paper-2", "name": "Papier foncé", "color": "#e8e4dc" },
-				{ "slug": "ink", "name": "Encre", "color": "#141310" },
-				{ "slug": "ink-2", "name": "Ardoise", "color": "#26282b" },
-				{ "slug": "muted", "name": "Gris texte", "color": "#5f5b51" },
-				{ "slug": "line", "name": "Filet", "color": "#c6c0b2" },
-				{ "slug": "accent", "name": "Cyan signal", "color": "#00FFE0" }
+				{ "slug": "paper", "name": "Crème", "color": "#F4EFE7" },
+				{ "slug": "ink", "name": "Encre", "color": "#0A0F0E" },
+				{ "slug": "accent", "name": "Cyan signal", "color": "#01FFE0" },
+				{ "slug": "teal", "name": "Sarcelle logo (grands corps sur crème uniquement)", "color": "#0DD4B9" }
 			]
 		},
+		"shadow": { "defaultPresets": false, "presets": [] },
+		"border": { "radius": false },
 		"spacing": {
 			"units": ["px", "em", "rem", "vh", "vw", "%"],
 			"defaultSpacingSizes": false,
@@ -27,10 +27,10 @@
 				{ "slug": "10", "name": "XXS", "size": "0.5rem" },
 				{ "slug": "20", "name": "XS", "size": "1rem" },
 				{ "slug": "30", "name": "S", "size": "1.5rem" },
-				{ "slug": "40", "name": "M", "size": "clamp(1.75rem, 3vw, 2.5rem)" },
-				{ "slug": "50", "name": "L", "size": "clamp(2.5rem, 5vw, 4rem)" },
-				{ "slug": "60", "name": "XL", "size": "clamp(3.5rem, 8vw, 6.5rem)" },
-				{ "slug": "70", "name": "XXL", "size": "clamp(4.5rem, 11vw, 9rem)" }
+				{ "slug": "40", "name": "M", "size": "clamp(2rem, 3.5vw, 3rem)" },
+				{ "slug": "50", "name": "L", "size": "clamp(2.75rem, 5vw, 4.5rem)" },
+				{ "slug": "60", "name": "XL", "size": "clamp(4.5rem, 9vw, 9rem)" },
+				{ "slug": "70", "name": "XXL", "size": "clamp(5.5rem, 11vw, 10rem)" }
 			]
 		},
 		"typography": {
@@ -38,89 +38,52 @@
 			"fluid": true,
 			"fontFamilies": [
 				{
-					"slug": "display",
-					"name": "Archivo (titres)",
-					"fontFamily": "\"Archivo\", \"Helvetica Neue\", Arial, sans-serif",
+					"slug": "sans",
+					"name": "Inter Tight (grotesque)",
+					"fontFamily": "\"Inter Tight\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
 					"fontFace": [
-						{
-							"fontFamily": "Archivo",
-							"fontStyle": "normal",
-							"fontWeight": "100 900",
-							"fontStretch": "62% 125%",
-							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/archivo-latin-standard-normal.woff2"]
-						}
+						{ "fontFamily": "Inter Tight", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/inter-tight-latin-wght-normal.woff2"] },
+						{ "fontFamily": "Inter Tight", "fontStyle": "italic", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/inter-tight-latin-wght-italic.woff2"] }
 					]
 				},
 				{
 					"slug": "serif",
-					"name": "Newsreader (texte)",
-					"fontFamily": "\"Newsreader\", Georgia, \"Times New Roman\", serif",
+					"name": "Newsreader italique (chutes de titres)",
+					"fontFamily": "Newsreader, \"Times New Roman\", serif",
 					"fontFace": [
-						{
-							"fontFamily": "Newsreader",
-							"fontStyle": "normal",
-							"fontWeight": "200 800",
-							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/newsreader-latin-standard-normal.woff2"]
-						},
-						{
-							"fontFamily": "Newsreader",
-							"fontStyle": "italic",
-							"fontWeight": "200 800",
-							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/newsreader-latin-standard-italic.woff2"]
-						}
+						{ "fontFamily": "Newsreader", "fontStyle": "italic", "fontWeight": "200 800", "fontDisplay": "swap", "src": ["file:./assets/fonts/newsreader-latin-standard-italic.woff2"] }
 					]
 				},
 				{
 					"slug": "mono",
-					"name": "IBM Plex Mono (étiquettes)",
-					"fontFamily": "\"IBM Plex Mono\", ui-monospace, Menlo, Consolas, monospace",
+					"name": "JetBrains Mono (étiquettes)",
+					"fontFamily": "\"JetBrains Mono\", \"SF Mono\", Menlo, monospace",
 					"fontFace": [
-						{
-							"fontFamily": "IBM Plex Mono",
-							"fontStyle": "normal",
-							"fontWeight": "400",
-							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/ibm-plex-mono-latin-400-normal.woff2"]
-						},
-						{
-							"fontFamily": "IBM Plex Mono",
-							"fontStyle": "normal",
-							"fontWeight": "500",
-							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/ibm-plex-mono-latin-500-normal.woff2"]
-						}
+						{ "fontFamily": "JetBrains Mono", "fontStyle": "normal", "fontWeight": "100 800", "fontDisplay": "swap", "src": ["file:./assets/fonts/jetbrains-mono-latin-wght-normal.woff2"] }
 					]
 				}
 			],
 			"fontSizes": [
-				{ "slug": "xs", "name": "XS", "size": "0.75rem", "fluid": false },
+				{ "slug": "xs", "name": "XS (mono)", "size": "0.6875rem", "fluid": false },
 				{ "slug": "s", "name": "S", "size": "0.875rem", "fluid": false },
-				{ "slug": "m", "name": "M", "size": "1.1875rem", "fluid": { "min": "1.0625rem", "max": "1.1875rem" } },
-				{ "slug": "l", "name": "L", "size": "1.5rem", "fluid": { "min": "1.25rem", "max": "1.5rem" } },
+				{ "slug": "m", "name": "M (texte)", "size": "1.0625rem", "fluid": false },
+				{ "slug": "l", "name": "L (chapô)", "size": "1.375rem", "fluid": { "min": "1.1875rem", "max": "1.375rem" } },
 				{ "slug": "xl", "name": "XL", "size": "2.25rem", "fluid": { "min": "1.625rem", "max": "2.25rem" } },
-				{ "slug": "xxl", "name": "XXL", "size": "3.5rem", "fluid": { "min": "2.25rem", "max": "3.5rem" } },
-				{ "slug": "huge", "name": "Énorme", "size": "6rem", "fluid": { "min": "2.75rem", "max": "6rem" } }
+				{ "slug": "xxl", "name": "XXL", "size": "4.25rem", "fluid": { "min": "2.375rem", "max": "4.25rem" } },
+				{ "slug": "huge", "name": "Affiche", "size": "7rem", "fluid": { "min": "2.75rem", "max": "7rem" } }
 			]
-		},
-		"custom": {
-			"rule": "1px solid var(--wp--preset--color--line)",
-			"rule-strong": "2px solid var(--wp--preset--color--ink)",
-			"header-height": "72px"
 		}
 	},
 	"styles": {
 		"color": { "background": "var:preset|color|paper", "text": "var:preset|color|ink" },
 		"typography": {
-			"fontFamily": "var:preset|font-family|serif",
+			"fontFamily": "var:preset|font-family|sans",
 			"fontSize": "var:preset|font-size|m",
-			"lineHeight": "1.55"
+			"lineHeight": "1.5"
 		},
 		"spacing": {
 			"blockGap": "1.25rem",
-			"padding": { "left": "clamp(1rem, 4vw, 2.5rem)", "right": "clamp(1rem, 4vw, 2.5rem)", "top": "0", "bottom": "0" }
+			"padding": { "left": "clamp(1rem, 4.5vw, 4rem)", "right": "clamp(1rem, 4.5vw, 4rem)", "top": "0", "bottom": "0" }
 		},
 		"elements": {
 			"link": {
@@ -130,76 +93,57 @@
 			},
 			"heading": {
 				"typography": {
-					"fontFamily": "var:preset|font-family|display",
+					"fontFamily": "var:preset|font-family|sans",
 					"fontWeight": "800",
 					"textTransform": "uppercase",
-					"lineHeight": "1",
-					"letterSpacing": "-0.01em"
+					"lineHeight": "0.9",
+					"letterSpacing": "-0.045em"
 				}
 			},
-			"h1": { "typography": { "fontSize": "var:preset|font-size|huge", "lineHeight": "0.92" } },
-			"h2": { "typography": { "fontSize": "var:preset|font-size|xxl", "lineHeight": "0.95" } },
-			"h3": { "typography": { "fontSize": "var:preset|font-size|xl", "lineHeight": "1" } },
-			"h4": { "typography": { "fontSize": "var:preset|font-size|l", "lineHeight": "1.05" } },
-			"h5": { "typography": { "fontSize": "var:preset|font-size|m", "lineHeight": "1.15" } },
+			"h1": { "typography": { "fontSize": "var:preset|font-size|huge" } },
+			"h2": { "typography": { "fontSize": "var:preset|font-size|xxl" } },
+			"h3": { "typography": { "fontSize": "var:preset|font-size|xl", "letterSpacing": "-0.035em", "lineHeight": "0.95" } },
+			"h4": { "typography": { "fontSize": "var:preset|font-size|l", "letterSpacing": "-0.02em", "lineHeight": "1.1" } },
+			"h5": { "typography": { "fontSize": "var:preset|font-size|m", "textTransform": "none", "letterSpacing": "-0.01em", "lineHeight": "1.3", "fontWeight": "700" } },
 			"h6": {
 				"typography": {
 					"fontFamily": "var:preset|font-family|mono",
 					"fontSize": "var:preset|font-size|xs",
-					"fontWeight": "500",
+					"fontWeight": "400",
 					"letterSpacing": "0.08em",
-					"lineHeight": "1.4"
-				},
-				"color": { "text": "var:preset|color|ink" }
+					"lineHeight": "1.5"
+				}
 			},
 			"button": {
-				"color": { "background": "var:preset|color|ink", "text": "var:preset|color|paper" },
+				"color": { "background": "var:preset|color|ink", "text": "var:preset|color|accent" },
 				"border": { "radius": "0" },
 				"typography": {
-					"fontFamily": "var:preset|font-family|mono",
+					"fontFamily": "var:preset|font-family|sans",
 					"fontSize": "var:preset|font-size|s",
 					"fontWeight": "500",
-					"textTransform": "uppercase",
-					"letterSpacing": "0.06em"
+					"textTransform": "none",
+					"letterSpacing": "0"
 				},
-				"spacing": { "padding": { "top": "0.95em", "bottom": "0.95em", "left": "1.4em", "right": "1.4em" } },
-				":hover": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|ink" } },
-				":focus": { "color": { "background": "var:preset|color|accent", "text": "var:preset|color|ink" } }
+				"spacing": { "padding": { "top": "12px", "bottom": "12px", "left": "20px", "right": "20px" } },
+				":hover": { "color": { "background": "var:preset|color|ink", "text": "var:preset|color|accent" } },
+				":focus": { "color": { "background": "var:preset|color|ink", "text": "var:preset|color|accent" } }
 			},
 			"caption": { "typography": { "fontFamily": "var:preset|font-family|mono", "fontSize": "var:preset|font-size|xs" } }
 		},
 		"blocks": {
 			"core/navigation": {
-				"typography": {
-					"fontFamily": "var:preset|font-family|mono",
-					"fontSize": "var:preset|font-size|s",
-					"fontWeight": "500",
-					"textTransform": "uppercase",
-					"letterSpacing": "0.05em"
-				}
-			},
-			"core/site-title": {
-				"typography": {
-					"fontFamily": "var:preset|font-family|display",
-					"fontWeight": "800",
-					"fontSize": "1.375rem",
-					"textTransform": "uppercase",
-					"letterSpacing": "-0.01em"
-				},
-				"elements": { "link": { "typography": { "textDecoration": "none" } } }
+				"typography": { "fontFamily": "var:preset|font-family|sans", "fontSize": "var:preset|font-size|s", "fontWeight": "500" }
 			},
 			"core/separator": {
-				"color": { "text": "var:preset|color|line" },
+				"color": { "text": "var:preset|color|ink" },
 				"border": { "width": "1px 0 0 0" }
 			},
 			"core/quote": {
-				"typography": { "fontFamily": "var:preset|font-family|display", "fontWeight": "700", "fontSize": "var:preset|font-size|xl", "textTransform": "uppercase", "lineHeight": "1.05" },
-				"border": { "left": { "color": "var:preset|color|accent", "width": "4px", "style": "solid" } },
+				"typography": { "fontFamily": "var:preset|font-family|serif", "fontStyle": "italic", "fontWeight": "400", "fontSize": "var:preset|font-size|xl", "lineHeight": "1.1", "letterSpacing": "-0.02em" },
+				"border": { "left": { "color": "var:preset|color|ink", "width": "1px", "style": "solid" } },
 				"spacing": { "padding": { "left": "1.25em" } }
 			},
-			"core/post-title": {
-				"typography": { "fontSize": "var:preset|font-size|xxl" }
-			}
+			"core/post-title": { "typography": { "fontSize": "var:preset|font-size|xxl" } }
 		}
 	},
 	"templateParts": [

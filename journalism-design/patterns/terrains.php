@@ -5,27 +5,29 @@
  * Categories: jd-sections
  * Keywords: clients, secteurs, terrains
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"42%"} -->
-<div class="wp-block-column" style="flex-basis:42%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Pour qui</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Nos terrains d’intervention</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Journalism.design travaille particulièrement avec les organisations dont le fonctionnement dépend fortement de la production, de la circulation ou de la transformation de l’information.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"58%"} -->
-<div class="wp-block-column" style="flex-basis:58%"><!-- wp:list {"className":"is-style-columns"} -->
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Nos terrains <em>d’intervention</em></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lead"} -->
+<p class="is-style-lead">Journalism.design travaille particulièrement avec les organisations dont le fonctionnement dépend fortement de la production, de la circulation ou de la transformation de l’information.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-columns"} -->
 <ul class="wp-block-list is-style-columns"><!-- wp:list-item -->
 <li>Médias</li>
 <!-- /wp:list-item -->

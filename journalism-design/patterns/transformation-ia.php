@@ -5,28 +5,30 @@
  * Categories: jd-sections
  * Keywords: IA, production, usages
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"36%"} -->
-<div class="wp-block-column" style="flex-basis:36%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<section class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Usages</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">IA &amp; production</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Nous intervenons notamment sur des usages tels que :</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"64%"} -->
-<div class="wp-block-column" style="flex-basis:64%"><!-- wp:list {"className":"is-style-tags is-large"} -->
-<ul class="wp-block-list is-style-tags is-large"><!-- wp:list-item -->
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">IA &amp; <em>production</em></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lead"} -->
+<p class="is-style-lead">Nous intervenons notamment sur des usages tels que :</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-tags"} -->
+<ul class="wp-block-list is-style-tags"><!-- wp:list-item -->
 <li>Recherche et documentation</li>
 <!-- /wp:list-item -->
 

@@ -23,7 +23,7 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'home-questions', 'approach', 'levels-overview', 'terrains', 'formations-teaser', 'synth', 'first-step' ),
+				'sections' => array( 'home-hero', 'marquee', 'home-questions', 'approach', 'levels-overview', 'terrains', 'formations-teaser', 'synth', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
@@ -114,14 +114,47 @@ function jd_page_has_theme_content( $post ) {
 }
 
 /**
+ * Mémorise l'empreinte du contenu inséré par le thème, pour savoir
+ * ensuite si la page a été modifiée à la main.
+ *
+ * @param int $id Page.
+ */
+function jd_stamp_page( $id ) {
+	update_post_meta( $id, '_jd_content_hash', md5( (string) get_post_field( 'post_content', $id, 'raw' ) ) );
+	update_post_meta( $id, '_jd_content_version', JD_VERSION );
+}
+
+/**
+ * La page contient-elle exactement le contenu inséré par le thème (non modifié) ?
+ *
+ * @param WP_Post $post Page.
+ * @return bool
+ */
+function jd_page_is_pristine( $post ) {
+	$hash = get_post_meta( $post->ID, '_jd_content_hash', true );
+	return $hash && hash_equals( $hash, md5( (string) $post->post_content ) );
+}
+
+/**
+ * La page contient-elle le contenu non modifié de la version actuelle du thème ?
+ *
+ * @param WP_Post $post Page.
+ * @return bool
+ */
+function jd_page_is_current( $post ) {
+	return JD_VERSION === get_post_meta( $post->ID, '_jd_content_version', true ) && jd_page_is_pristine( $post );
+}
+
+/**
  * Crée ou remplit une page du plan du site.
  *
  * @param string $slug  Slug de la page.
  * @param array  $page  Réglages (jd_site_map).
- * @param bool   $force Remplacer un contenu existant (une révision est conservée).
- * @return string created|filled|replaced|kept|error
+ * @param bool   $force   Remplacer un contenu existant (une révision est conservée).
+ * @param bool   $upgrade Mettre à jour une page dont le contenu du thème n'a pas été modifié.
+ * @return string created|filled|replaced|updated|kept|error
  */
-function jd_fill_page( $slug, $page, $force = false ) {
+function jd_fill_page( $slug, $page, $force = false, $upgrade = false ) {
 	$content  = wp_slash( jd_compose( $page['sections'] ) );
 	$existing = get_page_by_path( $slug, OBJECT, 'page' );
 
@@ -136,7 +169,11 @@ function jd_fill_page( $slug, $page, $force = false ) {
 			),
 			true
 		);
-		return is_wp_error( $id ) ? 'error' : 'created';
+		if ( is_wp_error( $id ) ) {
+			return 'error';
+		}
+		jd_stamp_page( $id );
+		return 'created';
 	}
 
 	// Le titre de page n'est jamais affiché : on retire un éventuel modèle
@@ -145,8 +182,9 @@ function jd_fill_page( $slug, $page, $force = false ) {
 		delete_post_meta( $existing->ID, '_wp_page_template' );
 	}
 
-	$empty = jd_page_is_empty( $existing );
-	if ( ! $force && ! $empty ) {
+	$empty   = jd_page_is_empty( $existing );
+	$updated = $upgrade && ! $empty && jd_page_is_pristine( $existing ) && ! jd_page_is_current( $existing );
+	if ( ! $force && ! $empty && ! $updated ) {
 		return 'kept';
 	}
 	if ( ! $empty && wp_revisions_enabled( $existing ) ) {
@@ -163,7 +201,11 @@ function jd_fill_page( $slug, $page, $force = false ) {
 	if ( is_wp_error( $result ) ) {
 		return 'error';
 	}
-	return $empty ? 'filled' : 'replaced';
+	jd_stamp_page( $existing->ID );
+	if ( $empty ) {
+		return 'filled';
+	}
+	return $updated && ! $force ? 'updated' : 'replaced';
 }
 
 /**
@@ -192,27 +234,35 @@ function jd_set_front_page( $force = false ) {
  * Crée les pages absentes et remplit les pages vides.
  * Les pages ayant déjà leur propre contenu sont conservées et signalées.
  *
- * @param bool        $force Remplacer aussi les contenus existants.
- * @param string|null $only  Ne traiter qu'une page (slug).
+ * @param bool        $force   Remplacer aussi les contenus existants.
+ * @param string|null $only    Ne traiter qu'une page (slug).
+ * @param bool        $upgrade Mettre à jour les pages du thème non modifiées.
  * @return array Statut par slug.
  */
-function jd_install_content( $force = false, $only = null ) {
+function jd_install_content( $force = false, $only = null, $upgrade = false ) {
 	$report = array();
 	foreach ( jd_site_map() as $slug => $page ) {
 		if ( $only && $only !== $slug ) {
 			continue;
 		}
-		$report[ $slug ] = jd_fill_page( $slug, $page, $force );
+		$report[ $slug ] = jd_fill_page( $slug, $page, $force, $upgrade );
 	}
 
-	$kept = array();
+	$kept     = array();
+	$outdated = array();
 	foreach ( jd_site_map() as $slug => $page ) {
 		$p = get_page_by_path( $slug, OBJECT, 'page' );
-		if ( $p && ! jd_page_has_theme_content( $p ) && ! jd_page_is_empty( $p ) ) {
+		if ( ! $p || jd_page_is_empty( $p ) || jd_page_is_current( $p ) ) {
+			continue;
+		}
+		if ( jd_page_has_theme_content( $p ) ) {
+			$outdated[] = $slug;
+		} else {
 			$kept[] = $slug;
 		}
 	}
 	update_option( 'jd_pages_kept', $kept, false );
+	update_option( 'jd_pages_outdated', $outdated, false );
 	update_option( 'jd_content_version', JD_VERSION );
 	return $report;
 }
@@ -238,7 +288,7 @@ function jd_maybe_install_on_update() {
 	if ( JD_VERSION === get_option( 'jd_content_version' ) || ! current_user_can( 'edit_pages' ) ) {
 		return;
 	}
-	jd_install_content();
+	jd_install_content( false, null, true );
 	jd_set_front_page();
 }
 add_action( 'admin_init', 'jd_maybe_install_on_update' );
@@ -247,26 +297,35 @@ add_action( 'admin_init', 'jd_maybe_install_on_update' );
  * Avertit quand des pages existantes n'ont pas été préremplies.
  */
 function jd_admin_notice() {
-	$kept = (array) get_option( 'jd_pages_kept', array() );
-	if ( ! $kept || ! current_user_can( 'edit_pages' ) ) {
+	if ( ! current_user_can( 'edit_pages' ) ) {
 		return;
 	}
 	$screen = get_current_screen();
 	if ( $screen && 'appearance_page_jd-content' === $screen->id ) {
 		return;
 	}
-	$titles = array();
-	$map    = jd_site_map();
-	foreach ( $kept as $slug ) {
-		$titles[] = isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $slug;
-	}
-	printf(
-		'<div class="notice notice-warning"><p>%1$s <strong>%2$s</strong>. <a href="%3$s">%4$s</a></p></div>',
-		esc_html__( 'Journalism.design : ces pages existaient déjà avec leur propre contenu et n’ont pas été préremplies :', 'journalism-design' ),
-		esc_html( implode( ', ', $titles ) ),
-		esc_url( admin_url( 'themes.php?page=jd-content' ) ),
-		esc_html__( 'Les remplacer par le contenu du thème', 'journalism-design' )
+	$map      = jd_site_map();
+	$messages = array(
+		'jd_pages_kept'     => __( 'Journalism.design : ces pages existaient déjà avec leur propre contenu et n’ont pas été préremplies :', 'journalism-design' ),
+		'jd_pages_outdated' => __( 'Journalism.design : ces pages contiennent une version précédente du thème, modifiée depuis, et n’ont pas reçu le nouveau design :', 'journalism-design' ),
 	);
+	foreach ( $messages as $option => $message ) {
+		$slugs = (array) get_option( $option, array() );
+		if ( ! $slugs ) {
+			continue;
+		}
+		$titles = array();
+		foreach ( $slugs as $slug ) {
+			$titles[] = isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $slug;
+		}
+		printf(
+			'<div class="notice notice-warning"><p>%1$s <strong>%2$s</strong>. <a href="%3$s">%4$s</a></p></div>',
+			esc_html( $message ),
+			esc_html( implode( ', ', $titles ) ),
+			esc_url( admin_url( 'themes.php?page=jd-content' ) ),
+			esc_html__( 'Les remplacer par le contenu du thème', 'journalism-design' )
+		);
+	}
 }
 add_action( 'admin_notices', 'jd_admin_notice' );
 
@@ -297,6 +356,7 @@ function jd_admin_page() {
 		'created'  => __( 'créée', 'journalism-design' ),
 		'filled'   => __( 'remplie', 'journalism-design' ),
 		'replaced' => __( 'remplacée (révision conservée)', 'journalism-design' ),
+		'updated'  => __( 'mise à jour (révision conservée)', 'journalism-design' ),
 		'kept'     => __( 'conservée', 'journalism-design' ),
 		'error'    => __( 'erreur', 'journalism-design' ),
 	);
@@ -324,7 +384,13 @@ function jd_admin_page() {
 			$action = 'fill';
 			$button = __( 'Remplir', 'journalism-design' );
 		} else {
-			$state  = jd_page_has_theme_content( $p ) ? __( 'contenu du thème', 'journalism-design' ) : __( 'contenu personnalisé', 'journalism-design' );
+			if ( jd_page_is_current( $p ) ) {
+				$state = __( 'contenu du thème, à jour', 'journalism-design' );
+			} elseif ( jd_page_has_theme_content( $p ) ) {
+				$state = __( 'version précédente du thème ou contenu modifié', 'journalism-design' );
+			} else {
+				$state = __( 'contenu personnalisé', 'journalism-design' );
+			}
 			$action = 'replace';
 			$button = __( 'Remplacer', 'journalism-design' );
 		}

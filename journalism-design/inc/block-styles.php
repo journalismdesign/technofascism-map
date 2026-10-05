@@ -11,9 +11,9 @@ defined( 'ABSPATH' ) || exit;
 function jd_register_block_styles() {
 	$styles = array(
 		'core/paragraph' => array(
-			'eyebrow'  => __( 'Surtitre (mono)', 'journalism-design' ),
+			'eyebrow'  => __( 'Kicker [ mono ]', 'journalism-design' ),
 			'lead'     => __( 'Chapô', 'journalism-design' ),
-			'question' => __( 'Question (grand titre)', 'journalism-design' ),
+			'question' => __( 'Affirmation en capitales', 'journalism-design' ),
 			'price'    => __( 'Encadré tarif', 'journalism-design' ),
 		),
 		'core/heading'   => array(
@@ -22,18 +22,18 @@ function jd_register_block_styles() {
 		),
 		'core/list'      => array(
 			'index'  => __( 'Index à filets', 'journalism-design' ),
-			'arrows' => __( 'Flèches', 'journalism-design' ),
-			'tags'   => __( 'Étiquettes', 'journalism-design' ),
+			'arrows' => __( 'Puces carrées', 'journalism-design' ),
+			'tags'   => __( 'Pastilles', 'journalism-design' ),
 			'columns' => __( 'Deux colonnes à filets', 'journalism-design' ),
 		),
 		'core/group'     => array(
 			'card'      => __( 'Carte', 'journalism-design' ),
 			'rule-top'  => __( 'Filet épais au-dessus', 'journalism-design' ),
-			'principle' => __( 'Principe (numéroté)', 'journalism-design' ),
+			'principle' => __( 'Cellule numérotée', 'journalism-design' ),
 		),
 		'core/button'    => array(
-			'accent' => __( 'Cyan', 'journalism-design' ),
-			'ghost'  => __( 'Contour', 'journalism-design' ),
+			'accent' => __( 'Contact (cyan cerclé)', 'journalism-design' ),
+			'ghost'  => __( 'Secondaire (crème cerclé)', 'journalism-design' ),
 		),
 		'core/columns'   => array(
 			'ruled' => __( 'Colonnes séparées par des filets', 'journalism-design' ),

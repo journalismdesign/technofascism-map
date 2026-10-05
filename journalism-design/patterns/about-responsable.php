@@ -5,23 +5,25 @@
  * Categories: jd-sections
  * Keywords: numérique responsable, environnement, sobriété
  *
+ * Fichier généré : la structure suit le design system Journalism.design.
+ *
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-section--rule","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull jd-section jd-section--rule"><!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
+<div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Environnement</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Un numérique responsable n’est pas un numérique frugal par principe</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
+<!-- wp:column {"width":"75%","className":"jd-band__body"} -->
+<div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Un numérique responsable n’est pas un numérique <em>frugal par principe</em></h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lead"} -->
 <p class="is-style-lead">Il s’agit de mettre les moyens technologiques en proportion avec les besoins.</p>
 <!-- /wp:paragraph -->
 

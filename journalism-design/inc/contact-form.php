@@ -136,7 +136,7 @@ function jd_contact_shortcode( $atts ) {
 
 			<p class="jd-form__legal"><?php esc_html_e( 'Les informations transmises servent uniquement à répondre à votre demande. Elles sont envoyées par e-mail et ne sont pas conservées sur ce site.', 'journalism-design' ); ?></p>
 
-			<div class="wp-block-button is-style-accent"><button type="submit" class="wp-block-button__link wp-element-button"><?php echo esc_html( $atts['bouton'] ); ?></button></div>
+			<div class="wp-block-buttons"><div class="wp-block-button"><button type="submit" class="wp-block-button__link wp-element-button"><?php echo esc_html( $atts['bouton'] ); ?></button></div></div>
 		</form>
 	</div>
 	<?php
