@@ -12,7 +12,7 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-hero","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull jd-section jd-hero"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Étape 03 · Maîtriser</p>
+<p class="is-style-eyebrow">Méthode M³ · 03 · Maîtriser</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->

@@ -348,16 +348,16 @@ S['approach'] = ('Notre approche — cinq principes', 'jd-sections', 'approche, 
         ], 'jd-cells--3'),
     ]))
 
-S['levels-overview'] = ('La méthode : comprendre, transformer, maîtriser (cartes)', 'jd-sections', 'méthode, expertises, interventions, étapes, offre, livrables', band(
-    'La méthode', [
-        H(2, 'Comprendre, transformer, <em>maîtriser</em>'),
-        P('Trois étapes, qui peuvent être engagées séparément ou à la suite. Chacune débouche sur des livrables précis.', 'is-style-lead'),
+S['levels-overview'] = ('La méthode M³ : mesurer, modifier, maîtriser (cartes)', 'jd-sections', 'méthode, M3, expertises, interventions, étapes, offre, livrables', band(
+    'Notre méthode', [
+        H(2, 'La méthode <em>M³</em>'),
+        P('<strong>Mesurer, modifier, maîtriser.</strong> Trois étapes, qui peuvent être engagées séparément ou à la suite. Chacune débouche sur des livrables précis.', 'is-style-lead'),
         GROUP([
-            card('01 · Comprendre', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Cartographier les usages, workflows, outils, données et dépendances. Identifier ce qu’il faut conserver, améliorer ou transformer.',
+            card('M³ · 01 · Mesurer', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Cartographier les usages, workflows, outils, données et dépendances. Identifier ce qu’il faut conserver, améliorer ou transformer.',
                  deliverables=['Cartographie des outils, workflows et données', 'Dépendances critiques et risques', '3 à 5 actions prioritaires', 'Feuille de route']),
-            card('02 · Transformer', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Concevoir et tester de nouveaux workflows, automatisations et usages de l’IA avec les équipes avant de les déployer.',
+            card('M³ · 02 · Modifier', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Concevoir et tester de nouveaux workflows, automatisations et usages de l’IA avec les équipes avant de les déployer.',
                  deliverables=['Prototype testé avec les équipes', 'Comparaison de solutions', 'Procédures de contrôle', 'Documentation et plan de déploiement']),
-            card('03 · Maîtriser', 'Gouvernance &amp; souveraineté', url('gouvernance-souverainete'), 'Définir les règles, architectures et alternatives permettant de conserver la maîtrise des données, des compétences et des fournisseurs.',
+            card('M³ · 03 · Maîtriser', 'Gouvernance &amp; souveraineté', url('gouvernance-souverainete'), 'Définir les règles, architectures et alternatives permettant de conserver la maîtrise des données, des compétences et des fournisseurs.',
                  deliverables=['Doctrine numérique et IA', 'Charte d’usage et classification des données', 'Politique de réversibilité', 'Plan de formation']),
         ], c='jd-cells jd-cells--3 jd-cards', layout='grid', grid_min='15rem'),
     ], bg='ink', anchor='expertises'))
@@ -458,8 +458,8 @@ S['diagnostic-deliverable'] = ('Diagnostic — Ce que contient le livrable', 'jd
 
 # ---- Diagnostic & stratégie
 S['diagnostic-hero'] = ('Diagnostic & stratégie — Ouverture', 'jd-sections', 'diagnostic, stratégie, hero', hero(
-    'Étape 01 · Comprendre', 'Diagnostic &amp; <em>stratégie</em>', [
-        COLUMN([P('Comprendre ses usages, ses dépendances et ses marges de manœuvre.', 'is-style-question')], '50%'),
+    'Méthode M³ · 01 · Mesurer', 'Diagnostic &amp; <em>stratégie</em>', [
+        COLUMN([P('Mesurer ses usages, ses dépendances et ses marges de manœuvre.', 'is-style-question')], '50%'),
         COLUMN([
             P('Nous regardons comment votre organisation se sert réellement du numérique et de l’intelligence artificielle, y compris là où personne ne l’a déclaré.', 'is-style-lead'),
             P('La cartographie couvre les outils, les workflows, les données, les irritants et les dépendances, ainsi que les usages qui se sont installés de manière informelle.'),
@@ -510,7 +510,7 @@ S['diagnostic-day'] = ('Journée de diagnostic (offre d’entrée, tarif)', 'jd-
 
 # ---- Transformation & prototypage
 S['transformation-hero'] = ('Transformation & prototypage — Ouverture', 'jd-sections', 'transformation, prototypage, hero', hero(
-    'Étape 02 · Transformer', 'Transformation &amp; <em>prototypage</em>', [
+    'Méthode M³ · 02 · Modifier', 'Transformation &amp; <em>prototypage</em>', [
         COLUMN([P('Construire des alternatives qui fonctionnent réellement.', 'is-style-question')], '50%'),
         COLUMN([
             P('Une transformation numérique commence mal quand elle commence par le choix d’un logiciel.', 'is-style-lead'),
@@ -586,7 +586,7 @@ S['transformation-desirable'] = ('Transformation — Une alternative doit être 
 
 # ---- Gouvernance & souveraineté
 S['gouvernance-hero'] = ('Gouvernance & souveraineté — Ouverture', 'jd-sections', 'gouvernance, souveraineté, hero', hero(
-    'Étape 03 · Maîtriser', 'Gouvernance &amp; <em>souveraineté numérique</em>', [
+    'Méthode M³ · 03 · Maîtriser', 'Gouvernance &amp; <em>souveraineté numérique</em>', [
         COLUMN([
             P('Choisir ses dépendances plutôt que les subir.', 'is-style-question'),
             P('Aucune organisation n’est totalement indépendante technologiquement.', 'is-style-lead'),
@@ -725,7 +725,7 @@ S['formations-faq'] = ('Formations — Questions fréquentes', 'jd-sections', 'f
                 'Chaque programme est construit sur mesure, à partir de vos métiers et de la maturité de vos équipes sur ces sujets.']),
             DETAILS('Quelle est la différence entre formation et conseil ?', [
                 'La formation fait monter les équipes en compétences : comprendre l’IA, pratiquer les outils, savoir ce qu’on peut leur confier. Le conseil porte sur les choix de l’organisation : diagnostic, prototypes, doctrine, gouvernance, réduction des dépendances.',
-                f'Les deux se complètent souvent, et les parcours peuvent articuler les deux. <a href="{url("", "expertises")}">Voir les trois étapes de l’accompagnement →</a>']),
+                f'Les deux se complètent souvent, et les parcours peuvent articuler les deux. <a href="{url("", "expertises")}">Voir les trois étapes de la méthode M³ →</a>']),
             DETAILS('Qui sont les formateurs ?', [
                 'Gérald Holubowicz, fondateur du studio, intervient en personne. Il forme depuis plus de quinze ans journalistes, étudiants et professionnels aux transformations de l’information et du numérique.',
                 'Selon les sujets, il peut s’associer à d’autres professionnels du réseau du studio.']),

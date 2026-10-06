@@ -1,9 +1,9 @@
 <?php
 /**
- * Title: La méthode : comprendre, transformer, maîtriser (cartes)
+ * Title: La méthode M³ : mesurer, modifier, maîtriser (cartes)
  * Slug: journalism-design/levels-overview
  * Categories: jd-sections
- * Keywords: méthode, expertises, interventions, étapes, offre, livrables
+ * Keywords: méthode, M3, expertises, interventions, étapes, offre, livrables
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -14,23 +14,23 @@
 <section id="expertises" class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">La méthode</p>
+<p class="is-style-eyebrow">Notre méthode</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Comprendre, transformer, <em>maîtriser</em></h2>
+<h2 class="wp-block-heading">La méthode <em>M³</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Trois étapes, qui peuvent être engagées séparément ou à la suite. Chacune débouche sur des livrables précis.</p>
+<p class="is-style-lead"><strong>Mesurer, modifier, maîtriser.</strong> Trois étapes, qui peuvent être engagées séparément ou à la suite. Chacune débouche sur des livrables précis.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"className":"jd-cells jd-cells--3 jd-cards","layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->
 <div class="wp-block-group jd-cells jd-cells--3 jd-cards"><!-- wp:group {"className":"jd-card","layout":{"type":"default"}} -->
 <div class="wp-block-group jd-card"><!-- wp:paragraph {"className":"jd-card__num"} -->
-<p class="jd-card__num">01 · Comprendre</p>
+<p class="jd-card__num">M³ · 01 · Mesurer</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"jd-card__name"} -->
@@ -70,7 +70,7 @@
 
 <!-- wp:group {"className":"jd-card","layout":{"type":"default"}} -->
 <div class="wp-block-group jd-card"><!-- wp:paragraph {"className":"jd-card__num"} -->
-<p class="jd-card__num">02 · Transformer</p>
+<p class="jd-card__num">M³ · 02 · Modifier</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"jd-card__name"} -->
@@ -110,7 +110,7 @@
 
 <!-- wp:group {"className":"jd-card","layout":{"type":"default"}} -->
 <div class="wp-block-group jd-card"><!-- wp:paragraph {"className":"jd-card__num"} -->
-<p class="jd-card__num">03 · Maîtriser</p>
+<p class="jd-card__num">M³ · 03 · Maîtriser</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"jd-card__name"} -->

@@ -40,7 +40,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Les deux se complètent souvent, et les parcours peuvent articuler les deux. <a href="<?php echo jd_url( '', 'expertises' ); ?>">Voir les trois étapes de l’accompagnement →</a></p>
+<p>Les deux se complètent souvent, et les parcours peuvent articuler les deux. <a href="<?php echo jd_url( '', 'expertises' ); ?>">Voir les trois étapes de la méthode M³ →</a></p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details -->
 

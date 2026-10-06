@@ -12,7 +12,7 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-hero","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull jd-section jd-hero"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Étape 01 · Comprendre</p>
+<p class="is-style-eyebrow">Méthode M³ · 01 · Mesurer</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->
@@ -22,7 +22,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-question"} -->
-<p class="is-style-question">Comprendre ses usages, ses dépendances et ses marges de manœuvre.</p>
+<p class="is-style-question">Mesurer ses usages, ses dépendances et ses marges de manœuvre.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
