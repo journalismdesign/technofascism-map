@@ -90,6 +90,12 @@ function jd_contact_shortcode( $atts ) {
 		'jd_contact'
 	);
 
+	// Contact Form 7 actif : le formulaire est géré (et ses envois paramétrés) dans l'extension.
+	$cf7 = jd_cf7_form_id();
+	if ( $cf7 ) {
+		return '<div class="jd-form-wrap jd-form-wrap--cf7" id="jd-contact">' . do_shortcode( '[contact-form-7 id="' . (int) $cf7 . '" html_class="jd-form"]' ) . '</div>';
+	}
+
 	$status = isset( $_GET['envoi'] ) ? sanitize_key( wp_unslash( $_GET['envoi'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 	$id     = 'jd-contact';
 	ob_start();
@@ -205,3 +211,106 @@ function jd_contact_handle() {
 }
 add_action( 'admin_post_jd_contact', 'jd_contact_handle' );
 add_action( 'admin_post_nopriv_jd_contact', 'jd_contact_handle' );
+
+
+/* ---------------------------------------------------------------------------
+ * Contact Form 7
+ * Si l'extension est active, le thème crée une fois un formulaire
+ * « Journalism.design — Premier échange » reprenant les mêmes champs.
+ * Destinataires, objet et corps des e-mails se règlent ensuite dans
+ * Contact › Formulaires de contact, sans toucher au thème.
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Identifiant du formulaire Contact Form 7 du thème (0 si l'extension est absente).
+ *
+ * @return int
+ */
+function jd_cf7_form_id() {
+	if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
+		return 0;
+	}
+	$id = (int) get_option( 'jd_cf7_form_id' );
+	if ( $id && 'wpcf7_contact_form' === get_post_type( $id ) && 'trash' !== get_post_status( $id ) ) {
+		return $id;
+	}
+	return 0;
+}
+
+/**
+ * Balise CF7 d'une question à choix.
+ *
+ * @param string $name  Nom du champ.
+ * @param array  $field Définition (jd_contact_fields).
+ * @return string
+ */
+function jd_cf7_choice_tag( $name, $field ) {
+	$options = array_map(
+		function ( $o ) {
+			return '"' . str_replace( '"', '', $o ) . '"';
+		},
+		$field['options']
+	);
+	// Les boutons radio de CF7 sont toujours obligatoires : une case à choix
+	// unique (« exclusive ») garde ces questions facultatives.
+	$extra = 'checkbox' === $field['type'] ? '' : ' exclusive';
+	return '[checkbox ' . $name . ' use_label_element' . $extra . ' ' . implode( ' ', $options ) . ']';
+}
+
+/**
+ * Crée le formulaire Contact Form 7 du thème s'il n'existe pas.
+ */
+function jd_cf7_install() {
+	if ( ! class_exists( 'WPCF7_ContactForm' ) || jd_cf7_form_id() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$form  = "<div class=\"jd-form__grid\">\n";
+	$form .= "<p class=\"jd-field\"><label>Nom <span>*</span>\n[text* your-name autocomplete:name]</label></p>\n";
+	$form .= "<p class=\"jd-field\"><label>Organisation\n[text organisation autocomplete:organization]</label></p>\n";
+	$form .= "<p class=\"jd-field\"><label>Fonction\n[text fonction autocomplete:organization-title]</label></p>\n";
+	$form .= "<p class=\"jd-field\"><label>Email professionnel <span>*</span>\n[email* your-email autocomplete:email]</label></p>\n";
+	$form .= "</div>\n\n";
+	$body  = '';
+	foreach ( jd_contact_fields() as $name => $field ) {
+		$form .= '<fieldset class="jd-choices' . ( ! empty( $field['inline'] ) ? ' is-inline' : '' ) . '"><legend>' . esc_html( $field['label'] ) . "</legend>\n" . jd_cf7_choice_tag( $name, $field ) . "\n</fieldset>\n\n";
+		$body .= $field['label'] . ' : [' . $name . "]\n";
+	}
+	$form .= "<p class=\"jd-field\"><label>Décrivez-nous brièvement votre situation\n[textarea situation x7]</label></p>\n\n";
+	$form .= "<p class=\"jd-form__legal\">Les informations transmises servent uniquement à répondre à votre demande.</p>\n\n";
+	$form .= "[submit \"Envoyer la demande →\"]";
+
+	$mail_body = "Nom : [your-name]\nOrganisation : [organisation]\nFonction : [fonction]\nEmail professionnel : [your-email]\n\n" . $body . "\nSituation :\n[situation]\n\n--\nEnvoyé depuis le formulaire de contact de [_site_title] ([_site_url])";
+
+	$cf = WPCF7_ContactForm::get_template( array( 'title' => 'Journalism.design — Premier échange' ) );
+	$cf->set_properties(
+		array(
+			'form'     => $form,
+			'mail'     => array(
+				'active'             => true,
+				'subject'            => '[_site_title] Nouvelle demande — [your-name]',
+				'sender'             => '[_site_title] <wordpress@[_site_domain]>',
+				'recipient'          => '[_site_admin_email]',
+				'body'               => $mail_body,
+				'additional_headers' => 'Reply-To: [your-name] <[your-email]>',
+				'attachments'        => '',
+				'use_html'           => false,
+				'exclude_blank'      => false,
+			),
+			'mail_2'   => array( 'active' => false ),
+			'messages' => array_merge(
+				wpcf7_messages() ? array_map( function ( $m ) { return $m['default']; }, wpcf7_messages() ) : array(),
+				array(
+					'mail_sent_ok'     => 'Merci, votre demande a bien été envoyée.',
+					'mail_sent_ng'     => 'L’envoi a échoué. Réessayez plus tard ou écrivez-nous directement par e-mail.',
+					'validation_error' => 'Un ou plusieurs champs sont à corriger.',
+				)
+			),
+		)
+	);
+	$id = $cf->save();
+	if ( $id ) {
+		update_option( 'jd_cf7_form_id', (int) $id, false );
+	}
+}
+add_action( 'admin_init', 'jd_cf7_install' );

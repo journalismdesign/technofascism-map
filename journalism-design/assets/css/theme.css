@@ -921,3 +921,78 @@ html.jd-dialog-open { overflow: hidden; }
 	max-width: 30ch;
 }
 .jd-indice-teaser .jd-inner { align-items: flex-end !important; }
+
+/* ---------- Contact Form 7 (formulaire « Premier échange ») ---------- */
+.jd-form-wrap--cf7 .wpcf7-form-control-wrap { display: block; }
+.jd-form-wrap--cf7 .jd-field label { display: block; }
+.jd-form-wrap--cf7 .jd-field input.wpcf7-form-control,
+.jd-form-wrap--cf7 .jd-field textarea.wpcf7-form-control { margin-top: 0.5rem; text-transform: none; letter-spacing: 0; font-family: var(--jd-sans); font-size: var(--wp--preset--font-size--m); }
+.jd-form-wrap--cf7 .wpcf7-checkbox { display: flex; flex-wrap: wrap; gap: 0.5rem; clear: both; }
+.jd-form-wrap--cf7 .wpcf7-list-item { margin: 0; }
+.jd-form-wrap--cf7 .wpcf7-list-item label { position: relative; cursor: pointer; display: block; }
+.jd-form-wrap--cf7 .wpcf7-list-item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.jd-form-wrap--cf7 .wpcf7-list-item-label {
+	display: inline-block;
+	border: 1px solid var(--jd-ink);
+	padding: 0.5em 0.85em;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	background: var(--jd-cream);
+}
+.jd-form-wrap--cf7 .wpcf7-list-item label:hover .wpcf7-list-item-label { background: var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:checked + .wpcf7-list-item-label { background: var(--jd-ink); color: var(--jd-cream); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:checked + .wpcf7-list-item-label::before { content: "✓ "; color: var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:focus-visible + .wpcf7-list-item-label { outline: 2px solid var(--jd-ink); outline-offset: 3px; }
+.jd-form-wrap--cf7 .wpcf7-submit {
+	font: inherit;
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
+	background: var(--jd-ink);
+	color: var(--jd-cyan);
+	border: 1px solid var(--jd-ink);
+	border-radius: 0;
+	padding: 12px 20px;
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cyan);
+	cursor: pointer;
+	justify-self: start;
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jd-form-wrap--cf7 .wpcf7-submit:hover { transform: translate(var(--jd-shadow), var(--jd-shadow)); box-shadow: 0 0 0 var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-spinner { margin: 0 0 0 1rem; }
+.jd-form-wrap--cf7 .wpcf7-not-valid-tip { font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--jd-ink); margin-top: 0.4rem; }
+.jd-form-wrap--cf7 .wpcf7-not-valid { box-shadow: 4px 4px 0 var(--jd-ink); }
+.jd-form-wrap--cf7 .wpcf7-response-output { margin: 0 !important; padding: 1rem 1.25rem !important; border: 1px solid var(--jd-ink) !important; font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--s); }
+.jd-form-wrap--cf7 .sent .wpcf7-response-output { background: var(--jd-cyan); }
+.jd-form-wrap--cf7 .invalid .wpcf7-response-output,
+.jd-form-wrap--cf7 .failed .wpcf7-response-output { background: var(--jd-ink); color: var(--jd-cream); }
+
+/* ---------- Formations : niveaux et FAQ ---------- */
+.jd-level h6.wp-block-heading { margin: 1.25rem 0 0.3rem !important; }
+.jd-level .jd-level__num { font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+.has-ink-background-color .jd-level .jd-level__num { color: var(--jd-cyan); }
+.jd-cards .jd-level { cursor: default; }
+.jd-level h3 { font-family: var(--jd-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.025em; font-size: clamp(1.8rem, 2.6vw, 2.4rem); margin: 0; }
+.jd-cards .jd-level:hover { background: none; }
+.has-ink-background-color .jd-cards .jd-level:hover { color: inherit; }
+.jd-level .is-style-arrows { margin-top: 0.3rem; }
+.jd-faq { border-top: 1px solid var(--jd-ink); }
+.jd-faq > * + * { margin-top: 0 !important; }
+.jd-faq__item { border-bottom: 1px solid var(--jd-ink); padding: 0; margin: 0; }
+.jd-faq__item summary {
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 1.1rem 0;
+	font-weight: 700;
+	font-size: 1.25rem;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+}
+.jd-faq__item summary::-webkit-details-marker { display: none; }
+.jd-faq__item summary::after { content: "+"; font-family: var(--jd-mono); font-weight: 400; font-size: 1.25rem; line-height: 1; flex: none; }
+.jd-faq__item[open] summary::after { content: "−"; }
+.jd-faq__item summary:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.jd-faq__item > p { margin: 0 0 1rem; max-width: 68ch; }
+.jd-faq__item > p:last-child { margin-bottom: 1.4rem; }

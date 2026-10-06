@@ -40,7 +40,7 @@ function jd_site_map() {
 			),
 			'formations'                 => array(
 				'title'    => 'Formations',
-				'sections' => array( 'formations-hero', 'formations-list' ),
+				'sections' => array( 'formations-hero', 'formations-levels', 'formations-faq', 'first-step' ),
 			),
 			'cas-clients'                => array(
 				'title'    => 'Cas clients',

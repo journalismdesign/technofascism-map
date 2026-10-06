@@ -136,6 +136,12 @@ def COLUMNS(cols, c=None, align='wide', valign=None):
     return f'<!-- wp:columns{A(a)} -->\n<div{cls(*k)}>' + '\n\n'.join(cols) + '</div>\n<!-- /wp:columns -->'
 
 
+def DETAILS(summary, paras):
+    inner = '\n\n'.join(P(x) for x in paras)
+    return (f'<!-- wp:details {{"className":"jd-faq__item"}} -->\n<details class="wp-block-details jd-faq__item"><summary>{summary}</summary>'
+            + inner + '</details>\n<!-- /wp:details -->')
+
+
 def SHORTCODE(s):
     return f'<!-- wp:shortcode -->\n{s}\n<!-- /wp:shortcode -->'
 
@@ -607,6 +613,79 @@ S['formations-list'] = ('Formations — Exemples', 'jd-sections', 'formation, at
             COLUMN([BUTTONS(CONTACT_BTN())], '40%', 'bottom'),
         ], c='jd-inner', valign='bottom'),
     ], bg='ink'))
+
+def level(num, name, subtitle, text, who, modules, cta, href):
+    return GROUP([
+        P(num, 'jd-level__num'),
+        H(3, name),
+        P(subtitle, 'is-style-lead'),
+        P(text),
+        H(6, 'Pour qui'), P(who),
+        H(6, 'Contenus'), LIST(modules, 'is-style-arrows'),
+        P(f'<a href="{href}">{cta}</a>', 'jd-link'),
+    ], c='jd-card jd-level')
+
+
+S['formations-levels'] = ('Formations — Trois niveaux', 'jd-sections', 'formation, niveaux, parcours, catalogue', band(
+    'Trois niveaux', [
+        H(2, 'Sensibiliser, structurer, <em>transformer</em>'),
+        P('Chaque niveau peut être suivi seul ou s’enchaîner avec les autres. Les programmes sont construits à partir de vos métiers, de vos outils et de la maturité de vos équipes.', 'is-style-lead'),
+        GROUP([
+            level('Niveau 1', 'Sensibiliser', 'Comprendre l’IA, concrètement.',
+                  'Les équipes découvrent ce que font réellement les systèmes d’IA générative, à partir de leurs propres métiers : démonstrations, cas d’usage et ateliers pratiques, sans jargon technique.',
+                  'Toutes les équipes, quel que soit leur niveau technique : rédactions, communication, marketing, production.',
+                  ['Comprendre l’intelligence artificielle : modèles, données, limites, biais, hallucinations et enjeux économiques',
+                   'IA &amp; métiers : les usages pertinents et les tâches qu’il n’est pas souhaitable d’automatiser',
+                   'Données, confidentialité &amp; IA : ce qui arrive réellement aux informations envoyées dans les différents services'],
+                  'Construire une formation →', url('contact')),
+            level('Niveau 2', 'Structurer', 'Se donner des règles avant d’accélérer.',
+                  'La direction et les référents définissent un cadre partagé : doctrine IA, charte d’usage, classification des données, critères de choix des outils, place de l’open source et plan de formation.',
+                  'Directions, managers, référents numériques et IA.',
+                  ['Construire une doctrine IA : règles et critères de l’organisation, travaillés collectivement',
+                   'Souveraineté numérique : les dépendances technologiques et les stratégies pour les réduire',
+                   'Logiciel libre, open source &amp; communs : les modèles ouverts et leur intérêt stratégique'],
+                  'Parler de votre doctrine IA →', url('gouvernance-souverainete')),
+            level('Niveau 3', 'Transformer', 'Ancrer de nouvelles pratiques dans la durée.',
+                  'Formation et accompagnement se rejoignent : identification des cas d’usage prioritaires, prototypes testés avec les équipes, solutions choisies pour leur réversibilité, feuille de route et référents internes formés.',
+                  'Organisations qui veulent passer d’expérimentations dispersées à des pratiques stables.',
+                  ['Ateliers sur les workflows réels de l’organisation',
+                   'Prototypes et tests avec les équipes',
+                   'Formation des référents internes'],
+                  'Construire votre feuille de route →', url('transformation-prototypage')),
+        ], c='jd-cells jd-cells--3 jd-cards', layout='grid', grid_min='15rem'),
+        COLUMNS([
+            COLUMN([P('<strong>Formations et parcours collectifs sur devis.</strong>')], '60%'),
+            COLUMN([BUTTONS(BTN('Construire une formation →', url('contact')))], '40%', 'bottom'),
+        ], c='jd-inner', valign='bottom'),
+    ], bg='ink'))
+
+S['formations-faq'] = ('Formations — Questions fréquentes', 'jd-sections', 'formation, FAQ, questions', band(
+    'Questions fréquentes', [
+        H(2, 'Vos <em>questions</em>'),
+        GROUP([
+            DETAILS('À qui s’adressent vos formations ?', [
+                'Aux médias et aux organisations dont le travail repose sur l’information et les contenus, des directions aux équipes opérationnelles, quel que soit leur niveau technique.',
+                'Chaque programme est construit sur mesure, à partir de vos métiers et de la maturité de vos équipes sur ces sujets.']),
+            DETAILS('Quelle est la différence entre formation et conseil ?', [
+                'La formation fait monter les équipes en compétences : comprendre l’IA, pratiquer les outils, savoir ce qu’on peut leur confier. Le conseil porte sur les choix de l’organisation : diagnostic, prototypes, doctrine, gouvernance, réduction des dépendances.',
+                f'Les deux se complètent souvent, et les parcours peuvent articuler les deux. <a href="{url("", "expertises")}">Voir les trois étapes de l’accompagnement →</a>']),
+            DETAILS('Qui sont les formateurs ?', [
+                'Gérald Holubowicz, fondateur du studio, intervient en personne. Il forme depuis plus de quinze ans journalistes, étudiants et professionnels aux transformations de l’information et du numérique.',
+                'Selon les sujets, il peut s’associer à d’autres professionnels du réseau du studio.']),
+            DETAILS('Combien de temps dure une formation ?', [
+                'Cela dépend du besoin : une conférence, un atelier, une journée ou un parcours en plusieurs sessions. Chaque intervention est calibrée selon vos objectifs et votre rythme.']),
+            DETAILS('Sur quels outils travaillez-vous ?', [
+                'Sur ceux que vos équipes utilisent déjà, et sur des alternatives européennes, libres ou open source lorsque c’est pertinent. Aucun éditeur ne nous rémunère : nous ne vendons pas de licence.']),
+            DETAILS('Faut-il partager des données de l’organisation pendant la formation ?', [
+                'Non. Les exercices s’appuient sur des documents choisis avec vous, sans donnée sensible. Savoir ce que l’on peut confier ou non aux outils d’IA fait d’ailleurs partie de la formation.']),
+            DETAILS('D’où viennent les contenus ?', [
+                'Du terrain. Les outils et les usages abordés sont testés dans la production de SYNTH, le média édité par le studio, et dans les missions menées auprès des médias et des organisations.']),
+            DETAILS('Que se passe-t-il après la formation ?', [
+                'Si l’organisation le souhaite, la formation peut déboucher sur une journée de diagnostic, un prototype ou l’écriture d’une doctrine IA. Ce n’est jamais une condition.']),
+            DETAILS('Combien coûte une formation ?', [
+                'Les formations et parcours collectifs sont proposés sur devis, selon le format, la durée et le nombre de participants.']),
+        ], c='jd-faq'),
+    ]))
 
 # ---- À propos
 S['about-hero'] = ('À propos — Ouverture', 'jd-sections', 'à propos, hero, conviction', hero(

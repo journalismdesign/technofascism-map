@@ -93,9 +93,17 @@ Auto-diagnostic en 12 questions (5 dimensions : fournisseurs, données, compéte
 
 ## Formulaire de contact
 
-Bloc *Code court* contenant `[jd_contact]` (page Contact). Les demandes sont envoyées par e-mail à l'adresse d'administration du site (*Réglages › Général*) et **ne sont pas stockées** dans la base. Pour un envoi fiable, configurer un SMTP (par exemple avec une extension d'envoi d'e-mails).
+Bloc *Code court* contenant `[jd_contact]` (page Contact).
 
-Les questions à choix se modifient avec le filtre `jd_contact_fields`, le destinataire avec `jd_contact_recipient`.
+**Avec Contact Form 7 (recommandé)** : installer et activer l'extension Contact Form 7. Le thème crée alors automatiquement le formulaire « Journalism.design — Premier échange » (mêmes champs, mise en forme du design system) et `[jd_contact]` l'affiche. Destinataire, objet, corps du message, accusé de réception, messages d'erreur : tout se règle dans *Contact › Formulaires*. Les questions à choix unique utilisent des cases exclusives (une seule réponse possible, champ facultatif). Si le formulaire est supprimé, il est recréé à la prochaine visite de l'administration.
+
+**Sans Contact Form 7** : un formulaire natif prend le relais. Les demandes sont envoyées par e-mail à l'adresse d'administration du site (*Réglages › Général*) et **ne sont pas stockées** dans la base. Les questions se modifient avec le filtre `jd_contact_fields`, le destinataire avec `jd_contact_recipient`.
+
+Dans les deux cas, configurer un SMTP (par exemple avec une extension d'envoi d'e-mails) pour un envoi fiable.
+
+## Formations
+
+La page Formations présente trois niveaux (Sensibiliser, Structurer, Transformer) et une FAQ en blocs *Détails* (dépliables), modifiables dans l'éditeur.
 
 ## À compléter
 
