@@ -23,7 +23,7 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'marquee', 'indice-teaser', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
+				'sections' => array( 'home-hero', 'marquee', 'studio', 'indice-teaser', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
@@ -48,7 +48,7 @@ function jd_site_map() {
 			),
 			'a-propos'                   => array(
 				'title'    => 'À propos',
-				'sections' => array( 'about-hero', 'about-gerald', 'approach', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
+				'sections' => array( 'about-hero', 'studio', 'about-gerald', 'approach', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
 			),
 			'synth'                      => array(
 				'title'    => 'SYNTH',

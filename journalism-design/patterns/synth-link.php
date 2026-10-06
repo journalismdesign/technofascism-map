@@ -57,7 +57,15 @@
 <!-- wp:list-item -->
 <li>et des rapports de pouvoir qu’ils produisent</li>
 <!-- /wp:list-item --></ul>
-<!-- /wp:list --></div>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>SYNTH est aussi le premier client du studio : sa production sert de terrain d’expérimentation pour les outils, les workflows et les usages de l’IA que journalism.design recommande ensuite.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"40%","className":"jd-sticky-col"} -->

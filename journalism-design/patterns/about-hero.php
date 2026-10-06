@@ -22,11 +22,11 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design est un cabinet indépendant fondé et dirigé par Gérald Holubowicz.</p>
+<p class="is-style-lead">Journalism.design est un studio indépendant de taille modeste, fondé et dirigé par Gérald Holubowicz.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Selon les missions, il constitue des équipes avec des spécialistes du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration, ou travaille avec les équipes déjà en place.</p>
+<p>Il s’appuie sur plus de vingt ans de travail dans et avec les médias : création de contenus, conduite de projets éditoriaux, interventions et formations au sein de grands groupes de presse. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration, ou travaille avec les équipes déjà en place.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

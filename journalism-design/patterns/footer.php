@@ -31,7 +31,7 @@ if ( get_privacy_policy_url() ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"jd-footer__meta"} -->
-<p class="jd-footer__meta">Conseil en transformation numérique et IA.<br>Paris · France</p>
+<p class="jd-footer__meta">Studio éditorial · numérique et IA.<br>Paris · France</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

@@ -12,21 +12,21 @@
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"jd-section jd-hero","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull jd-section jd-hero"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Concevoir un numérique utile, désirable et maîtrisé</p>
+<p class="is-style-eyebrow">Studio éditorial · Numérique et IA</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->
-<h1 class="wp-block-heading alignwide jd-hero__title">Transformer vos usages numériques et IA <em>sans perdre le contrôle.</em></h1>
+<h1 class="wp-block-heading alignwide jd-hero__title">Un studio qui expérimente avant de <em>recommander.</em></h1>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"58%"} -->
 <div class="wp-block-column" style="flex-basis:58%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Nous aidons les organisations à améliorer leurs workflows, expérimenter de nouveaux usages de l’IA et réduire leurs dépendances technologiques — des premiers prototypes à la gouvernance.</p>
+<p class="is-style-lead">Journalism.design aide les médias et les organisations à transformer leurs usages numériques et IA sans perdre le contrôle de leurs outils, de leurs données ni de leurs savoir-faire.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Journalism.design est un cabinet indépendant fondé et dirigé par Gérald Holubowicz, qui réunit selon les missions des équipes de spécialistes. Nous ne vendons aucun logiciel et ne touchons aucune commission.</p>
+<p>Le studio s’appuie sur plus de vingt ans de travail dans les médias : création de contenus, conduite de projets, interventions et formations au sein de grands groupes de presse. Il édite aussi SYNTH, qui lui sert de terrain d’expérimentation. Les solutions qu’il recommande y sont d’abord testées ou défrichées.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -37,7 +37,7 @@
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-ghost"} -->
-<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'cas-clients' ); ?>">Voir les cas clients →</a></div>
+<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( '', 'studio' ); ?>">Comment travaille le studio ↓</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>

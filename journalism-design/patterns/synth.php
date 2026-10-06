@@ -33,6 +33,10 @@
 <p class="is-style-lead">Journalism.design édite <strong><em>SYNTH</em></strong>, un média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:paragraph -->
+<p>SYNTH sert aussi de terrain d’expérimentation au studio : outils, workflows et usages de l’IA y sont testés avant d’être recommandés.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-ghost"} -->
 <div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_external_url( 'synth' ); ?>" target="_blank" rel="noreferrer noopener">Découvrir SYNTH ↗</a></div>
