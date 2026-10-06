@@ -52,7 +52,15 @@
 <div class="wp-block-buttons"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Réserver une journée →</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"jd-link"} -->
+<p class="jd-link"><a href="<?php echo jd_url( 'diagnostic-strategie', 'livrable' ); ?>">Ce que contient le livrable →</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"jd-link"} -->
+<p class="jd-link"><a href="<?php echo jd_url( 'indice-dependance-numerique' ); ?>">Pas encore prêt ? Mesurez d’abord votre indice de dépendance →</a></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

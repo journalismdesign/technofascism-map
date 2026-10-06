@@ -356,6 +356,27 @@ S['references-teaser'] = ('Accueil — Références', 'jd-sections', 'référenc
         P(f'<a href="{url("cas-clients")}">Voir les cas clients →</a>', 'jd-link jd-link--inline'),
     ], c='jd-section--rule'))
 
+S['indice-teaser'] = ('Indice de dépendance numérique — appel au test', 'jd-cta', 'indice, test, auto-diagnostic, dépendance', band(
+    'Indice de dépendance numérique', [
+        H(2, 'Votre organisation pourrait-elle encore travailler si ses principaux fournisseurs changeaient <em>brutalement leurs règles ?</em>', 'jd-teaser__title'),
+        COLUMNS([
+            COLUMN([P('12 questions. 5 minutes. Un résultat immédiat, sans adresse e-mail : ce que votre organisation contrôle réellement, et ce dont elle dépend.', 'is-style-lead')], '60%'),
+            COLUMN([BUTTONS(BTN('Mesurer votre dépendance →', url('indice-dependance-numerique')))], '40%', 'bottom'),
+        ], c='jd-inner', valign='bottom'),
+    ], bg='ink', c='jd-indice-teaser'))
+
+S['indice'] = ('Indice de dépendance numérique — questionnaire', 'jd-sections', 'indice, test, questionnaire', band(
+    'Auto-diagnostic', [SHORTCODE('[jd_indice]')], c='jd-indice-page'))
+
+S['diagnostic-deliverable'] = ('Diagnostic — Ce que contient le livrable', 'jd-sections', 'livrable, diagnostic, restitution', band(
+    'Livrable', [
+        H(2, 'Ce que contient <em>le livrable</em>'),
+        P('La journée de diagnostic se conclut par une restitution et un document de synthèse qui présentent :', 'is-style-lead'),
+        LIST(['les dépendances critiques : outils, fournisseurs, données, usages d’IA', 'ce qu’il faut conserver', 'ce qu’il faut sécuriser',
+              'ce qui mérite d’être remplacé ou prototypé', 'les 3 à 5 actions prioritaires', 'une feuille de route'], 'is-style-index jd-questions'),
+        P(f'<a href="{url("indice-dependance-numerique")}">Pas encore prêt ? Mesurez d’abord votre indice de dépendance numérique →</a>', 'jd-link jd-link--inline'),
+    ], anchor='livrable'))
+
 # ---- Diagnostic & stratégie
 S['diagnostic-hero'] = ('Diagnostic & stratégie — Ouverture', 'jd-sections', 'diagnostic, stratégie, hero', hero(
     'Étape 01 · Comprendre', 'Diagnostic &amp; <em>stratégie</em>', [
@@ -399,6 +420,8 @@ S['diagnostic-day'] = ('Journée de diagnostic (offre d’entrée, tarif)', 'jd-
                 kicker('Journée de diagnostic stratégique'),
                 P('À partir de 1&nbsp;500&nbsp;€&nbsp;HT.', 'is-style-price'),
                 BUTTONS(BTN('Réserver une journée →', url('contact'))),
+                P(f'<a href="{url("diagnostic-strategie", "livrable")}">Ce que contient le livrable →</a>', 'jd-link'),
+                P(f'<a href="{url("indice-dependance-numerique")}">Pas encore prêt ? Mesurez d’abord votre indice de dépendance →</a>', 'jd-link'),
             ])], '45%'),
         ], c='jd-inner'),
     ]))

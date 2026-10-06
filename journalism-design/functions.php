@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'JD_VERSION', '1.5.0' );
+define( 'JD_VERSION', '1.6.0' );
 define( 'JD_DIR', get_template_directory() );
 define( 'JD_URI', get_template_directory_uri() );
 
@@ -15,6 +15,7 @@ require JD_DIR . '/inc/helpers.php';
 require JD_DIR . '/inc/block-styles.php';
 require JD_DIR . '/inc/contact-form.php';
 require JD_DIR . '/inc/setup-content.php';
+require JD_DIR . '/inc/indice.php';
 
 /**
  * Supports du thème.

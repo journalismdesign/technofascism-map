@@ -32,6 +32,7 @@ Le titre de la page (« Accueil », « Contact »…) n'est jamais affiché : se
 | Cas clients | `/cas-clients/` | publiée (missions récentes et références) |
 | À propos | `/a-propos/` | publiée |
 | SYNTH | `/synth/` | publiée (bouton vers https://synthmedia.fr) |
+| Indice de dépendance numérique | `/indice-dependance-numerique/` | publiée (questionnaire) |
 | Contact | `/contact/` | publiée |
 | Mentions légales | `/mentions-legales/` | **brouillon** : gabarit à remplir |
 
@@ -79,6 +80,17 @@ Trois versions dans `assets/images/` (fond transparent, marges rognées) :
 
 Les logos de l'en-tête et du pied de page sont des blocs Image : on peut les remplacer dans *Apparence › Éditeur › Compositions › Parties de modèle*.
 
+## Indice de dépendance numérique
+
+Auto-diagnostic en 12 questions (5 dimensions : fournisseurs, données, compétences, IA & automatisation, résilience), précédé d'un échauffement personnel facultatif de 3 questions, non noté et non enregistré.
+
+- **Accès** : page autonome `/indice-dependance-numerique/` (code court `[jd_indice]`). Sur toutes les autres pages, tout lien vers cette adresse ouvre le questionnaire en popin ; sans JavaScript, le lien mène simplement à la page. Le bandeau de l'accueil (sous l'ouverture) et la page Diagnostic y renvoient.
+- **Barème** : chaque réponse vaut de 0 à 6 points de dépendance ; chaque dimension est ramenée sur 100 et pèse 20 % de l'indice. Le barème est affiché aux visiteurs (« Comment l'indice est calculé »). Questions, points, réactions et textes sont définis dans `inc/indice.php`, source unique pour l'interface, l'e-mail et le baromètre.
+- **Résultat** : indice /100, niveau, radar et barres par dimension, trois conclusions (fragilité, point fort, point à investiguer), proposition de journée de diagnostic, lien vers le contenu du livrable.
+- **Données** : aucune donnée demandée avant le résultat. L'envoi par e-mail est facultatif, n'accepte que des adresses professionnelles et ne conserve pas l'adresse ; une copie n'est transmise à journalism.design que si le visiteur coche « être recontacté·e » ou « recevoir les publications » (deux consentements distincts).
+- **Baromètre** : le visiteur peut partager ses réponses anonymement (ni adresse, ni IP, ni identifiant ; date du jour seulement). Résultats agrégés et export CSV : *Outils › Indice de dépendance*.
+- La liste des domaines de messagerie grand public refusés se modifie avec le filtre `jd_indice_free_domains`.
+
 ## Formulaire de contact
 
 Bloc *Code court* contenant `[jd_contact]` (page Contact). Les demandes sont envoyées par e-mail à l'adresse d'administration du site (*Réglages › Général*) et **ne sont pas stockées** dans la base. Pour un envoi fiable, configurer un SMTP (par exemple avec une extension d'envoi d'e-mails).
@@ -120,7 +132,8 @@ journalism-design/
 │   ├── helpers.php        URLs internes et externes
 │   ├── block-styles.php   styles de blocs
 │   ├── contact-form.php   formulaire [jd_contact]
-│   └── setup-content.php  plan du site et création des pages
+│   ├── setup-content.php  plan du site et création des pages
+│   └── indice.php         indice de dépendance numérique (questionnaire, e-mail, baromètre)
 ├── patterns/            une section = un fichier (32 sections + en-tête et pied de page)
 ├── tools/               generate-patterns.py (génère patterns/)
 ├── parts/               en-tête, pied de page
@@ -128,6 +141,7 @@ journalism-design/
 └── assets/
     ├── css/theme.css
     ├── js/marquee.js    bandeau défilant
+    ├── js/indice.js     questionnaire de l'indice
     ├── images/          logos
     └── fonts/           woff2 + licences OFL
 ```

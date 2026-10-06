@@ -23,12 +23,12 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'marquee', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
+				'sections' => array( 'home-hero', 'marquee', 'indice-teaser', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
 				'title'    => 'Diagnostic & stratégie',
-				'sections' => array( 'diagnostic-hero', 'diagnostic-mission', 'diagnostic-day', 'levels-overview' ),
+				'sections' => array( 'diagnostic-hero', 'diagnostic-mission', 'diagnostic-deliverable', 'diagnostic-day', 'levels-overview' ),
 			),
 			'transformation-prototypage' => array(
 				'title'    => 'Transformation & prototypage',
@@ -53,6 +53,10 @@ function jd_site_map() {
 			'synth'                      => array(
 				'title'    => 'SYNTH',
 				'sections' => array( 'synth-hero', 'synth-link', 'first-step' ),
+			),
+			'indice-dependance-numerique' => array(
+				'title'    => 'Indice de dépendance numérique',
+				'sections' => array( 'indice' ),
 			),
 			'contact'                    => array(
 				'title'    => 'Contact',
