@@ -20,7 +20,7 @@
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Sensibiliser, structurer, <em>transformer</em></h2>
+<h2 class="wp-block-heading">Comprendre, décider, <em>mettre en pratique</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
@@ -34,11 +34,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Sensibiliser</h3>
+<h3 class="wp-block-heading">Comprendre</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Comprendre l’IA, concrètement.</p>
+<p class="is-style-lead">Savoir de quoi l’on parle avant de choisir.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -82,11 +82,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Structurer</h3>
+<h3 class="wp-block-heading">Décider</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Se donner des règles avant d’accélérer.</p>
+<p class="is-style-lead">Choisir ses règles avant d’accélérer.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -130,11 +130,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Transformer</h3>
+<h3 class="wp-block-heading">Mettre en pratique</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Ancrer de nouvelles pratiques dans la durée.</p>
+<p class="is-style-lead">Changer le travail, pas seulement les outils.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -160,6 +160,10 @@
 
 <!-- wp:list-item -->
 <li>Prototypes et tests avec les équipes</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Contrôle qualité et validation humaine des contenus produits avec l’IA</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->

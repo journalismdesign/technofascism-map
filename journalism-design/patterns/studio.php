@@ -3,7 +3,7 @@
  * Title: Le studio — expérimenter et recommander
  * Slug: journalism-design/studio
  * Categories: jd-sections
- * Keywords: studio, SYNTH, expérimentation, conseil
+ * Keywords: studio, SYNTH, expérimentation, conseil, équipe
  *
  * Fichier généré : la structure suit le design system Journalism.design.
  *
@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.</p>
+<p class="is-style-lead">Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"className":"jd-cells jd-cells--2","layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->
@@ -34,7 +34,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">SYNTH, le terrain d’essai</p>
+<p class="is-style-lead">SYNTH, un laboratoire en conditions réelles</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -66,7 +66,37 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph -->
-<p>L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.</p>
+<p>SYNTH et l’activité de conseil sont séparés : les clients du studio n’ont aucune prise sur ce que SYNTH publie, et les informations confiées dans le cadre des missions restent confidentielles. Elles ne nourrissent jamais les publications de SYNTH.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":6} -->
+<h6 class="wp-block-heading">Une équipe constituée selon le problème</h6>
+<!-- /wp:heading -->
+
+<!-- wp:list {"className":"is-style-tags jd-square"} -->
+<ul class="wp-block-list is-style-tags jd-square"><!-- wp:list-item -->
+<li>Stratégie, transformation éditoriale et formation : Gérald Holubowicz</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Développement et intégration</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Infrastructure et modèles d’IA</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Cybersécurité</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Migration de données et d’outils</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Le studio garde une structure légère : chaque mission réunit les compétences dont elle a besoin, avec des professionnels du réseau du studio ou les équipes déjà en place.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"jd-link jd-link--inline"} -->

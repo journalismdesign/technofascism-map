@@ -25,6 +25,7 @@ def url(slug, anchor=''):
 
 
 EXT = {"synth": "<?php echo jd_external_url( 'synth' ); ?>"}
+BOOK = "<?php echo jd_booking_url(); ?>"
 
 
 # ---------- blocs ----------
@@ -185,11 +186,13 @@ def cells(items, c='', mn='15rem'):
     return GROUP(items, c=('jd-cells ' + c).strip(), layout='grid', grid_min=mn)
 
 
-def card(num, title, href, text, more='Méthode et contenu →'):
+def card(num, title, href, text, more='Méthode et contenu →', deliverables=None):
+    extra = [H(6, 'Livrables'), LIST(deliverables, 'is-style-arrows')] if deliverables else []
     return GROUP([
         P(num, 'jd-card__num'),
         H(3, f'<a href="{href}">{title}</a>', 'jd-card__name'),
         P(text),
+    ] + extra + [
         P(f'<a href="{href}">{more}</a>', 'jd-link'),
     ], c='jd-card')
 
@@ -214,36 +217,82 @@ CONTACT_BTN = lambda style=None: BTN('Prendre contact →', url('contact'), styl
 S = {}
 
 # ---- Accueil
+PROOF = ['The Editorialist', 'France Télévisions / Samsa', 'Libération', 'Condé Nast', 'Les Échos–Le Parisien']
+
 S['home-hero'] = ('Accueil — Ouverture', 'jd-sections', 'hero, accueil, ouverture', hero(
     'Studio éditorial · Numérique et IA',
     'Expérimenter pour mieux <em>Recommander</em>',
     [
         COLUMN([
-            P('Journalism.design aide les médias et les organisations à transformer leurs usages numériques et IA sans perdre le contrôle de leurs outils, de leurs données ni de leurs savoir-faire.', 'is-style-lead'),
-            P('Le studio s’appuie sur plus de vingt ans de travail dans les médias : création de contenus, conduite de projets, interventions et formations au sein de grands groupes de presse. Il édite aussi SYNTH, qui lui sert de terrain d’expérimentation. Les solutions qu’il recommande y sont d’abord testées ou défrichées.'),
+            P('Journalism.design aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA, sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.', 'is-style-lead'),
+            P('Nous ne sommes pas là pour mettre de l’IA partout, mais pour améliorer ce qui mérite de l’être. Aucun éditeur ni aucune plateforme ne nous rémunère : nous n’avons aucun logiciel à vous vendre.'),
         ], '58%'),
         COLUMN([
             BUTTONS(BTN('Découvrez journalism.design →', url('a-propos'), 'ghost'),
-                    BTN('Réserver une journée de diagnostic →', url('contact')),
-                    BTN('Comment travaille le studio ↓', url('', 'studio'), 'ghost'), c='jd-stack'),
+                    BTN('Réserver une journée de diagnostic →', BOOK),
+                    BTN('Mesurer votre dépendance numérique →', url('indice-dependance-numerique'), 'ghost'), c='jd-stack'),
         ], '42%', 'bottom'),
-    ]))
+    ],
+    extra=[GROUP([
+        P('Plus de vingt ans dans les médias · Missions et références', 'is-style-eyebrow'),
+        LIST(PROOF, 'jd-names'),
+        P(f'<a href="{url("cas-clients")}">Voir les cas clients →</a>', 'jd-link jd-link--inline'),
+    ], c='jd-proof')]))
 
-S['studio'] = ('Le studio — expérimenter et recommander', 'jd-sections', 'studio, SYNTH, expérimentation, conseil', band(
+S['home-outcomes'] = ('Accueil — Ce que vous y gagnez', 'jd-sections', 'résultats, bénéfices, efficacité, autonomie, responsabilité', band(
+    'Résultats', [
+        H(2, 'Efficacité, autonomie, <em>responsabilité</em>'),
+        P('Un outil se juge sur ce qu’il améliore dans le travail réel : temps, qualité, coûts, risques. C’est ce que nous cherchons à obtenir, et ce que nous testons avec les équipes avant tout déploiement.', 'is-style-lead'),
+        cells([
+            GROUP([H(3, 'Efficacité'), P('Gagner du temps sans perdre en qualité.', 'is-style-lead'),
+                   LIST(['Automatiser les tâches répétitives qui peuvent l’être',
+                         'Réduire les allers-retours dans les chaînes de production',
+                         'Supprimer les outils en doublon et les abonnements inutiles'], 'is-style-arrows')], c='is-style-principle'),
+            GROUP([H(3, 'Autonomie'), P('Garder la main sur ses choix.', 'is-style-lead'),
+                   LIST(['Choisir entre un SaaS, une API ou un modèle local en connaissant le prix de chaque option',
+                         'Pouvoir changer de fournisseur et récupérer ses données',
+                         'Garder les compétences dans les équipes'], 'is-style-arrows')], c='is-style-principle'),
+            GROUP([H(3, 'Responsabilité'), P('Réduire les risques avant qu’ils ne coûtent.', 'is-style-lead'),
+                   LIST(['Encadrer les usages d’IA déjà présents et éviter les fuites de données',
+                         'Disposer d’une doctrine IA que les équipes peuvent appliquer',
+                         'Migrer sans interrompre la production',
+                         'Proportionner les outils au besoin, coût environnemental compris'], 'is-style-arrows')], c='is-style-principle'),
+        ], 'jd-cells--3'),
+    ], anchor='resultats'))
+
+S['home-why'] = ('Accueil — Pourquoi journalism.design', 'jd-sections', 'preuves, crédibilité, parcours, indépendance', band(
+    'Pourquoi nous', [
+        H(2, 'Vingt ans de médias, <em>aucun logiciel à vendre</em>'),
+        LIST(['<strong>Plus de vingt ans</strong> au croisement des médias, du produit et de la technologie.',
+              '<strong>Des médias accompagnés</strong> — Libération, Condé Nast, Groupe Les Échos–Le Parisien — sur le produit, l’innovation et la stratégie éditoriale.',
+              '<strong>Les médias synthétiques et l’IA étudiés depuis 2017.</strong>',
+              '<strong>Un média, SYNTH, utilisé comme laboratoire</strong> : les outils et les usages recommandés y sont d’abord testés.',
+              '<strong>Plus de quinze ans de formation</strong> de journalistes, d’étudiants et de professionnels.',
+              '<strong>Aucun logiciel à vous vendre</strong> : aucun éditeur ni aucune plateforme ne nous rémunère.'], 'is-style-index jd-questions'),
+        P(f'<a href="{url("a-propos")}">Le parcours de Gérald Holubowicz →</a>', 'jd-link jd-link--inline'),
+    ], c='jd-section--rule'))
+
+SEPARATION = 'SYNTH et l’activité de conseil sont séparés : les clients du studio n’ont aucune prise sur ce que SYNTH publie, et les informations confiées dans le cadre des missions restent confidentielles. Elles ne nourrissent jamais les publications de SYNTH.'
+
+S['studio'] = ('Le studio — expérimenter et recommander', 'jd-sections', 'studio, SYNTH, expérimentation, conseil, équipe', band(
     'Le studio', [
         H(2, 'Deux pieds, <em>une même démarche</em>'),
-        P('Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.', 'is-style-lead'),
+        P('Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz.', 'is-style-lead'),
         cells([
             cell('Expérimenter', [
                 'Le studio édite SYNTH, un média indépendant consacré aux conséquences de la technologie et de l’IA. Sa production sert de banc d’essai : outils, workflows et usages de l’IA y sont testés dans les conditions réelles d’une rédaction.',
                 'SYNTH est le premier client du studio.',
-            ], lead='SYNTH, le terrain d’essai'),
+            ], lead='SYNTH, un laboratoire en conditions réelles'),
             cell('Recommander', [
                 'Ce qui a fonctionné, ce qui a échoué et ce qui reste à défricher nourrit les diagnostics, les prototypes et les formations proposés aux médias et aux organisations.',
                 'Les recommandations s’appuient sur des solutions déjà mises à l’épreuve et sur une connaissance de l’écosystème des médias acquise au sein de grands groupes de presse.',
             ], lead='Journalism.design, le conseil et la formation'),
         ], 'jd-cells--2'),
-        P('L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.'),
+        P(SEPARATION),
+        H(6, 'Une équipe constituée selon le problème'),
+        LIST(['Stratégie, transformation éditoriale et formation : Gérald Holubowicz', 'Développement et intégration',
+              'Infrastructure et modèles d’IA', 'Cybersécurité', 'Migration de données et d’outils'], 'is-style-tags jd-square'),
+        P('Le studio garde une structure légère : chaque mission réunit les compétences dont elle a besoin, avec des professionnels du réseau du studio ou les équipes déjà en place.'),
         P(f'<a href="{url("synth")}">En savoir plus sur SYNTH →</a>', 'jd-link jd-link--inline'),
     ], anchor='studio'))
 
@@ -276,7 +325,7 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
 
 S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique, efficacité, indépendance, sobriété', band(
     'Ce qui nous engage', [
-        H(2, 'Efficacité, autonomie, <em>responsabilité</em>'),
+        H(2, 'Nos <em>engagements</em>'),
         cells([
             cell('Efficacité', ['Un outil se juge sur ce qu’il améliore dans le travail réel : temps, qualité, coûts. Ces effets sont testés avec les équipes avant tout déploiement.']),
             cell('Indépendance', ['Aucun éditeur ni aucune plateforme ne nous rémunère. Recommander un logiciel plutôt qu’un autre ne nous rapporte rien.']),
@@ -299,13 +348,17 @@ S['approach'] = ('Notre approche — cinq principes', 'jd-sections', 'approche, 
         ], 'jd-cells--3'),
     ]))
 
-S['levels-overview'] = ('Trois étapes : comprendre, transformer, maîtriser (cartes)', 'jd-sections', 'expertises, interventions, étapes, offre', band(
-    'Trois étapes', [
+S['levels-overview'] = ('La méthode : comprendre, transformer, maîtriser (cartes)', 'jd-sections', 'méthode, expertises, interventions, étapes, offre, livrables', band(
+    'La méthode', [
         H(2, 'Comprendre, transformer, <em>maîtriser</em>'),
+        P('Trois étapes, qui peuvent être engagées séparément ou à la suite. Chacune débouche sur des livrables précis.', 'is-style-lead'),
         GROUP([
-            card('01 · Comprendre', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Cartographier les usages, workflows, outils, données et dépendances. Identifier ce qu’il faut conserver, améliorer ou transformer.'),
-            card('02 · Transformer', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Concevoir et tester de nouveaux workflows, automatisations et usages de l’IA avec les équipes avant de les déployer.'),
-            card('03 · Maîtriser', 'Gouvernance &amp; souveraineté', url('gouvernance-souverainete'), 'Définir les règles, architectures et alternatives permettant de conserver la maîtrise des données, des compétences et des fournisseurs.'),
+            card('01 · Comprendre', 'Diagnostic &amp; stratégie', url('diagnostic-strategie'), 'Cartographier les usages, workflows, outils, données et dépendances. Identifier ce qu’il faut conserver, améliorer ou transformer.',
+                 deliverables=['Cartographie des outils, workflows et données', 'Dépendances critiques et risques', '3 à 5 actions prioritaires', 'Feuille de route']),
+            card('02 · Transformer', 'Transformation &amp; prototypage', url('transformation-prototypage'), 'Concevoir et tester de nouveaux workflows, automatisations et usages de l’IA avec les équipes avant de les déployer.',
+                 deliverables=['Prototype testé avec les équipes', 'Comparaison de solutions', 'Procédures de contrôle', 'Documentation et plan de déploiement']),
+            card('03 · Maîtriser', 'Gouvernance &amp; souveraineté', url('gouvernance-souverainete'), 'Définir les règles, architectures et alternatives permettant de conserver la maîtrise des données, des compétences et des fournisseurs.',
+                 deliverables=['Doctrine numérique et IA', 'Charte d’usage et classification des données', 'Politique de réversibilité', 'Plan de formation']),
         ], c='jd-cells jd-cells--3 jd-cards', layout='grid', grid_min='15rem'),
     ], bg='ink', anchor='expertises'))
 
@@ -439,13 +492,16 @@ S['diagnostic-day'] = ('Journée de diagnostic (offre d’entrée, tarif)', 'jd-
         COLUMNS([
             COLUMN([
                 P('Une journée de diagnostic de vos usages numériques et IA : workflows, outils, données, dépendances et possibilités d’automatisation.', 'is-style-lead'),
-                P('Entretiens, analyse des principaux workflows et restitution. Vous repartez avec les problèmes prioritaires et une feuille de route.'),
+                H(6, 'Déroulé'),
+                LIST(['Entretiens avec les personnes concernées', 'Analyse des principaux workflows, outils et données',
+                      'Restitution et document de synthèse'], 'is-style-index', ordered=True),
+                P('Vous repartez avec les problèmes prioritaires, 3 à 5 actions et une feuille de route.'),
                 P('Le diagnostic peut ensuite déboucher sur une mission plus large, construite sur devis selon le périmètre, la taille des équipes et les problèmes identifiés.'),
             ], '55%'),
             COLUMN([panel([
                 kicker('Journée de diagnostic stratégique'),
                 P('À partir de 1&nbsp;500&nbsp;€&nbsp;HT.', 'is-style-price'),
-                BUTTONS(BTN('Réserver une journée →', url('contact'))),
+                BUTTONS(BTN('Réserver une journée →', BOOK)),
                 P(f'<a href="{url("diagnostic-strategie", "livrable")}">Ce que contient le livrable →</a>', 'jd-link'),
                 P(f'<a href="{url("indice-dependance-numerique")}">Pas encore prêt ? Mesurez d’abord votre indice de dépendance →</a>', 'jd-link'),
             ])], '45%'),
@@ -628,28 +684,29 @@ def level(num, name, subtitle, text, who, modules, cta, href):
 
 S['formations-levels'] = ('Formations — Trois niveaux', 'jd-sections', 'formation, niveaux, parcours, catalogue', band(
     'Trois niveaux', [
-        H(2, 'Sensibiliser, structurer, <em>transformer</em>'),
+        H(2, 'Comprendre, décider, <em>mettre en pratique</em>'),
         P('Chaque niveau peut être suivi seul ou s’enchaîner avec les autres. Les programmes sont construits à partir de vos métiers, de vos outils et de la maturité de vos équipes.', 'is-style-lead'),
         GROUP([
-            level('Niveau 1', 'Sensibiliser', 'Comprendre l’IA, concrètement.',
+            level('Niveau 1', 'Comprendre', 'Savoir de quoi l’on parle avant de choisir.',
                   'Les équipes découvrent ce que font réellement les systèmes d’IA générative, à partir de leurs propres métiers : démonstrations, cas d’usage et ateliers pratiques, sans jargon technique.',
                   'Toutes les équipes, quel que soit leur niveau technique : rédactions, communication, marketing, production.',
                   ['Comprendre l’intelligence artificielle : modèles, données, limites, biais, hallucinations et enjeux économiques',
                    'IA &amp; métiers : les usages pertinents et les tâches qu’il n’est pas souhaitable d’automatiser',
                    'Données, confidentialité &amp; IA : ce qui arrive réellement aux informations envoyées dans les différents services'],
                   'Construire une formation →', url('contact')),
-            level('Niveau 2', 'Structurer', 'Se donner des règles avant d’accélérer.',
+            level('Niveau 2', 'Décider', 'Choisir ses règles avant d’accélérer.',
                   'La direction et les référents définissent un cadre partagé : doctrine IA, charte d’usage, classification des données, critères de choix des outils, place de l’open source et plan de formation.',
                   'Directions, managers, référents numériques et IA.',
                   ['Construire une doctrine IA : règles et critères de l’organisation, travaillés collectivement',
                    'Souveraineté numérique : les dépendances technologiques et les stratégies pour les réduire',
                    'Logiciel libre, open source &amp; communs : les modèles ouverts et leur intérêt stratégique'],
                   'Parler de votre doctrine IA →', url('gouvernance-souverainete')),
-            level('Niveau 3', 'Transformer', 'Ancrer de nouvelles pratiques dans la durée.',
+            level('Niveau 3', 'Mettre en pratique', 'Changer le travail, pas seulement les outils.',
                   'Formation et accompagnement se rejoignent : identification des cas d’usage prioritaires, prototypes testés avec les équipes, solutions choisies pour leur réversibilité, feuille de route et référents internes formés.',
                   'Organisations qui veulent passer d’expérimentations dispersées à des pratiques stables.',
                   ['Ateliers sur les workflows réels de l’organisation',
                    'Prototypes et tests avec les équipes',
+                   'Contrôle qualité et validation humaine des contenus produits avec l’IA',
                    'Formation des référents internes'],
                   'Construire votre feuille de route →', url('transformation-prototypage')),
         ], c='jd-cells jd-cells--3 jd-cards', layout='grid', grid_min='15rem'),
@@ -806,7 +863,7 @@ S['synth-link'] = ('SYNTH — Lien avec les missions', 'jd-sections', 'synth, jo
                       'de leurs modèles économiques', 'des enjeux environnementaux', 'des transformations du travail',
                       'et des rapports de pouvoir qu’ils produisent'], 'is-style-index jd-questions'),
                 P('SYNTH est aussi le premier client du studio : sa production sert de terrain d’expérimentation pour les outils, les workflows et les usages de l’IA que journalism.design recommande ensuite.'),
-                P('L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.'),
+                P(SEPARATION),
             ], '60%'),
             COLUMN([panel([
                 kicker('Suivre SYNTH'),

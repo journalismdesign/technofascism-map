@@ -29,30 +29,35 @@ function jd_indice_dimensions() {
 			'question' => 'Sommes-nous prisonniers de certains outils ?',
 			'weak'     => 'Plusieurs activités critiques reposent sur un nombre limité de fournisseurs, sans alternative testée.',
 			'strong'   => 'Le choix et le nombre de vos fournisseurs semblent maîtrisés.',
+			'action'   => 'Listez les cinq outils sans lesquels l’activité s’arrêterait et, pour chacun, une alternative envisageable.',
 		),
 		'donnees'      => array(
 			'label'    => 'Données',
 			'question' => 'Savons-nous récupérer et déplacer ce qui nous appartient ?',
 			'weak'     => 'Vos données les plus importantes seraient difficiles à récupérer dans un format réutilisable ailleurs.',
 			'strong'   => 'Vos données semblent relativement récupérables.',
+			'action'   => 'Testez l’export complet de vos données depuis l’outil le plus critique, et vérifiez qu’elles s’ouvrent ailleurs.',
 		),
 		'competences'  => array(
 			'label'    => 'Compétences',
 			'question' => 'Le savoir-faire reste-t-il dans l’organisation ?',
 			'weak'     => 'Une partie du savoir-faire repose sur des outils ou sur quelques personnes, sans documentation partagée.',
 			'strong'   => 'Le savoir-faire reste documenté et partagé dans l’organisation.',
+			'action'   => 'Mettez par écrit les deux ou trois processus qui ne reposent que sur une personne ou sur un outil.',
 		),
 		'ia'           => array(
 			'label'    => 'IA & automatisation',
 			'question' => 'Savons-nous réellement ce qui est automatisé et comment ?',
 			'weak'     => 'Les usages d’IA progressent plus vite que leur gouvernance.',
 			'strong'   => 'Vos usages d’IA sont encadrés et vous savez ce qui est transmis aux modèles.',
+			'action'   => 'Recensez les outils d’IA réellement utilisés dans les équipes et fixez une règle simple sur les données qu’on peut y saisir.',
 		),
 		'resilience'   => array(
 			'label'    => 'Résilience',
 			'question' => 'Avons-nous un plan B réaliste ?',
 			'weak'     => 'Sans solution de repli éprouvée, une panne ou un changement de conditions d’un fournisseur toucherait directement l’activité.',
 			'strong'   => 'Votre organisation dispose de solutions de repli crédibles.',
+			'action'   => 'Imaginez une journée sans votre outil principal : qu’est-ce qui s’arrête, et comment continuer à travailler ?',
 		),
 	);
 }
@@ -308,11 +313,13 @@ function jd_indice_texts() {
 		'weak'        => 'Votre principale fragilité',
 		'strong'      => 'Votre point fort',
 		'investigate' => 'Le point à investiguer',
+		'fragilities' => 'Vos principales fragilités',
+		'actionK'     => 'À faire dès maintenant',
 		'noStrong'    => 'Aucune dimension ne se détache nettement : la dépendance est répartie sur l’ensemble de l’organisation.',
 		'unknown'     => 'Plusieurs réponses « je ne sais pas » : avant de réduire les dépendances, il faut les rendre visibles.',
 		'providers'   => 'Fournisseurs cités',
-		'ctaTitle'    => 'Un score ne remplace pas un diagnostic.',
-		'ctaText'     => 'Ce test détecte des signaux de dépendance. Une journée de diagnostic permet d’examiner concrètement vos outils, workflows, données et usages d’IA.',
+		'ctaTitle'    => 'Transformer cette photographie en plan d’action ?',
+		'ctaText'     => 'Ce test repère des signaux de dépendance à partir de vos déclarations. Une journée de diagnostic examine concrètement vos outils, workflows, données et usages d’IA.',
 		'ctaList'     => array(
 			'les dépendances critiques',
 			'ce qu’il faut conserver',
@@ -321,7 +328,7 @@ function jd_indice_texts() {
 			'les 3 à 5 actions prioritaires',
 		),
 		'ctaListK'    => 'En une journée, nous identifions',
-		'ctaPrice'    => 'Diagnostic journalism.design — à partir de 1 500 € HT',
+		'ctaPrice'    => 'Journée de diagnostic stratégique — à partir de 1 500 € HT',
 		'ctaBook'     => 'Réserver une journée de diagnostic →',
 		'ctaSample'   => 'Voir le contenu du livrable →',
 		'mailTitle'   => 'Recevoir mon diagnostic synthétique par e-mail',
@@ -512,6 +519,7 @@ function jd_indice_enqueue() {
 			'urls'      => array(
 				'page'     => jd_indice_url(),
 				'contact'  => jd_url( 'contact' ),
+				'booking'  => html_entity_decode( jd_booking_url() ),
 				'livrable' => jd_url( 'diagnostic-strategie', 'livrable' ),
 				'rest'     => esc_url_raw( rest_url( 'jd/v1/indice/' ) ),
 			),
@@ -604,16 +612,20 @@ function jd_indice_summary( $res ) {
 	$dims = jd_indice_dimensions();
 	$t    = jd_indice_texts();
 	arsort( $res['dims'] );
-	$weak   = array_key_first( $res['dims'] );
 	$strong = array_key_last( $res['dims'] );
 
 	$out  = $t['scoreTitle'] . ' : ' . $res['total'] . ' / 100 — ' . $res['label'] . "\n\n";
 	foreach ( $dims as $key => $dim ) {
 		$out .= '- ' . $dim['label'] . ' : ' . $res['dims'][ $key ] . " / 100\n";
 	}
-	$out .= "\n" . $t['weak'] . ' : ' . $dims[ $weak ]['weak'] . "\n";
-	$out .= $t['strong'] . ' : ' . ( $res['dims'][ $strong ] <= 40 ? $dims[ $strong ]['strong'] : $t['noStrong'] ) . "\n\n";
-	$out .= $t['ctaTitle'] . "\n" . $t['ctaText'] . "\n" . $t['ctaPrice'] . "\n" . jd_url( 'contact' ) . "\n\n";
+	$floor   = $t['levels'][0][0];
+	$fragile = array_slice( array_keys( array_filter( $res['dims'], function ( $v ) use ( $floor ) { return $v >= $floor; } ) ), 0, 3 );
+	$out    .= $fragile ? "\n" . $t['fragilities'] . " :\n" : '';
+	foreach ( $fragile as $i => $key ) {
+		$out .= ( $i + 1 ) . '. ' . $dims[ $key ]['label'] . ' (' . $res['dims'][ $key ] . ' / 100) — ' . $dims[ $key ]['weak'] . "\n   " . $t['actionK'] . ' : ' . $dims[ $key ]['action'] . "\n";
+	}
+	$out .= "\n" . $t['strong'] . ' : ' . ( $res['dims'][ $strong ] <= 40 ? $dims[ $strong ]['strong'] : $t['noStrong'] ) . "\n\n";
+	$out .= $t['ctaTitle'] . "\n" . $t['ctaText'] . "\n" . $t['ctaPrice'] . "\n" . html_entity_decode( jd_booking_url() ) . "\n\n";
 	$out .= $t['methodTitle'] . " :\n- " . implode( "\n- ", $t['method'] ) . "\n\n";
 	$out .= 'Refaire le test : ' . jd_indice_url() . "\n";
 	return $out;

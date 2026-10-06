@@ -996,3 +996,23 @@ html.jd-dialog-open { overflow: hidden; }
 .jd-faq__item summary:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .jd-faq__item > p { margin: 0 0 1rem; max-width: 68ch; }
 .jd-faq__item > p:last-child { margin-bottom: 1.4rem; }
+
+/* Bandeau de preuves sous l'ouverture de l'accueil */
+.jd-proof { margin-top: var(--wp--preset--spacing--50) !important; padding-top: 1rem; border-top: 1px solid currentColor; }
+.jd-proof .is-style-eyebrow { margin-bottom: 0.5rem; }
+.jd-proof .jd-names { display: flex; flex-wrap: wrap; gap: 0.25rem 0; border-top: 0; margin: 0 0 0.75rem; }
+.jd-proof .jd-names > li { border: 0; padding: 0; font-size: clamp(1.3rem, 2.2vw, 1.85rem); }
+.jd-proof .jd-names > li:not(:last-child)::after { content: "·"; font-style: normal; margin: 0 0.6em; color: var(--jd-teal); }
+
+/* Formulaire : mention des champs obligatoires */
+.jd-form__note { font-size: var(--wp--preset--font-size--s); margin: 0 0 1rem; }
+
+/* Indice : trois principales fragilités */
+.jd-indice__fragilities { margin-top: var(--wp--preset--spacing--40) !important; }
+.jd-indice__fragilities ol { list-style: none; counter-reset: frag; padding: 0; margin: 0; border-top: 1px solid var(--jd-ink); }
+.jd-indice__fragilities li { counter-increment: frag; position: relative; padding: 1rem 0 1rem 2.75rem; border-bottom: 1px solid var(--jd-ink); }
+.jd-indice__fragilities li::before { content: "0" counter(frag); position: absolute; left: 0; top: 1.05rem; font-family: var(--jd-mono); font-size: 0.8rem; }
+.jd-indice__fragilities li p { margin: 0; }
+.jd-indice__fragilities li p + p { margin-top: 0.4rem; }
+.jd-indice__fragname { font-size: 1.125rem; }
+.jd-indice__action { background: var(--jd-cyan); color: var(--jd-ink); display: inline-block; padding: 0.35rem 0.6rem; margin-top: 0.6rem !important; }

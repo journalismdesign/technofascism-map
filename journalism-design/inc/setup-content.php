@@ -23,7 +23,7 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'marquee', 'studio', 'indice-teaser', 'use-cases', 'levels-overview', 'diagnostic-day', 'references-teaser', 'home-questions', 'commitments', 'synth', 'terrains', 'first-step' ),
+				'sections' => array( 'home-hero', 'home-outcomes', 'levels-overview', 'home-why', 'indice-teaser', 'diagnostic-day', 'home-questions', 'use-cases', 'studio', 'marquee', 'commitments', 'synth', 'terrains', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(

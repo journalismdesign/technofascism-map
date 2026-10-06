@@ -89,6 +89,7 @@ Auto-diagnostic en 12 questions (5 dimensions : fournisseurs, données, compéte
 - **Résultat** : indice /100, niveau, radar et barres par dimension, trois conclusions (fragilité, point fort, point à investiguer), proposition de journée de diagnostic, lien vers le contenu du livrable.
 - **Données** : aucune donnée demandée avant le résultat. L'envoi par e-mail est facultatif, n'accepte que des adresses professionnelles et ne conserve pas l'adresse ; une copie n'est transmise à journalism.design que si le visiteur coche « être recontacté·e » ou « recevoir les publications » (deux consentements distincts).
 - **Baromètre** : le visiteur peut partager ses réponses anonymement (ni adresse, ni IP, ni identifiant ; date du jour seulement). Résultats agrégés et export CSV : *Outils › Indice de dépendance*.
+- **Résultat** : score global et par dimension, puis jusqu’à trois fragilités (dimensions au-delà de 25 / 100) avec, pour chacune, une première action à mener seul, et l’appel à réserver une journée de diagnostic.
 - La liste des domaines de messagerie grand public refusés se modifie avec le filtre `jd_indice_free_domains`.
 
 ## Formulaire de contact
@@ -99,11 +100,15 @@ Bloc *Code court* contenant `[jd_contact]` (page Contact).
 
 **Sans Contact Form 7** : un formulaire natif prend le relais. Les demandes sont envoyées par e-mail à l'adresse d'administration du site (*Réglages › Général*) et **ne sont pas stockées** dans la base. Les questions se modifient avec le filtre `jd_contact_fields`, le destinataire avec `jd_contact_recipient`.
 
+**Préremplissage** : un lien vers la page Contact peut précocher une réponse, par exemple `?accompagnement=Journée de diagnostic`. Les boutons « Réserver une journée de diagnostic » l’utilisent. Si vous adoptez un outil de prise de rendez-vous (Cal.com, Calendly…), renseignez son URL avec la clé `rendezvous` du filtre `jd_external_urls` (voir plus bas) : tous ces boutons y mèneront.
+
+Le formulaire Contact Form 7 du thème est mis à jour avec le thème tant qu’il n’a pas été modifié dans l’extension ; dès qu’il l’a été, vos réglages sont conservés.
+
 Dans les deux cas, configurer un SMTP (par exemple avec une extension d'envoi d'e-mails) pour un envoi fiable.
 
 ## Formations
 
-La page Formations présente trois niveaux (Sensibiliser, Structurer, Transformer) et une FAQ en blocs *Détails* (dépliables), modifiables dans l'éditeur.
+La page Formations présente trois niveaux (Comprendre, Décider, Mettre en pratique) et une FAQ en blocs *Détails* (dépliables), modifiables dans l'éditeur.
 
 ## À compléter
 
@@ -123,6 +128,7 @@ On peut les corriger directement dans l'éditeur, ou d'un coup avec un petit mu-
 add_filter( 'jd_external_urls', function ( $urls ) {
 	$urls['inferences'] = 'https://…';
 	$urls['ressources'] = 'https://…';
+	$urls['rendezvous'] = 'https://…'; // facultatif
 	return $urls;
 } );
 ```

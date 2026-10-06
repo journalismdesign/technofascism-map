@@ -383,25 +383,39 @@
 
 	App.prototype.conclusions = function ( res ) {
 		var sorted = DIM_KEYS.slice().sort( function ( a, b ) { return res.dims[ b ] - res.dims[ a ]; } );
-		var weak = sorted[ 0 ];
 		var strong = sorted[ sorted.length - 1 ];
 		var unknown = SCORED.filter( function ( q ) {
 			var a = this.answers[ q.id ];
 			return typeof a === 'number' && /ne sai|ne savons|ne saurions|aucune idée|ignorons/i.test( q.options[ a ][ 0 ] );
 		}, this ).length;
-		var investigate;
+		var out = [ [ T.strong, res.dims[ strong ] <= 40 ? D.dims[ strong ].strong : T.noStrong ] ];
 		if ( unknown >= 3 ) {
-			investigate = T.unknown;
-		} else if ( weak !== 'ia' && res.dims.ia >= 50 ) {
-			investigate = D.dims.ia.weak;
-		} else {
-			investigate = D.dims[ sorted[ 1 ] ].weak;
+			out.push( [ T.investigate, T.unknown ] );
+		} else if ( sorted.indexOf( 'ia' ) > 2 && res.dims.ia >= 50 ) {
+			out.push( [ T.investigate, D.dims.ia.weak ] );
 		}
-		return [
-			[ T.weak, D.dims[ weak ].weak ],
-			[ T.strong, res.dims[ strong ] <= 40 ? D.dims[ strong ].strong : T.noStrong ],
-			[ T.investigate, investigate ],
-		];
+		return out;
+	};
+
+	// Les trois dimensions les plus dépendantes, avec une première action.
+	App.prototype.fragilities = function ( res ) {
+		// Seules comptent les dimensions au-delà d'une dépendance maîtrisée (seuil du premier niveau).
+		var floor = T.levels[ 0 ][ 0 ];
+		var top = DIM_KEYS.slice().sort( function ( a, b ) { return res.dims[ b ] - res.dims[ a ]; } )
+			.filter( function ( k ) { return res.dims[ k ] >= floor; } ).slice( 0, 3 );
+		if ( ! top.length ) {
+			return null;
+		}
+		return el( 'div', { class: 'jd-indice__fragilities' }, [
+			el( 'p', { class: 'is-style-eyebrow', text: T.fragilities } ),
+			el( 'ol', {}, top.map( function ( k ) {
+				return el( 'li', {}, [
+					el( 'p', { class: 'jd-indice__fragname' }, [ el( 'strong', { text: D.dims[ k ].label } ), ' · ' + res.dims[ k ] + ' / 100' ] ),
+					el( 'p', { text: D.dims[ k ].weak } ),
+					el( 'p', { class: 'jd-indice__action' }, [ el( 'strong', { text: T.actionK + ' : ' } ), D.dims[ k ].action ] ),
+				] );
+			} ) ),
+		] );
 	};
 
 	App.prototype.result = function () {
@@ -427,6 +441,7 @@
 					] );
 				} ) ),
 			] ),
+			this.fragilities( res ),
 			el( 'div', { class: 'jd-indice__conclusions' }, this.conclusions( res ).map( function ( c ) {
 				return el( 'div', { class: 'jd-indice__conclusion' }, [ el( 'p', { class: 'is-style-eyebrow', text: c[ 0 ] } ), el( 'p', { text: c[ 1 ] } ) ] );
 			} ) ),
@@ -457,7 +472,7 @@
 			el( 'ul', { class: 'is-style-arrows' }, T.ctaList.map( function ( x ) { return el( 'li', { text: x } ); } ) ),
 			el( 'p', { class: 'jd-indice__price', text: T.ctaPrice } ),
 			el( 'div', { class: 'wp-block-buttons' }, [
-				el( 'div', { class: 'wp-block-button' }, [ el( 'a', { class: 'wp-block-button__link wp-element-button', href: D.urls.contact, text: T.ctaBook } ) ] ),
+				el( 'div', { class: 'wp-block-button' }, [ el( 'a', { class: 'wp-block-button__link wp-element-button', href: D.urls.booking, text: T.ctaBook } ) ] ),
 				el( 'div', { class: 'wp-block-button is-style-ghost' }, [ el( 'a', { class: 'wp-block-button__link wp-element-button', href: D.urls.livrable, text: T.ctaSample } ) ] ),
 			] ),
 		] );

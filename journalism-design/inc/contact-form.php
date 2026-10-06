@@ -78,6 +78,15 @@ function jd_contact_fields() {
 }
 
 /**
+ * Phrase d'en-tête du formulaire : seuls deux champs sont obligatoires.
+ *
+ * @return string
+ */
+function jd_contact_note() {
+	return __( 'Seuls votre nom et votre adresse e-mail sont obligatoires. Les autres questions nous aident à préparer l’échange.', 'journalism-design' );
+}
+
+/**
  * Rendu du formulaire.
  *
  * @param array $atts Attributs : bouton (libellé du bouton d'envoi).
@@ -113,6 +122,8 @@ function jd_contact_shortcode( $atts ) {
 			<?php wp_nonce_field( 'jd_contact', 'jd_contact_nonce' ); ?>
 			<p class="jd-hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="jd_site" tabindex="-1" autocomplete="off"></label></p>
 
+			<p class="jd-form__note"><?php echo esc_html( jd_contact_note() ); ?></p>
+
 			<div class="jd-form__grid">
 				<p class="jd-field"><label for="jd-nom"><?php esc_html_e( 'Nom', 'journalism-design' ); ?> <span aria-hidden="true">*</span></label>
 					<input id="jd-nom" type="text" name="nom" required autocomplete="name"></p>
@@ -125,12 +136,13 @@ function jd_contact_shortcode( $atts ) {
 			</div>
 
 			<?php foreach ( jd_contact_fields() as $key => $field ) : ?>
+				<?php $preset = isset( $_GET[ $key ] ) ? array_map( 'sanitize_text_field', (array) wp_unslash( $_GET[ $key ] ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification ?>
 				<fieldset class="jd-choices<?php echo ! empty( $field['inline'] ) ? ' is-inline' : ''; ?>">
 					<legend><?php echo esc_html( $field['label'] ); ?></legend>
 					<?php foreach ( $field['options'] as $i => $option ) : ?>
 						<?php $name = 'checkbox' === $field['type'] ? $key . '[]' : $key; ?>
 						<label class="jd-choice">
-							<input type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $option ); ?>">
+							<input type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $option ); ?>"<?php checked( in_array( $option, $preset, true ) ); ?>>
 							<span><?php echo esc_html( $option ); ?></span>
 						</label>
 					<?php endforeach; ?>
@@ -244,7 +256,7 @@ function jd_cf7_form_id() {
  * @param array  $field Définition (jd_contact_fields).
  * @return string
  */
-function jd_cf7_choice_tag( $name, $field ) {
+function jd_cf7_choice_tag( $name, $field, $legacy = false ) {
 	$options = array_map(
 		function ( $o ) {
 			return '"' . str_replace( '"', '', $o ) . '"';
@@ -254,18 +266,23 @@ function jd_cf7_choice_tag( $name, $field ) {
 	// Les boutons radio de CF7 sont toujours obligatoires : une case à choix
 	// unique (« exclusive ») garde ces questions facultatives.
 	$extra = 'checkbox' === $field['type'] ? '' : ' exclusive';
+	// Préremplissage par l'URL, ex. ?accompagnement=Journée de diagnostic.
+	$extra .= $legacy ? '' : ' default:get';
 	return '[checkbox ' . $name . ' use_label_element' . $extra . ' ' . implode( ' ', $options ) . ']';
 }
 
 /**
- * Crée le formulaire Contact Form 7 du thème s'il n'existe pas.
+ * Balisage CF7 du formulaire du thème.
+ *
+ * @param bool $legacy Balisage de la version 1.9.1 (pour reconnaître un formulaire non modifié).
+ * @return array { form, body }
  */
-function jd_cf7_install() {
-	if ( ! class_exists( 'WPCF7_ContactForm' ) || jd_cf7_form_id() || ! current_user_can( 'manage_options' ) ) {
-		return;
+function jd_cf7_markup( $legacy = false ) {
+	$form = '';
+	if ( ! $legacy ) {
+		$form .= "<p class=\"jd-form__note\">" . jd_contact_note() . "</p>\n\n";
 	}
-
-	$form  = "<div class=\"jd-form__grid\">\n";
+	$form .= "<div class=\"jd-form__grid\">\n";
 	$form .= "<p class=\"jd-field\"><label>Nom <span>*</span>\n[text* your-name autocomplete:name]</label></p>\n";
 	$form .= "<p class=\"jd-field\"><label>Organisation\n[text organisation autocomplete:organization]</label></p>\n";
 	$form .= "<p class=\"jd-field\"><label>Fonction\n[text fonction autocomplete:organization-title]</label></p>\n";
@@ -273,14 +290,43 @@ function jd_cf7_install() {
 	$form .= "</div>\n\n";
 	$body  = '';
 	foreach ( jd_contact_fields() as $name => $field ) {
-		$form .= '<fieldset class="jd-choices' . ( ! empty( $field['inline'] ) ? ' is-inline' : '' ) . '"><legend>' . esc_html( $field['label'] ) . "</legend>\n" . jd_cf7_choice_tag( $name, $field ) . "\n</fieldset>\n\n";
+		$form .= '<fieldset class="jd-choices' . ( ! empty( $field['inline'] ) ? ' is-inline' : '' ) . '"><legend>' . esc_html( $field['label'] ) . "</legend>\n" . jd_cf7_choice_tag( $name, $field, $legacy ) . "\n</fieldset>\n\n";
 		$body .= $field['label'] . ' : [' . $name . "]\n";
 	}
 	$form .= "<p class=\"jd-field\"><label>Décrivez-nous brièvement votre situation\n[textarea situation x7]</label></p>\n\n";
 	$form .= "<p class=\"jd-form__legal\">Les informations transmises servent uniquement à répondre à votre demande.</p>\n\n";
 	$form .= "[submit \"Envoyer la demande →\"]";
+	return array(
+		'form' => $form,
+		'body' => $body,
+	);
+}
 
-	$mail_body = "Nom : [your-name]\nOrganisation : [organisation]\nFonction : [fonction]\nEmail professionnel : [your-email]\n\n" . $body . "\nSituation :\n[situation]\n\n--\nEnvoyé depuis le formulaire de contact de [_site_title] ([_site_url])";
+/**
+ * Crée le formulaire Contact Form 7 du thème s'il n'existe pas,
+ * ou met à jour son balisage tant qu'il n'a pas été modifié dans l'extension.
+ */
+function jd_cf7_install() {
+	if ( ! class_exists( 'WPCF7_ContactForm' ) || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$markup = jd_cf7_markup();
+
+	$id = jd_cf7_form_id();
+	if ( $id ) {
+		$cf      = WPCF7_ContactForm::get_instance( $id );
+		$current = $cf ? md5( $cf->prop( 'form' ) ) : '';
+		$known   = array( get_option( 'jd_cf7_form_hash' ), md5( jd_cf7_markup( true )['form'] ) );
+		if ( $cf && $current !== md5( $markup['form'] ) && in_array( $current, $known, true ) ) {
+			$cf->set_properties( array( 'form' => $markup['form'] ) );
+			$cf->save();
+			update_option( 'jd_cf7_form_hash', md5( $markup['form'] ), false );
+		}
+		return;
+	}
+
+	$form      = $markup['form'];
+	$mail_body = "Nom : [your-name]\nOrganisation : [organisation]\nFonction : [fonction]\nEmail professionnel : [your-email]\n\n" . $markup['body'] . "\nSituation :\n[situation]\n\n--\nEnvoyé depuis le formulaire de contact de [_site_title] ([_site_url])";
 
 	$cf = WPCF7_ContactForm::get_template( array( 'title' => 'Journalism.design — Premier échange' ) );
 	$cf->set_properties(
@@ -311,6 +357,7 @@ function jd_cf7_install() {
 	$id = $cf->save();
 	if ( $id ) {
 		update_option( 'jd_cf7_form_id', (int) $id, false );
+		update_option( 'jd_cf7_form_hash', md5( $form ), false );
 	}
 }
 add_action( 'admin_init', 'jd_cf7_install' );

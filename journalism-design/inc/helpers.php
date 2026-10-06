@@ -41,7 +41,25 @@ function jd_external_url( $key ) {
 			'synth'      => 'https://synthmedia.fr',
 			'inferences' => '#', // À renseigner : URL d'Inférences.
 			'ressources' => '#', // À renseigner : page ou rubrique Ressources.
+			'rendezvous' => '#', // Facultatif : outil de prise de rendez-vous (Cal.com, Calendly…).
 		)
 	);
 	return esc_url( isset( $urls[ $key ] ) ? $urls[ $key ] : '#' );
+}
+
+/**
+ * Lien « Réserver une journée de diagnostic ».
+ * Outil de rendez-vous s'il est renseigné (filtre `jd_external_urls`, clé `rendezvous`),
+ * sinon formulaire de contact avec « Journée de diagnostic » précoché.
+ *
+ * @return string URL échappée.
+ */
+function jd_booking_url() {
+	$ext = jd_external_url( 'rendezvous' );
+	if ( '#' !== $ext ) {
+		return $ext;
+	}
+	$page = get_page_by_path( 'contact' );
+	$base = $page ? get_permalink( $page ) : home_url( '/contact/' );
+	return esc_url( add_query_arg( 'accompagnement', rawurlencode( 'Journée de diagnostic' ), $base ) . '#jd-contact' );
 }

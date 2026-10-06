@@ -22,11 +22,11 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"58%"} -->
 <div class="wp-block-column" style="flex-basis:58%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design aide les médias et les organisations à transformer leurs usages numériques et IA sans perdre le contrôle de leurs outils, de leurs données ni de leurs savoir-faire.</p>
+<p class="is-style-lead">Journalism.design aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA, sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Le studio s’appuie sur plus de vingt ans de travail dans les médias : création de contenus, conduite de projets, interventions et formations au sein de grands groupes de presse. Il édite aussi SYNTH, qui lui sert de terrain d’expérimentation. Les solutions qu’il recommande y sont d’abord testées ou défrichées.</p>
+<p>Nous ne sommes pas là pour mettre de l’IA partout, mais pour améliorer ce qui mérite de l’être. Aucun éditeur ni aucune plateforme ne nous rémunère : nous n’avons aucun logiciel à vous vendre.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -37,13 +37,45 @@
 <!-- /wp:button -->
 
 <!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Réserver une journée de diagnostic →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_booking_url(); ?>">Réserver une journée de diagnostic →</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-ghost"} -->
-<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( '', 'studio' ); ?>">Comment travaille le studio ↓</a></div>
+<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'indice-dependance-numerique' ); ?>">Mesurer votre dépendance numérique →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns --></section>
+<!-- /wp:columns -->
+
+<!-- wp:group {"className":"jd-proof","layout":{"type":"default"}} -->
+<div class="wp-block-group jd-proof"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
+<p class="is-style-eyebrow">Plus de vingt ans dans les médias · Missions et références</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"jd-names"} -->
+<ul class="wp-block-list jd-names"><!-- wp:list-item -->
+<li>The Editorialist</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>France Télévisions / Samsa</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Libération</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Condé Nast</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Les Échos–Le Parisien</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {"className":"jd-link jd-link--inline"} -->
+<p class="jd-link jd-link--inline"><a href="<?php echo jd_url( 'cas-clients' ); ?>">Voir les cas clients →</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></section>
 <!-- /wp:group -->

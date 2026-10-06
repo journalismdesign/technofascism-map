@@ -29,8 +29,26 @@
 <p class="is-style-lead">Une journée de diagnostic de vos usages numériques et IA : workflows, outils, données, dépendances et possibilités d’automatisation.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":6} -->
+<h6 class="wp-block-heading">Déroulé</h6>
+<!-- /wp:heading -->
+
+<!-- wp:list {"ordered":true,"className":"is-style-index"} -->
+<ol class="wp-block-list is-style-index"><!-- wp:list-item -->
+<li>Entretiens avec les personnes concernées</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Analyse des principaux workflows, outils et données</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Restitution et document de synthèse</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
 <!-- wp:paragraph -->
-<p>Entretiens, analyse des principaux workflows et restitution. Vous repartez avec les problèmes prioritaires et une feuille de route.</p>
+<p>Vous repartez avec les problèmes prioritaires, 3 à 5 actions et une feuille de route.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -50,7 +68,7 @@
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Réserver une journée →</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_booking_url(); ?>">Réserver une journée →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 

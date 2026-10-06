@@ -20,7 +20,7 @@
 
 <!-- wp:column {"width":"75%","className":"jd-band__body"} -->
 <div class="wp-block-column jd-band__body" style="flex-basis:75%"><!-- wp:heading -->
-<h2 class="wp-block-heading">Efficacité, autonomie, <em>responsabilité</em></h2>
+<h2 class="wp-block-heading">Nos <em>engagements</em></h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"className":"jd-cells jd-cells--3","layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->

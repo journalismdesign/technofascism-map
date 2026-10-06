@@ -64,7 +64,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.</p>
+<p>SYNTH et l’activité de conseil sont séparés : les clients du studio n’ont aucune prise sur ce que SYNTH publie, et les informations confiées dans le cadre des missions restent confidentielles. Elles ne nourrissent jamais les publications de SYNTH.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
