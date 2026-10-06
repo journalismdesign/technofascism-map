@@ -14,7 +14,7 @@
 <section class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">SYNTH et nos missions</p>
+<p class="is-style-eyebrow">SYNTH et le studio</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -71,7 +71,7 @@
 <!-- wp:column {"width":"40%","className":"jd-sticky-col"} -->
 <div class="wp-block-column jd-sticky-col" style="flex-basis:40%"><!-- wp:group {"className":"jd-panel","layout":{"type":"default"}} -->
 <div class="wp-block-group jd-panel"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Lire SYNTH</p>
+<p class="is-style-eyebrow">Suivre SYNTH</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -82,7 +82,15 @@
 <div class="wp-block-buttons"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_external_url( 'synth' ); ?>" target="_blank" rel="noreferrer noopener">Découvrir SYNTH ↗</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"jd-link"} -->
+<p class="jd-link"><a href="https://synthmedia.fr/newsletter/" target="_blank" rel="noreferrer noopener">Recevoir la newsletter ↗</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"jd-link"} -->
+<p class="jd-link"><a href="https://synthmedia.fr/soutenir" target="_blank" rel="noreferrer noopener">Soutenir SYNTH ↗</a></p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

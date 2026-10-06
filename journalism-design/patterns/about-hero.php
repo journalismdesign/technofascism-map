@@ -22,7 +22,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design est un studio indépendant de taille modeste, fondé et dirigé par Gérald Holubowicz.</p>
+<p class="is-style-lead">Journalism.design est un studio indépendant à taille humaine, fondé et dirigé par Gérald Holubowicz.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

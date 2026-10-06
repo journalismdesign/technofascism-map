@@ -359,6 +359,12 @@ h6.wp-block-heading { margin-bottom: 0.9rem; }
 	line-height: 1.4;
 }
 
+/* Étiquettes à bords carrés (chaînes de production, formats) */
+.is-style-tags.jd-square > li { border-radius: 0; }
+
+/* Boutons empilés (ouverture de l'accueil) */
+.wp-block-buttons.jd-stack { flex-direction: column; align-items: flex-start; gap: 1rem; }
+
 /* Liste en deux colonnes, lignes entre filets */
 .is-style-columns {
 	list-style: none;

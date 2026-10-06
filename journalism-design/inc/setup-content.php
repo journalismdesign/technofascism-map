@@ -52,7 +52,7 @@ function jd_site_map() {
 			),
 			'synth'                      => array(
 				'title'    => 'SYNTH',
-				'sections' => array( 'synth-hero', 'synth-link', 'first-step' ),
+				'sections' => array( 'synth-hero', 'synth-coverage', 'synth-manifesto', 'synth-link', 'first-step' ),
 			),
 			'indice-dependance-numerique' => array(
 				'title'    => 'Indice de dépendance numérique',

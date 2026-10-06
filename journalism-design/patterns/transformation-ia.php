@@ -27,8 +27,8 @@
 <p class="is-style-lead">Nous intervenons notamment sur les usages suivants.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:list {"className":"is-style-tags"} -->
-<ul class="wp-block-list is-style-tags"><!-- wp:list-item -->
+<!-- wp:list {"className":"is-style-tags jd-square"} -->
+<ul class="wp-block-list is-style-tags jd-square"><!-- wp:list-item -->
 <li>Recherche et documentation</li>
 <!-- /wp:list-item -->
 

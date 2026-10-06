@@ -20,13 +20,17 @@
 <!-- /wp:image -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->
-<h1 class="wp-block-heading alignwide jd-hero__title">Observer les rapports de pouvoir <em>créés par la technologie</em></h1>
+<h1 class="wp-block-heading alignwide jd-hero__title">Clarifier les enjeux <em>du présent technologique</em></h1>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"58%"} -->
 <div class="wp-block-column" style="flex-basis:58%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design édite <strong><em>SYNTH</em></strong>, un média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.</p>
+<p class="is-style-lead">SYNTH est un média indépendant d’analyse critique qui clarifie les enjeux du présent technologique.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Positionné à l’intersection des sciences sociales et des techniques, il s’intéresse à l’influence politique, économique, sociale et culturelle des acteurs de la tech et de l’intelligence artificielle. Journalism.design en est l’éditeur.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 

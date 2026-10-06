@@ -16,7 +16,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1,"align":"wide","className":"jd-hero__title"} -->
-<h1 class="wp-block-heading alignwide jd-hero__title">Un studio qui expérimente avant de <em>recommander.</em></h1>
+<h1 class="wp-block-heading alignwide jd-hero__title">Expérimenter pour mieux <em>Recommander</em></h1>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
@@ -31,8 +31,12 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"bottom","width":"42%"} -->
-<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:42%"><!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:42%"><!-- wp:buttons {"className":"jd-stack"} -->
+<div class="wp-block-buttons jd-stack"><!-- wp:button {"className":"is-style-ghost"} -->
+<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'a-propos' ); ?>">Découvrez journalism.design →</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo jd_url( 'contact' ); ?>">Réserver une journée de diagnostic →</a></div>
 <!-- /wp:button -->
 

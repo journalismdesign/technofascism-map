@@ -24,7 +24,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design est un studio de taille modeste, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.</p>
+<p class="is-style-lead">Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"className":"jd-cells jd-cells--2","layout":{"type":"grid","minimumColumnWidth":"15rem"}} -->

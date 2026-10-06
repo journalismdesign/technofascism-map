@@ -210,22 +210,23 @@ S = {}
 # ---- Accueil
 S['home-hero'] = ('Accueil — Ouverture', 'jd-sections', 'hero, accueil, ouverture', hero(
     'Studio éditorial · Numérique et IA',
-    'Un studio qui expérimente avant de <em>recommander.</em>',
+    'Expérimenter pour mieux <em>Recommander</em>',
     [
         COLUMN([
             P('Journalism.design aide les médias et les organisations à transformer leurs usages numériques et IA sans perdre le contrôle de leurs outils, de leurs données ni de leurs savoir-faire.', 'is-style-lead'),
             P('Le studio s’appuie sur plus de vingt ans de travail dans les médias : création de contenus, conduite de projets, interventions et formations au sein de grands groupes de presse. Il édite aussi SYNTH, qui lui sert de terrain d’expérimentation. Les solutions qu’il recommande y sont d’abord testées ou défrichées.'),
         ], '58%'),
         COLUMN([
-            BUTTONS(BTN('Réserver une journée de diagnostic →', url('contact')),
-                    BTN('Comment travaille le studio ↓', url('', 'studio'), 'ghost')),
+            BUTTONS(BTN('Découvrez journalism.design →', url('a-propos'), 'ghost'),
+                    BTN('Réserver une journée de diagnostic →', url('contact')),
+                    BTN('Comment travaille le studio ↓', url('', 'studio'), 'ghost'), c='jd-stack'),
         ], '42%', 'bottom'),
     ]))
 
 S['studio'] = ('Le studio — expérimenter et recommander', 'jd-sections', 'studio, SYNTH, expérimentation, conseil', band(
     'Le studio', [
         H(2, 'Deux pieds, <em>une même démarche</em>'),
-        P('Journalism.design est un studio de taille modeste, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.', 'is-style-lead'),
+        P('Journalism.design est un studio à taille humaine, fondé et dirigé par Gérald Holubowicz. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration.', 'is-style-lead'),
         cells([
             cell('Expérimenter', [
                 'Le studio édite SYNTH, un média indépendant consacré aux conséquences de la technologie et de l’IA. Sa production sert de banc d’essai : outils, workflows et usages de l’IA y sont testés dans les conditions réelles d’une rédaction.',
@@ -364,7 +365,7 @@ S['use-cases'] = ('Accueil — Chantiers concrets', 'jd-sections', 'cas d’usag
               'Former une équipe'], 'is-style-columns'),
         H(6, 'Sur des chaînes de production comme'),
         LIST(['Recherche et documentation', 'Analyse de corpus', 'Transcription', 'Préparation éditoriale',
-              'Image et vidéo', 'Storyboard', 'Motion design', 'Maquette vers production', 'Diffusion et déclinaisons'], 'is-style-tags'),
+              'Image et vidéo', 'Storyboard', 'Motion design', 'Maquette vers production', 'Diffusion et déclinaisons'], 'is-style-tags jd-square'),
         P(f'<a href="{url("transformation-prototypage")}">Voir la méthode de prototypage →</a>', 'jd-link jd-link--inline'),
     ]))
 
@@ -498,7 +499,7 @@ S['transformation-ia'] = ('Transformation — IA & production', 'jd-sections', '
         LIST(['Recherche et documentation', 'Analyse de corpus', 'Transcription', 'Traitement de documents', 'Préparation éditoriale',
               'Production multimodale', 'Image et vidéo', 'Storyboard', 'Motion design', 'Contrôle qualité',
               'Transformation de données', 'Maquette vers production', 'Automatisation de tâches répétitives',
-              'Diffusion et déclinaisons'], 'is-style-tags'),
+              'Diffusion et déclinaisons'], 'is-style-tags jd-square'),
         P('Pour chacun, nous examinons aussi ce qu’il ne faut pas confier à une machine : les tâches qui engagent un jugement humain et les données qui ne doivent pas sortir de l’organisation.'),
     ], bg='ink'))
 
@@ -611,7 +612,7 @@ S['formations-list'] = ('Formations — Exemples', 'jd-sections', 'formation, at
 S['about-hero'] = ('À propos — Ouverture', 'jd-sections', 'à propos, hero, conviction', hero(
     'À propos', 'Éditorial. Produit. Technologie. <em>Organisation.</em>', [
         COLUMN([
-            P('Journalism.design est un studio indépendant de taille modeste, fondé et dirigé par Gérald Holubowicz.', 'is-style-lead'),
+            P('Journalism.design est un studio indépendant à taille humaine, fondé et dirigé par Gérald Holubowicz.', 'is-style-lead'),
             P('Il s’appuie sur plus de vingt ans de travail dans et avec les médias : création de contenus, conduite de projets éditoriaux, interventions et formations au sein de grands groupes de presse. Selon les projets, il mobilise d’autres professionnels du développement, de l’infrastructure, de la cybersécurité, de la migration ou de l’intégration, ou travaille avec les équipes déjà en place.'),
         ], '50%'),
         COLUMN([
@@ -682,15 +683,42 @@ S['about-responsable'] = ('Un numérique responsable n’est pas un numérique f
 SYNTH_LOGO = IMAGE("<?php echo esc_url( get_theme_file_uri( 'assets/images/logo-synth-fond-sombre.png' ) ); ?>", 'Synth.', 'jd-synth-logo')
 
 S['synth-hero'] = ('SYNTH — Ouverture de page', 'jd-sections', 'synth, média, hero', hero(
-    'Média indépendant', 'Observer les rapports de pouvoir <em>créés par la technologie</em>', [
+    'Média indépendant', 'Clarifier les enjeux <em>du présent technologique</em>', [
         COLUMN([
-            P('Journalism.design édite <strong><em>SYNTH</em></strong>, un média indépendant consacré aux conséquences politiques, économiques, sociales, culturelles et environnementales des technologies contemporaines.', 'is-style-lead'),
+            P('SYNTH est un média indépendant d’analyse critique qui clarifie les enjeux du présent technologique.', 'is-style-lead'),
+            P('Positionné à l’intersection des sciences sociales et des techniques, il s’intéresse à l’influence politique, économique, sociale et culturelle des acteurs de la tech et de l’intelligence artificielle. Journalism.design en est l’éditeur.'),
         ], '58%'),
         COLUMN([BUTTONS(BTN('Découvrir SYNTH ↗', EXT['synth'], external=True))], '42%', 'bottom'),
     ], bg='ink', before=[SYNTH_LOGO]))
 
+S['synth-coverage'] = ('SYNTH — Thèmes et formats', 'jd-sections', 'synth, rubriques, formats', band(
+    'Ce que couvre SYNTH', [
+        H(2, 'Rendre visible <em>la matérialité de la tech</em>'),
+        P('Les articles de SYNTH s’organisent autour de grands axes éditoriaux :', 'is-style-lead'),
+        LIST(['Technofascisme, pouvoirs et démocratie', 'Datacenters, infrastructures et crise environnementale',
+              'Sécurité, police, militarisation de la tech', 'Corps, identités et violences numériques', 'En bref'], 'is-style-columns'),
+        H(6, 'Formats'),
+        LIST(['Analyses', 'Dossiers', 'Entretiens', 'Chroniques et tribunes', 'Newsletter', 'Podcast « Imaginaires »', 'Vidéos « Sur les rétines »'], 'is-style-tags jd-square'),
+        P('SYNTH réunit une rédaction de journalistes et de contributeurs, sous la direction de publication de Gérald Holubowicz. Ses articles sont en accès libre ; le média est soutenu par ses lecteurs.'),
+    ]))
+
+S['synth-manifesto'] = ('SYNTH — Manifeste', 'jd-sections', 'synth, manifeste, ligne éditoriale', band(
+    'Manifeste', [
+        H(2, 'Le monde devient <em>synthétique</em>'),
+        COLUMNS([
+            COLUMN([
+                P('Le manifeste de SYNTH fixe son cap : ouvrir un œil critique sur la tech et mieux comprendre les effets du numérique, de l’intelligence artificielle et des médias synthétiques sur nos vies.', 'is-style-lead'),
+                P('Le média se tient à distance des récits technosolutionnistes comme du discours technophobe, et défend une réflexion sur une technologie au service de l’intérêt collectif.'),
+            ], '60%'),
+            COLUMN([
+                P('<a href="https://synthmedia.fr/manifeste-de-synth/" target="_blank" rel="noreferrer noopener">Lire le manifeste ↗</a>', 'jd-link'),
+                P('<a href="https://synthmedia.fr/qui-sommes-nous/" target="_blank" rel="noreferrer noopener">Qui sommes-nous ↗</a>', 'jd-link'),
+            ], '40%', 'bottom'),
+        ], c='jd-inner'),
+    ], bg='ink'))
+
 S['synth-link'] = ('SYNTH — Lien avec les missions', 'jd-sections', 'synth, journalisme, conseil', band(
-    'SYNTH et nos missions', [
+    'SYNTH et le studio', [
         H(2, 'SYNTH observe ces transformations. <em>Journalism.design aide les organisations à agir face à elles.</em>'),
         COLUMNS([
             COLUMN([
@@ -702,9 +730,11 @@ S['synth-link'] = ('SYNTH — Lien avec les missions', 'jd-sections', 'synth, jo
                 P('L’activité éditoriale de SYNTH et l’activité de conseil restent séparées : les clients du studio n’ont aucune prise sur ce que SYNTH publie.'),
             ], '60%'),
             COLUMN([panel([
-                kicker('Lire SYNTH'),
+                kicker('Suivre SYNTH'),
                 P('Le média est publié sur synthmedia.fr.'),
                 BUTTONS(BTN('Découvrir SYNTH ↗', EXT['synth'], external=True)),
+                P('<a href="https://synthmedia.fr/newsletter/" target="_blank" rel="noreferrer noopener">Recevoir la newsletter ↗</a>', 'jd-link'),
+                P('<a href="https://synthmedia.fr/soutenir" target="_blank" rel="noreferrer noopener">Soutenir SYNTH ↗</a>', 'jd-link'),
             ])], '40%', c='jd-sticky-col'),
         ], c='jd-inner'),
     ]))
