@@ -336,7 +336,7 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
                 P('Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles, en cherchant l’équilibre entre efficacité, autonomie et responsabilité.', 'is-style-lead'),
             ], '55%'),
         ], c='jd-inner'),
-    ], anchor='position'))
+    ], bg='ink', anchor='position'))
 
 S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique, efficacité, indépendance, sobriété', band(
     'Ce qui nous engage', [

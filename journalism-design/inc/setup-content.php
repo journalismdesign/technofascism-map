@@ -23,12 +23,12 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'home-audience', 'home-outcomes', 'levels-overview', 'indice-teaser', 'diagnostic-day', 'home-why', 'first-step' ),
+				'sections' => array( 'home-hero', 'home-audience', 'home-questions', 'home-outcomes', 'levels-overview', 'diagnostic-day', 'indice-teaser', 'home-why', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
 				'title'    => 'Diagnostic & stratégie',
-				'sections' => array( 'diagnostic-hero', 'home-questions', 'diagnostic-mission', 'diagnostic-deliverable', 'diagnostic-day', 'levels-overview' ),
+				'sections' => array( 'diagnostic-hero', 'diagnostic-mission', 'diagnostic-deliverable', 'diagnostic-day', 'levels-overview' ),
 			),
 			'transformation-prototypage' => array(
 				'title'    => 'Transformation & prototypage',
