@@ -224,7 +224,7 @@ S['home-hero'] = ('Accueil — Ouverture', 'jd-sections', 'hero, accueil, ouvert
     'Expérimenter pour mieux <em>Recommander</em>',
     [
         COLUMN([
-            P('Journalism.design aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA, sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.', 'is-style-lead'),
+            P('Journalism.design est un studio de conseil et de formation. Il aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA (diagnostic, prototypes, gouvernance, formation) sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.', 'is-style-lead'),
             P('Nous ne sommes pas là pour mettre de l’IA partout, mais pour améliorer ce qui mérite de l’être. Aucun éditeur ni aucune plateforme ne nous rémunère : nous n’avons aucun logiciel à vous vendre.'),
         ], '58%'),
         COLUMN([
@@ -239,8 +239,23 @@ S['home-hero'] = ('Accueil — Ouverture', 'jd-sections', 'hero, accueil, ouvert
         P(f'<a href="{url("cas-clients")}">Voir les cas clients →</a>', 'jd-link jd-link--inline'),
     ], c='jd-proof')]))
 
+S['home-audience'] = ('Accueil — Pour qui', 'jd-sections', 'pour qui, cible, clients, secteurs, terrains', band(
+    'Pour qui', [
+        H(2, 'Des organisations qui vivent <em>de l’information</em>'),
+        P('Le studio travaille avec des organisations intensives en information, en contenus et en connaissances.', 'is-style-lead'),
+        LIST(['Médias', 'Agences', 'Directions communication et marketing', 'Cabinets de conseil', 'Think tanks',
+              'Institutions', 'Organisations culturelles', 'Établissements d’enseignement', 'ONG et associations',
+              'Structures de l’ESS', 'Organisations professionnelles',
+              'Entreprises dotées d’équipes éditoriales, créatives ou de gestion des connaissances'], 'is-style-tags jd-square'),
+        H(6, 'Vous êtes au bon endroit si'),
+        LIST(['vos équipes utilisent déjà ChatGPT, Claude ou d’autres assistants, sans règles communes',
+              'vos outils et vos abonnements se sont empilés au fil des années',
+              'quelques fournisseurs assurent des fonctions critiques sans solution de repli',
+              'vous voulez automatiser une partie de la production sans dégrader la qualité'], 'is-style-arrows'),
+    ], anchor='pour-qui'))
+
 S['home-outcomes'] = ('Accueil — Ce que vous y gagnez', 'jd-sections', 'résultats, bénéfices, efficacité, autonomie, responsabilité', band(
-    'Résultats', [
+    'Pourquoi', [
         H(2, 'Efficacité, autonomie, <em>responsabilité</em>'),
         P('Un outil se juge sur ce qu’il améliore dans le travail réel : temps, qualité, coûts, risques. C’est ce que nous cherchons à obtenir, et ce que nous testons avec les équipes avant tout déploiement.', 'is-style-lead'),
         cells([

@@ -22,7 +22,7 @@
 <!-- wp:columns {"align":"wide","className":"jd-hero__cols"} -->
 <div class="wp-block-columns alignwide jd-hero__cols"><!-- wp:column {"width":"58%"} -->
 <div class="wp-block-column" style="flex-basis:58%"><!-- wp:paragraph {"className":"is-style-lead"} -->
-<p class="is-style-lead">Journalism.design aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA, sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.</p>
+<p class="is-style-lead">Journalism.design est un studio de conseil et de formation. Il aide les médias et les organisations à améliorer leur travail grâce au numérique et à l’IA (diagnostic, prototypes, gouvernance, formation) sans céder la maîtrise de leurs outils, de leurs données ni de leurs savoir-faire.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

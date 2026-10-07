@@ -14,7 +14,7 @@
 <section id="resultats" class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
-<p class="is-style-eyebrow">Résultats</p>
+<p class="is-style-eyebrow">Pourquoi</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
