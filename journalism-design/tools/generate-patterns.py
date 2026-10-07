@@ -321,7 +321,7 @@ S['home-questions'] = ('Accueil — Notre position', 'jd-sections', 'constat, po
                 P('Nous aidons les organisations à y répondre avant que les choix techniques ne deviennent des dépendances structurelles, en cherchant l’équilibre entre efficacité, autonomie et responsabilité.', 'is-style-lead'),
             ], '55%'),
         ], c='jd-inner'),
-    ], bg='ink', anchor='position'))
+    ], anchor='position'))
 
 S['commitments'] = ('Ce qui nous engage', 'jd-sections', 'engagements, éthique, efficacité, indépendance, sobriété', band(
     'Ce qui nous engage', [
@@ -425,7 +425,7 @@ S['use-cases'] = ('Accueil — Chantiers concrets', 'jd-sections', 'cas d’usag
         H(6, 'Sur des chaînes de production comme'),
         LIST(['Recherche et documentation', 'Analyse de corpus', 'Transcription', 'Préparation éditoriale',
               'Image et vidéo', 'Storyboard', 'Motion design', 'Maquette vers production', 'Diffusion et déclinaisons'], 'is-style-tags jd-square'),
-        P(f'<a href="{url("transformation-prototypage")}">Voir la méthode de prototypage →</a>', 'jd-link jd-link--inline'),
+        P(f'<a href="{url("contact")}">Parler de votre chantier →</a>', 'jd-link jd-link--inline'),
     ]))
 
 S['references-teaser'] = ('Accueil — Références', 'jd-sections', 'références, clients, preuves', band(

@@ -10,8 +10,8 @@
  * @package journalism-design
  */
 ?>
-<!-- wp:group {"tagName":"section","anchor":"position","align":"full","className":"jd-section","backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
-<section id="position" class="wp-block-group alignfull jd-section has-paper-color has-ink-background-color has-text-color has-background"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
+<!-- wp:group {"tagName":"section","anchor":"position","align":"full","className":"jd-section","layout":{"type":"constrained"}} -->
+<section id="position" class="wp-block-group alignfull jd-section"><!-- wp:columns {"align":"wide","className":"jd-band"} -->
 <div class="wp-block-columns alignwide jd-band"><!-- wp:column {"width":"25%","className":"jd-band__kicker"} -->
 <div class="wp-block-column jd-band__kicker" style="flex-basis:25%"><!-- wp:paragraph {"className":"is-style-eyebrow"} -->
 <p class="is-style-eyebrow">Notre position</p>

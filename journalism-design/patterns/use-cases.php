@@ -108,7 +108,7 @@
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"className":"jd-link jd-link--inline"} -->
-<p class="jd-link jd-link--inline"><a href="<?php echo jd_url( 'transformation-prototypage' ); ?>">Voir la méthode de prototypage →</a></p>
+<p class="jd-link jd-link--inline"><a href="<?php echo jd_url( 'contact' ); ?>">Parler de votre chantier →</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>

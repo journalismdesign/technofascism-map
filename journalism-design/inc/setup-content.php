@@ -23,16 +23,16 @@ function jd_site_map() {
 		array(
 			'accueil'                    => array(
 				'title'    => 'Accueil',
-				'sections' => array( 'home-hero', 'home-outcomes', 'levels-overview', 'home-why', 'indice-teaser', 'diagnostic-day', 'home-questions', 'use-cases', 'studio', 'marquee', 'commitments', 'synth', 'terrains', 'first-step' ),
+				'sections' => array( 'home-hero', 'home-outcomes', 'levels-overview', 'indice-teaser', 'diagnostic-day', 'home-why', 'first-step' ),
 				'front'    => true,
 			),
 			'diagnostic-strategie'       => array(
 				'title'    => 'Diagnostic & stratégie',
-				'sections' => array( 'diagnostic-hero', 'diagnostic-mission', 'diagnostic-deliverable', 'diagnostic-day', 'levels-overview' ),
+				'sections' => array( 'diagnostic-hero', 'home-questions', 'diagnostic-mission', 'diagnostic-deliverable', 'diagnostic-day', 'levels-overview' ),
 			),
 			'transformation-prototypage' => array(
 				'title'    => 'Transformation & prototypage',
-				'sections' => array( 'transformation-hero', 'transformation-trajectories', 'transformation-prototype', 'transformation-ia', 'transformation-desirable', 'levels-overview' ),
+				'sections' => array( 'transformation-hero', 'use-cases', 'transformation-trajectories', 'transformation-prototype', 'transformation-ia', 'transformation-desirable', 'levels-overview' ),
 			),
 			'gouvernance-souverainete'   => array(
 				'title'    => 'Gouvernance & souveraineté',
@@ -48,7 +48,7 @@ function jd_site_map() {
 			),
 			'a-propos'                   => array(
 				'title'    => 'À propos',
-				'sections' => array( 'about-hero', 'studio', 'about-gerald', 'approach', 'about-independence', 'about-open-source', 'about-responsable', 'synth' ),
+				'sections' => array( 'about-hero', 'studio', 'about-gerald', 'marquee', 'commitments', 'about-independence', 'about-open-source', 'about-responsable', 'terrains', 'synth' ),
 			),
 			'synth'                      => array(
 				'title'    => 'SYNTH',
