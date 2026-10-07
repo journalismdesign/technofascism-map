@@ -1,0 +1,1018 @@
+/**
+ * Journalism.design — feuille de style du thème.
+ * Applique le design system Journalism.design :
+ * trois couleurs (crème, encre, cyan), trois voix typographiques
+ * (grotesque noir, italique serif, mono), grille visible, angles droits,
+ * ombres dures de 6 px, aucune ombre floue ni dégradé.
+ * Chargée en front et dans l'éditeur (add_editor_style).
+ */
+
+:root {
+	--jd-cream: var(--wp--preset--color--paper);
+	--jd-ink: var(--wp--preset--color--ink);
+	--jd-cyan: var(--wp--preset--color--accent);
+	--jd-teal: var(--wp--preset--color--teal);
+	--jd-rule-dark: #3a403f; /* filet gris fin sur fond encre */
+	--jd-sans: var(--wp--preset--font-family--sans);
+	--jd-serif: var(--wp--preset--font-family--serif);
+	--jd-mono: var(--wp--preset--font-family--mono);
+	--jd-shadow: 6px;
+	--jd-header-h: 76px;
+}
+
+/* ---------- Base ---------- */
+
+html { scroll-padding-top: calc(var(--jd-header-h) + 1rem); }
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: "ss01" 0;
+}
+
+h1, h2, h3, h4 { text-wrap: balance; overflow-wrap: break-word; }
+p { text-wrap: pretty; }
+
+::selection { background: var(--jd-cyan); color: var(--jd-ink); }
+:focus-visible { outline: 2px solid var(--jd-ink); outline-offset: 3px; }
+.has-ink-background-color :focus-visible { outline-color: var(--jd-cyan); }
+
+a { text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:where(:not(.wp-element-button)):hover { text-decoration-thickness: 2px; }
+
+strong { font-weight: 700; }
+
+/* Titres en deux temps : affirmation en capitales, chute en italique serif. */
+:is(h1, h2, h3, h4, .is-style-question) em {
+	font-family: var(--jd-serif);
+	font-style: italic;
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: -0.03em;
+}
+/* Sur fond encre, la chute passe en italique grotesque cyan. */
+.has-ink-background-color :is(h1, h2, h3, h4, .is-style-question) em {
+	font-family: var(--jd-sans);
+	font-weight: inherit;
+	color: var(--jd-cyan);
+	letter-spacing: -0.04em;
+}
+/* Nom de marque en italique dans le texte courant. */
+p em, li em { font-style: italic; }
+
+/* Surlignage cyan derrière une phrase (grands corps). */
+.jd-hl {
+	background: var(--jd-cyan);
+	color: var(--jd-ink);
+	padding: 0 0.12em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* ---------- En-tête ---------- */
+
+.jd-site-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: var(--jd-cream);
+	border-bottom: 1px solid var(--jd-ink);
+}
+.admin-bar .jd-site-header { top: var(--wp-admin--admin-bar--height, 32px); }
+@media (max-width: 600px) { .admin-bar .jd-site-header { top: 0; } }
+
+.jd-header {
+	min-height: var(--jd-header-h);
+	padding-left: var(--wp--style--root--padding-left);
+	padding-right: var(--wp--style--root--padding-right);
+	gap: 1.5rem;
+}
+.jd-header__right { gap: clamp(1rem, 2.4vw, 2.25rem); }
+
+/* Logos */
+.jd-logo, .jd-footer__logo { margin: 0 !important; flex: none; }
+.jd-logo a, .jd-footer__logo a { display: block; line-height: 0; }
+.jd-logo img { width: clamp(170px, 16vw, 240px); height: auto; display: block; }
+.jd-footer__logo img { width: min(100%, 380px); height: auto; display: block; }
+
+/* Navigation : entrées séparées par un point médian */
+.jd-nav .wp-block-navigation__container { gap: 0; }
+.jd-nav .wp-block-navigation__container > .wp-block-navigation-item + .wp-block-navigation-item::before {
+	content: "·";
+	margin: 0 0.7em;
+	font-weight: 700;
+}
+.jd-nav .wp-block-navigation-item__content { text-decoration: none; padding: 0.35em 0; }
+.jd-nav .wp-block-navigation-item__content:hover,
+.jd-nav .current-menu-item > .wp-block-navigation-item__content {
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.3em;
+}
+
+/* Sous-menu « Expertises » : cadre encre, ombre dure */
+.jd-nav .wp-block-navigation__submenu-container {
+	border: 1px solid var(--jd-ink) !important;
+	background: var(--jd-cream) !important;
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-ink);
+	padding: 0 !important;
+	min-width: 17rem !important;
+}
+.jd-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding: 0.7rem 1rem !important; font-weight: 700; }
+.jd-nav .wp-block-navigation__submenu-container .wp-block-navigation-item + .wp-block-navigation-item { border-top: 1px solid var(--jd-ink); }
+.jd-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover { background: var(--jd-cyan); text-decoration: none; }
+
+/* L'appel au contact passe dans le menu sur petit écran */
+.jd-nav .jd-nav-cta-mobile { display: none; }
+@media (max-width: 1100px) {
+	.jd-header__cta { display: none !important; }
+	.jd-nav .jd-nav-cta-mobile { display: block; }
+}
+@media (min-width: 600px) and (max-width: 1100px) {
+	.jd-nav .wp-block-navigation__responsive-container-open:not(.always-shown) { display: flex; }
+	.jd-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) { display: none; }
+}
+
+/* Menu plein écran */
+.jd-nav .wp-block-navigation__responsive-container.is-menu-open {
+	background: var(--jd-ink) !important;
+	color: var(--jd-cream) !important;
+	padding: 1.5rem var(--wp--style--root--padding-right);
+}
+.jd-nav .is-menu-open .wp-block-navigation__responsive-container-content { padding-top: 3rem; }
+.jd-nav .is-menu-open .wp-block-navigation__responsive-container-content,
+.jd-nav .is-menu-open .wp-block-navigation__container,
+.jd-nav .is-menu-open .wp-block-navigation-item,
+.jd-nav .is-menu-open .wp-block-navigation__submenu-container { align-items: flex-start !important; text-align: left; }
+.jd-nav .is-menu-open .wp-block-navigation__container { width: 100%; }
+.jd-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item::before { display: none; }
+.jd-nav .is-menu-open .wp-block-navigation-item { width: 100%; border-bottom: 1px solid var(--jd-rule-dark); }
+.jd-nav .is-menu-open .wp-block-navigation-item__content {
+	font-weight: 800;
+	font-size: 1.875rem;
+	letter-spacing: -0.045em;
+	text-transform: uppercase;
+	line-height: 1;
+	padding: 0.7rem 0 !important;
+}
+.jd-nav .is-menu-open .wp-block-navigation__submenu-container {
+	border: 0 !important;
+	background: transparent !important;
+	box-shadow: none;
+	padding: 0 0 0.75rem !important;
+}
+.jd-nav .is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item { border: 0; }
+.jd-nav .is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: 0;
+	text-transform: none;
+	padding: 0.35rem 0 !important;
+}
+.jd-nav .is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover { background: none; color: var(--jd-cyan); }
+.jd-nav .is-menu-open .jd-nav-cta-mobile .wp-block-navigation-item__content { color: var(--jd-cyan); }
+.jd-nav .wp-block-navigation__responsive-container-open svg,
+.jd-nav .wp-block-navigation__responsive-container-close svg { width: 30px; height: 30px; }
+
+/* ---------- Bandes (sections) ---------- */
+
+.jd-main .wp-block-post-content > .alignfull { margin-top: 0; margin-bottom: 0; }
+
+.jd-section {
+	padding-top: var(--wp--preset--spacing--60);
+	padding-bottom: var(--wp--preset--spacing--60);
+	margin-block: 0 !important;
+}
+/* Les blocs d'une bande occupent la largeur « large ». */
+.jd-section > :where(:not(.alignfull)) { max-width: var(--wp--style--global--wide-size) !important; }
+/* Deux bandes crème qui se suivent sont séparées par un filet encre. */
+.jd-section:not(.has-background) + .jd-section:not(.has-background) { border-top: 1px solid var(--jd-ink); }
+
+/* Grille de bande : kicker dans une colonne d'un quart, contenu à droite. */
+.jd-band { gap: var(--wp--preset--spacing--40) !important; margin: 0 auto !important; }
+.jd-band__kicker { padding-top: 0.35rem; }
+.jd-band__body > * + * { margin-top: var(--wp--preset--spacing--30); }
+.jd-band__body > h2:first-child,
+.jd-band__body > .jd-big-question { margin-top: 0; }
+.jd-band__body > h2 + * { margin-top: var(--wp--preset--spacing--40); }
+.jd-band__body p { max-width: 68ch; }
+.jd-inner { gap: var(--wp--preset--spacing--40) !important; }
+@media (min-width: 782px) {
+	.jd-band__kicker .is-style-eyebrow { position: sticky; top: calc(var(--jd-header-h) + 1.5rem); }
+}
+
+/* Ouverture de page */
+.jd-hero { padding-top: var(--wp--preset--spacing--50); padding-bottom: var(--wp--preset--spacing--60); }
+.jd-hero .jd-hero__title {
+	max-width: var(--wp--style--global--wide-size) !important;
+	margin: var(--wp--preset--spacing--30) auto 0 !important;
+	padding-right: 10%;
+	box-sizing: border-box;
+	line-height: 0.96; /* place pour les accents des capitales */
+}
+.jd-hero__cols,
+.jd-split {
+	margin-top: var(--wp--preset--spacing--50) !important;
+	padding-top: var(--wp--preset--spacing--30);
+	border-top: 1px solid currentColor;
+	gap: var(--wp--preset--spacing--50) !important;
+}
+@media (max-width: 781px) { .jd-hero .jd-hero__title { padding-right: 0; line-height: 1.02; } }
+
+/* ---------- Voix typographiques ---------- */
+
+/* Kicker mono entre crochets */
+.is-style-eyebrow {
+	font-family: var(--jd-mono) !important;
+	font-size: var(--wp--preset--font-size--xs) !important;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	line-height: 1.5;
+}
+.is-style-eyebrow::before { content: "[\00a0"; }
+.is-style-eyebrow::after { content: "\00a0]"; }
+.has-ink-background-color .is-style-eyebrow { color: var(--jd-cyan); }
+
+/* Chapô */
+.is-style-lead {
+	font-size: var(--wp--preset--font-size--l) !important;
+	line-height: 1.35;
+	letter-spacing: -0.01em;
+}
+
+/* Affirmation en capitales (paragraphe) */
+.is-style-question {
+	font-weight: 800;
+	text-transform: uppercase;
+	font-size: var(--wp--preset--font-size--xl) !important;
+	line-height: 0.95;
+	letter-spacing: -0.045em;
+}
+.jd-strike {
+	text-decoration: line-through;
+	text-decoration-thickness: 4px;
+	text-decoration-color: var(--jd-cyan);
+}
+
+/* Tarif */
+.is-style-price {
+	font-weight: 800;
+	text-transform: uppercase;
+	font-size: clamp(2rem, 3.4vw, 3rem) !important;
+	line-height: 0.9;
+	letter-spacing: -0.045em;
+	margin-block: 0.75rem !important;
+}
+
+/* Grande question (fond encre) */
+.jd-big-question {
+	font-size: var(--wp--preset--font-size--huge) !important;
+	line-height: 0.96 !important;
+	max-width: 18ch;
+}
+
+/* Étiquettes mono (h6) */
+h6.wp-block-heading { margin-bottom: 0.9rem; }
+.has-ink-background-color h6 { color: var(--jd-cyan); }
+
+.jd-note { font-style: normal; margin-top: var(--wp--preset--spacing--30) !important; }
+.jd-motto {
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: -0.03em;
+	line-height: 1.05;
+	font-size: var(--wp--preset--font-size--l);
+}
+.has-ink-background-color .jd-motto strong:last-of-type { color: var(--jd-cyan); }
+
+/* Citation de la promesse */
+.jd-conviction { margin: 0; border-left: 1px solid currentColor; }
+.jd-conviction p { margin: 0; }
+
+/* ---------- Listes ---------- */
+
+/* Index à filets, numérotation mono */
+.is-style-index {
+	list-style: none;
+	padding: 0 !important;
+	margin-left: 0;
+	counter-reset: jd-index;
+	border-top: 1px solid currentColor;
+}
+.is-style-index > li {
+	counter-increment: jd-index;
+	position: relative;
+	padding: 0.8rem 0 0.8rem 3rem;
+	border-bottom: 1px solid var(--jd-ink);
+	margin: 0;
+}
+.is-style-index > li::before {
+	content: counter(jd-index, decimal-leading-zero);
+	position: absolute;
+	left: 0;
+	top: 1.05rem;
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: 0.04em;
+}
+.has-ink-background-color .is-style-index > li { border-bottom-color: var(--jd-rule-dark); }
+.has-ink-background-color .is-style-index > li::before { color: var(--jd-cyan); }
+
+.jd-questions > li {
+	font-weight: 700;
+	font-size: 1.25rem;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+}
+
+/* Puces carrées */
+.is-style-arrows { list-style: none; padding: 0 !important; margin-left: 0; }
+.is-style-arrows > li { position: relative; padding: 0.3rem 0 0.3rem 1.25rem; margin: 0; }
+.is-style-arrows > li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.95em;
+	width: 5px;
+	height: 5px;
+	background: var(--jd-ink);
+}
+.has-ink-background-color .is-style-arrows > li::before { background: var(--jd-cyan); }
+
+/* Pastilles cerclées (la seule forme arrondie du système) */
+.is-style-tags {
+	list-style: none;
+	padding: 0 !important;
+	margin-left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.is-style-tags > li {
+	margin: 0;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	padding: 5px 13px;
+	font-size: 0.875rem;
+	line-height: 1.4;
+}
+
+/* Étiquettes à bords carrés (chaînes de production, formats) */
+.is-style-tags.jd-square > li { border-radius: 0; }
+
+/* Boutons empilés (ouverture de l'accueil) */
+.wp-block-buttons.jd-stack { flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+/* Liste en deux colonnes, lignes entre filets */
+.is-style-columns {
+	list-style: none;
+	padding: 0 !important;
+	margin-left: 0;
+	columns: 2 15rem;
+	column-gap: var(--wp--preset--spacing--40);
+	border-top: 1px solid currentColor;
+}
+.is-style-columns > li {
+	break-inside: avoid;
+	padding: 0.7rem 0;
+	border-bottom: 1px solid var(--jd-ink);
+	margin: 0;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+.has-ink-background-color .is-style-columns > li { border-bottom-color: var(--jd-rule-dark); }
+
+/* ---------- Grille visible : cellules qui partagent leurs filets ---------- */
+
+.jd-cells {
+	gap: 0 !important;
+	border-top: 1px solid var(--jd-ink);
+	border-left: 1px solid var(--jd-ink);
+	counter-reset: jd-cell;
+}
+.jd-cells > * {
+	border-right: 1px solid var(--jd-ink);
+	border-bottom: 1px solid var(--jd-ink);
+	padding: 1.25rem 1.25rem 1.5rem;
+	margin: 0 !important;
+}
+.has-ink-background-color .jd-cells,
+.has-ink-background-color .jd-cells > * { border-color: var(--jd-rule-dark); }
+.jd-cells--3 { grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)) !important; }
+@media (min-width: 1000px) { .jd-cells--3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+
+/* Cellule numérotée */
+.is-style-principle { counter-increment: jd-cell; }
+.is-style-principle::before {
+	content: counter(jd-cell, decimal-leading-zero);
+	display: block;
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: 0.04em;
+	margin-bottom: 1.5rem;
+}
+.has-ink-background-color .is-style-principle::before { color: var(--jd-cyan); }
+.is-style-principle > * { margin-block: 0; }
+.is-style-principle > * + * { margin-top: 0.75rem; }
+
+/* Nom d'entité en très grand italique serif */
+.is-style-principle h3,
+.jd-card .jd-card__name {
+	font-family: var(--jd-serif);
+	font-style: italic;
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: -0.025em;
+	line-height: 1.02;
+	font-size: clamp(1.6rem, 2.3vw, 2.15rem);
+}
+.is-style-principle .is-style-lead { font-size: 1.125rem !important; font-weight: 700; }
+
+/* Cartes des expertises */
+.jd-card {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	padding: 1.25rem 1.25rem 1.5rem !important;
+	transition: background-color 0.12s;
+}
+.jd-card > * { margin-block: 0; }
+.jd-card > * + * { margin-top: 1rem; }
+.jd-card .jd-card__num {
+	display: flex;
+	justify-content: space-between;
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	letter-spacing: 0.04em;
+	margin-bottom: 1.5rem;
+}
+.jd-card .jd-card__num::after { content: "↗"; font-family: var(--jd-sans); font-size: 1rem; line-height: 1; }
+.jd-card .jd-card__name a { text-decoration: none; }
+.jd-card .jd-card__name a::after { content: ""; position: absolute; inset: 0; } /* carte entièrement cliquable */
+.jd-card:hover { background: var(--jd-cyan); }
+.editor-styles-wrapper .jd-card .jd-card__name a::after { display: none; }
+
+/* Lien interne : gras, flèche, entre deux filets */
+.jd-link {
+	margin-top: auto !important;
+	border-top: 1px solid currentColor;
+	border-bottom: 1px solid currentColor;
+	padding: 0.65rem 0;
+	font-weight: 700;
+	font-size: 0.875rem;
+}
+.jd-card .jd-link { margin-top: auto !important; }
+.jd-card > p:nth-last-child(2) { margin-bottom: 1.5rem; }
+.jd-card .jd-card__num { text-transform: uppercase; }
+.jd-link a { text-decoration: none; }
+
+/* Encadré fileté (tarifs, conditions) */
+.jd-panel {
+	padding: 1.5rem !important;
+	border: 1px solid currentColor;
+}
+.jd-panel > * { margin-block: 0; }
+.jd-panel .is-style-price { font-size: clamp(1.6rem, 2.1vw, 2.15rem) !important; }
+.jd-panel > * + * { margin-top: 1rem; }
+.jd-panel .wp-block-buttons { margin-top: 1.5rem; }
+.jd-sticky-col .jd-panel { position: sticky; top: calc(var(--jd-header-h) + 1.5rem); }
+
+/* ---------- Boutons : ombre dure décalée de 6 px ---------- */
+
+.wp-block-buttons { padding: 0 var(--jd-shadow) var(--jd-shadow) 0; }
+.wp-block-button__link,
+.wp-element-button {
+	border: 1px solid var(--jd-ink);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cyan);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.wp-block-button__link:hover,
+.wp-element-button:hover,
+.wp-block-button__link:focus-visible {
+	transform: translate(var(--jd-shadow), var(--jd-shadow));
+	box-shadow: 0 0 0 var(--jd-cyan);
+}
+/* Secondaire : crème cerclé d'encre */
+.wp-block-button.is-style-ghost .wp-block-button__link {
+	background: var(--jd-cream);
+	color: var(--jd-ink);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-ink);
+}
+/* Contact : cyan cerclé d'encre */
+.wp-block-button.is-style-accent .wp-block-button__link {
+	background: var(--jd-cyan);
+	color: var(--jd-ink);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-ink);
+}
+.wp-block-button.is-style-ghost .wp-block-button__link:hover,
+.wp-block-button.is-style-accent .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-ink); }
+
+/* Sur fond encre */
+.has-ink-background-color .wp-block-button:not(.is-style-ghost):not(.is-style-accent) .wp-block-button__link {
+	background: var(--jd-cyan);
+	color: var(--jd-ink);
+	border-color: var(--jd-cyan);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream);
+}
+.has-ink-background-color .wp-block-button.is-style-ghost .wp-block-button__link {
+	background: var(--jd-ink);
+	color: var(--jd-cream);
+	border-color: var(--jd-cream);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream);
+}
+.has-ink-background-color .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-cream) !important; }
+
+/* Sur aplat cyan : bouton encre, ombre crème */
+.has-accent-background-color .wp-block-button:not(.is-style-ghost):not(.is-style-accent) .wp-block-button__link {
+	background: var(--jd-ink);
+	color: var(--jd-cyan);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream);
+}
+.has-accent-background-color .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-cream) !important; }
+
+
+/* Grille à deux cellules (cas clients) */
+@media (min-width: 782px) { .jd-cells--2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+
+/* Noms de références en grand italique serif, entre filets */
+.jd-names {
+	list-style: none;
+	padding: 0 !important;
+	margin-left: 0;
+	border-top: 1px solid currentColor;
+}
+.jd-names > li {
+	margin: 0;
+	padding: 0.5rem 0 0.6rem;
+	border-bottom: 1px solid currentColor;
+	font-family: var(--jd-serif);
+	font-style: italic;
+	font-size: clamp(1.6rem, 3vw, 2.6rem);
+	line-height: 1.05;
+	letter-spacing: -0.025em;
+}
+/* Lien filé hors carte */
+.jd-link--inline { display: inline-block; padding-right: 1rem; }
+.jd-link--inline a:hover { text-decoration: underline; }
+
+/* Cartes sur fond encre */
+.has-ink-background-color .jd-card:hover { color: var(--jd-ink); }
+.has-ink-background-color .jd-card:hover .jd-link { border-color: var(--jd-ink); }
+
+/* Portrait */
+.jd-portrait { margin: 0 !important; }
+.jd-portrait img { display: block; width: 100%; max-width: 220px; height: auto; border: 1px solid var(--jd-ink); }
+
+/* Logo SYNTH (section sur fond encre) */
+.jd-synth-logo { margin: 0 0 var(--wp--preset--spacing--40) !important; }
+.jd-hero .jd-synth-logo { margin: var(--wp--preset--spacing--40) auto 0 !important; }
+.jd-synth-logo img { display: block; width: clamp(200px, 26vw, 340px); height: auto; }
+
+/* ---------- Bandeau défilant ---------- */
+
+.jd-marquee {
+	border-top: 1px solid var(--jd-ink);
+	border-bottom: 1px solid var(--jd-ink);
+	overflow: hidden;
+	padding: 0.9rem 0 !important;
+	margin-block: 0 !important;
+}
+.jd-marquee__text {
+	margin: 0 !important;
+	font-family: var(--jd-mono);
+	font-size: 0.8125rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	white-space: nowrap;
+	text-align: center;
+}
+.jd-marquee.is-animated .jd-marquee__text { text-align: left; }
+.jd-marquee__track { display: inline-flex; animation: jd-marquee var(--jd-marquee-duration, 40s) linear infinite; }
+.jd-marquee__track > span { padding-right: 2.5em; }
+@keyframes jd-marquee { to { transform: translateX(-50%); } }
+
+/* ---------- Appel à l'action cyan (seul bloc centré) ---------- */
+
+.jd-cta { text-align: center; }
+.jd-cta h2 { max-width: 20ch; margin-inline: auto !important; }
+.jd-cta .is-style-lead { max-width: 52ch; margin-inline: auto !important; }
+.jd-cta .is-style-eyebrow { justify-content: center; }
+.jd-cta .wp-block-buttons { justify-content: center; margin-top: var(--wp--preset--spacing--40); }
+
+/* ---------- Formulaire de contact ---------- */
+
+.jd-form { display: grid; gap: var(--wp--preset--spacing--30); }
+.jd-form__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30); }
+.jd-form p { margin: 0; }
+.jd-field label {
+	display: block;
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	margin-bottom: 0.5rem;
+}
+.jd-field input,
+.jd-field textarea {
+	width: 100%;
+	box-sizing: border-box;
+	font: inherit;
+	color: var(--jd-ink);
+	background: var(--jd-cream);
+	border: 1px solid var(--jd-ink);
+	border-radius: 0;
+	padding: 0.7rem 0.8rem;
+}
+.jd-field textarea { resize: vertical; }
+.jd-field input:focus,
+.jd-field textarea:focus { outline: none; box-shadow: 4px 4px 0 var(--jd-cyan); }
+
+.jd-choices { border: 0; border-top: 1px solid var(--jd-ink); padding: 1rem 0 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.jd-choices legend {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin-bottom: 0.9rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: -0.035em;
+	font-size: var(--wp--preset--font-size--l);
+	line-height: 1;
+}
+.jd-choices legend + * { clear: both; }
+.jd-choice { position: relative; cursor: pointer; }
+.jd-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.jd-choice span {
+	display: inline-block;
+	border: 1px solid var(--jd-ink);
+	padding: 0.5em 0.85em;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	background: var(--jd-cream);
+}
+.jd-choice:hover span { background: var(--jd-cyan); }
+.jd-choice input:checked + span { background: var(--jd-ink); color: var(--jd-cream); }
+.jd-choice input[type="checkbox"]:checked + span::before { content: "✓ "; color: var(--jd-cyan); }
+.jd-choice input:focus-visible + span { outline: 2px solid var(--jd-ink); outline-offset: 3px; }
+
+.jd-form__legal { font-size: var(--wp--preset--font-size--s); }
+.jd-form .wp-block-button__link { cursor: pointer; font-size: var(--wp--preset--font-size--s); }
+.jd-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.jd-form-notice { padding: 1rem 1.25rem; border: 1px solid var(--jd-ink); font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--s); margin: 0 0 var(--wp--preset--spacing--30); }
+.jd-form-notice.is-success { background: var(--jd-cyan); color: var(--jd-ink); }
+.jd-form-notice.is-error { background: var(--jd-ink); color: var(--jd-cream); }
+
+/* ---------- Pied de page (crème) ---------- */
+
+.jd-site-footer { margin-top: 0; }
+.jd-footer {
+	padding-top: var(--wp--preset--spacing--50);
+	padding-bottom: var(--wp--preset--spacing--30);
+	border-top: 1px solid var(--jd-ink);
+}
+.jd-footer__logo { margin-bottom: 1.5rem !important; }
+.jd-footer__tagline { font-size: var(--wp--preset--font-size--l); line-height: 1.25; max-width: 24ch; letter-spacing: -0.01em; }
+.jd-footer__meta { font-size: var(--wp--preset--font-size--s); }
+.jd-footer h6 { border-top: 1px solid var(--jd-ink); padding-top: 0.75rem; }
+.jd-footer__links { list-style: none; padding: 0 !important; margin: 0; }
+.jd-footer__links li { padding: 0.3rem 0; margin: 0; }
+.jd-footer__links a { text-decoration: none; font-weight: 500; }
+.jd-footer__links a:hover { text-decoration: underline; }
+.jd-footer__bottom {
+	margin-top: var(--wp--preset--spacing--50) !important;
+	padding-top: var(--wp--preset--spacing--20);
+	border-top: 1px solid var(--jd-ink);
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+/* ---------- Archives ---------- */
+
+.jd-post-list { list-style: none; padding: 0; }
+.jd-post-list .wp-block-post-title a { text-decoration: none; }
+
+/* ---------- Petits écrans ---------- */
+
+@media (max-width: 781px) {
+	.jd-band { gap: var(--wp--preset--spacing--20) !important; }
+	.jd-hero__cols, .jd-split { gap: var(--wp--preset--spacing--30) !important; }
+	.jd-sticky-col .jd-panel { position: static; }
+	.is-style-index > li { padding-left: 2.5rem; }
+	h1, h2, h3, .is-style-question, .jd-big-question { hyphens: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* { transition: none !important; }
+	.jd-marquee__track { animation: none; }
+}
+
+@media print {
+	.jd-footer__cols, .jd-form, .jd-marquee { display: none !important; }
+	.jd-site-header { position: static; }
+	.jd-header__right { display: none !important; }
+	.jd-logo img { content: url("../images/logo-journalism-design-noir.png"); }
+	.has-ink-background-color, .has-accent-background-color { background: none !important; color: #000 !important; }
+	.wp-block-button__link { box-shadow: none !important; }
+}
+
+/* ---------- Compatibilité avec le contenu des versions précédentes ----------
+   Ces couleurs ont été retirées de la palette en 1.2.0 ; sans ces règles, un
+   texte crème pouvait se retrouver sur fond crème. */
+.has-ink-2-background-color { background-color: var(--jd-ink) !important; color: var(--jd-cream); }
+.has-paper-2-background-color { background-color: var(--jd-cream) !important; }
+.has-muted-color, .has-line-color { color: var(--jd-ink) !important; }
+.has-accent-light-color { color: var(--jd-cyan) !important; }
+.has-accent-light-background-color { background-color: var(--jd-cyan) !important; }
+
+/* ===================================================================
+   Indice de dépendance numérique (questionnaire, page et popin)
+   =================================================================== */
+
+.jd-indice { max-width: 860px; }
+.jd-indice > * > * + * { margin-top: var(--wp--preset--spacing--20); }
+.jd-indice .is-style-eyebrow { margin: 0; }
+.jd-indice__title {
+	font-size: clamp(2rem, 4.6vw, 3.75rem) !important;
+	line-height: 0.95 !important;
+	margin: 1rem 0 0 !important;
+}
+.jd-indice__dims { list-style: none; padding: 0 !important; margin-left: 0; border-top: 1px solid currentColor; }
+.jd-indice__dims li { padding: 0.55rem 0; border-bottom: 1px solid var(--jd-ink); margin: 0; }
+.jd-indice__note { font-size: var(--wp--preset--font-size--s); }
+.jd-indice .wp-block-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: var(--wp--preset--spacing--30); }
+.jd-indice button.wp-block-button__link { cursor: pointer; font: inherit; font-size: var(--wp--preset--font-size--s); font-weight: 500; }
+.jd-indice button.wp-block-button__link[disabled] { opacity: 1; background: var(--jd-cream); color: var(--jd-ink); border-style: dashed; box-shadow: none; cursor: not-allowed; transform: none; }
+
+/* Progression */
+.jd-indice__bar { height: 6px; border: 1px solid var(--jd-ink); background: var(--jd-cream); }
+.jd-indice__bar span { display: block; height: 100%; background: var(--jd-ink); transition: width 0.2s ease; }
+.jd-indice__meta {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	margin-top: 0.6rem !important;
+}
+
+/* Question et options */
+.jd-indice__q {
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: -0.035em;
+	line-height: 1.02;
+	font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+	margin-top: var(--wp--preset--spacing--30) !important;
+	text-wrap: balance;
+}
+.jd-indice__q:focus, .jd-indice [data-focus]:focus { outline: none; }
+.jd-indice__help { font-size: var(--wp--preset--font-size--s); }
+.jd-indice__options { display: grid; gap: 0.5rem; margin-top: var(--wp--preset--spacing--30) !important; }
+.jd-indice__options.is-multi { display: flex; flex-wrap: wrap; }
+.jd-indice__opt {
+	font: inherit;
+	text-align: left;
+	background: var(--jd-cream);
+	color: var(--jd-ink);
+	border: 1px solid var(--jd-ink);
+	padding: 0.85rem 1rem;
+	cursor: pointer;
+	transition: background-color 0.1s;
+}
+.jd-indice__options.is-multi .jd-indice__opt { border-radius: 999px; padding: 0.45rem 1rem; }
+.jd-indice__opt:hover { background: var(--jd-cyan); }
+.jd-indice__opt[aria-pressed="true"] { background: var(--jd-ink); color: var(--jd-cream); }
+.jd-indice__options.is-multi .jd-indice__opt[aria-pressed="true"]::before { content: "✓ "; color: var(--jd-cyan); }
+.jd-indice__opt:focus-visible { outline: 2px solid var(--jd-ink); outline-offset: 3px; }
+
+/* Réaction après chaque réponse */
+.jd-indice__feedback:empty { display: none; }
+.jd-indice__feedback { border: 1px solid var(--jd-ink); padding: 1rem 1.25rem; margin-top: var(--wp--preset--spacing--30) !important; }
+.jd-indice__feedback p { margin: 0; }
+.jd-indice__feedback p + p { margin-top: 0.35rem; }
+.jd-indice__feedback.is-alert { background: var(--jd-ink); color: var(--jd-cream); }
+.jd-indice__feedback.is-alert .jd-indice__plus { color: var(--jd-cyan); }
+.jd-indice__feedback.is-good { background: var(--jd-cyan); }
+.jd-indice__plus { font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.jd-indice__nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: var(--wp--preset--spacing--30) !important; }
+.jd-indice__nav .wp-block-buttons { margin-top: 0; }
+.jd-indice__link {
+	font: inherit;
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 700;
+	background: none;
+	border: 0;
+	padding: 0.3rem 0;
+	color: inherit;
+	cursor: pointer;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+.jd-indice__link[disabled] { opacity: 0.5; cursor: default; }
+.jd-indice__transition .is-style-lead { font-size: clamp(1.4rem, 2.6vw, 2rem) !important; line-height: 1.2; }
+
+/* Résultat */
+.jd-indice__score { margin: 0.75rem 0 0 !important; line-height: 0.85 !important; }
+.jd-indice__num { font-size: clamp(5rem, 14vw, 9rem); letter-spacing: -0.06em; }
+.jd-indice__den { font-family: var(--jd-serif); font-style: italic; font-weight: 400; text-transform: none; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.02em; }
+.jd-indice__label { font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em; font-size: var(--wp--preset--font-size--l); }
+.jd-indice__label::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; background: var(--jd-cyan); border: 1px solid var(--jd-ink); margin-right: 0.5em; vertical-align: 0.05em; }
+.jd-indice__charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--wp--preset--spacing--40); align-items: center; border-top: 1px solid var(--jd-ink); padding-top: var(--wp--preset--spacing--30); margin-top: var(--wp--preset--spacing--30) !important; }
+@media (max-width: 700px) { .jd-indice__charts { grid-template-columns: 1fr; } }
+.jd-indice__radar { width: 100%; max-width: 460px; height: auto; }
+.jd-radar__ring { fill: none; stroke: var(--jd-ink); stroke-width: 0.5; }
+.jd-radar__axis { stroke: var(--jd-ink); stroke-width: 0.5; }
+.jd-radar__value { fill: var(--jd-cyan); stroke: var(--jd-ink); stroke-width: 1.5; }
+.jd-radar__label { font-family: var(--jd-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; fill: var(--jd-ink); dominant-baseline: middle; }
+.jd-indice__bars { list-style: none; padding: 0 !important; margin: 0; border-top: 1px solid var(--jd-ink); }
+.jd-indice__bars li { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--jd-ink); margin: 0; }
+.jd-indice__barlabel { font-weight: 700; }
+.jd-indice__barval { font-family: var(--jd-mono); }
+.jd-indice__bartrack { grid-column: 1 / -1; height: 6px; border: 1px solid var(--jd-ink); }
+.jd-indice__bartrack span { display: block; height: 100%; background: var(--jd-ink); }
+.jd-indice__conclusions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); border-top: 1px solid var(--jd-ink); border-left: 1px solid var(--jd-ink); margin-top: var(--wp--preset--spacing--40) !important; }
+.jd-indice__conclusion { border-right: 1px solid var(--jd-ink); border-bottom: 1px solid var(--jd-ink); padding: 1rem 1.25rem 1.25rem; }
+.jd-indice__conclusion p { margin: 0; }
+.jd-indice__conclusion p + p { margin-top: 0.6rem; font-size: 1.125rem; line-height: 1.35; }
+.jd-indice__providers { font-size: var(--wp--preset--font-size--s); }
+.jd-indice__cta { background: var(--jd-ink); color: var(--jd-cream); padding: var(--wp--preset--spacing--30); margin-top: var(--wp--preset--spacing--40) !important; }
+.jd-indice__cta > * { margin: 0; }
+.jd-indice__cta > * + * { margin-top: 0.9rem; }
+.jd-indice__cta .is-style-eyebrow { color: var(--jd-cyan); }
+.jd-indice__cta .is-style-arrows > li::before { background: var(--jd-cyan); }
+.jd-indice__ctatitle { font-weight: 800; text-transform: uppercase; letter-spacing: -0.035em; line-height: 1; font-size: clamp(1.5rem, 3vw, 2.2rem); }
+.jd-indice__price { font-weight: 700; }
+.jd-indice__cta .wp-block-button:not(.is-style-ghost) .wp-block-button__link { background: var(--jd-cyan); color: var(--jd-ink); border-color: var(--jd-cyan); box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream); }
+.jd-indice__cta .wp-block-button.is-style-ghost .wp-block-button__link { background: var(--jd-ink); color: var(--jd-cream); border-color: var(--jd-cream); box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cream); }
+.jd-indice__cta .wp-block-button__link:hover { box-shadow: 0 0 0 var(--jd-cream) !important; }
+.jd-indice__mail, .jd-indice__share { border: 1px solid var(--jd-ink); padding: var(--wp--preset--spacing--30); margin-top: var(--wp--preset--spacing--30) !important; }
+.jd-indice__mail > *, .jd-indice__share > * { margin: 0; }
+.jd-indice__mail > * + *, .jd-indice__share > * + * { margin-top: 0.75rem; }
+.jd-indice__subtitle { font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em; font-size: var(--wp--preset--font-size--l); line-height: 1.05; }
+.jd-indice__mail label:not(.jd-indice__check) { display: block; font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.08em; }
+.jd-indice__mail input[type="email"] { width: 100%; box-sizing: border-box; font: inherit; border: 1px solid var(--jd-ink); background: var(--jd-cream); padding: 0.7rem 0.8rem; border-radius: 0; margin-top: 0.4rem; }
+.jd-indice__mail input[type="email"]:focus { outline: none; box-shadow: 4px 4px 0 var(--jd-cyan); }
+.jd-indice__check { display: flex; gap: 0.6rem; align-items: flex-start; font-size: var(--wp--preset--font-size--s); cursor: pointer; }
+.jd-indice__check input { margin-top: 0.25em; accent-color: var(--jd-ink); }
+.jd-indice__status { font-weight: 700; }
+.jd-indice__status:empty { display: none; }
+.jd-indice__method { border-top: 1px solid var(--jd-ink); padding-top: 1rem; margin-top: var(--wp--preset--spacing--40) !important; font-size: var(--wp--preset--font-size--s); }
+.jd-indice__method summary { cursor: pointer; font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.08em; }
+.jd-indice__method ul { padding-left: 1.2em; }
+.jd-indice__methoddims { list-style: none; padding-left: 0 !important; }
+.jd-indice__methoddims li { padding: 0.4rem 0; border-top: 1px solid var(--jd-ink); }
+
+/* Popin */
+.jd-indice-dialog {
+	width: min(940px, calc(100vw - 2rem));
+	max-height: calc(100vh - 2rem);
+	margin: auto;
+	padding: 0;
+	border: 1px solid var(--jd-ink);
+	background: var(--jd-cream);
+	color: var(--jd-ink);
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-ink);
+	overflow-y: auto;
+}
+.jd-indice-dialog::backdrop { background: var(--jd-ink); opacity: 0.85; }
+.jd-indice-dialog > .jd-indice { padding: 0 clamp(1rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem); }
+.jd-indice-dialog__bar {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.75rem clamp(1rem, 4vw, 3rem);
+	background: var(--jd-cream);
+	border-bottom: 1px solid var(--jd-ink);
+	margin-bottom: var(--wp--preset--spacing--30);
+	font-family: var(--jd-mono);
+	font-size: var(--wp--preset--font-size--xs);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+.jd-indice-dialog__page { text-decoration: none; }
+.jd-indice-dialog__close {
+	font: inherit;
+	background: var(--jd-ink);
+	color: var(--jd-cream);
+	border: 0;
+	padding: 0.5rem 0.9rem;
+	cursor: pointer;
+}
+html.jd-dialog-open { overflow: hidden; }
+
+/* Bandeau d'appel au test (accueil) */
+.jd-indice-teaser { padding-top: var(--wp--preset--spacing--40) !important; padding-bottom: var(--wp--preset--spacing--40) !important; }
+.jd-indice-teaser .jd-teaser__title {
+	font-size: clamp(1.6rem, 3.2vw, 2.6rem) !important;
+	line-height: 1 !important;
+	max-width: 30ch;
+}
+.jd-indice-teaser .jd-inner { align-items: flex-end !important; }
+
+/* ---------- Contact Form 7 (formulaire « Premier échange ») ---------- */
+.jd-form-wrap--cf7 .wpcf7-form-control-wrap { display: block; }
+.jd-form-wrap--cf7 .jd-field label { display: block; }
+.jd-form-wrap--cf7 .jd-field input.wpcf7-form-control,
+.jd-form-wrap--cf7 .jd-field textarea.wpcf7-form-control { margin-top: 0.5rem; text-transform: none; letter-spacing: 0; font-family: var(--jd-sans); font-size: var(--wp--preset--font-size--m); }
+.jd-form-wrap--cf7 .wpcf7-checkbox { display: flex; flex-wrap: wrap; gap: 0.5rem; clear: both; }
+.jd-form-wrap--cf7 .wpcf7-list-item { margin: 0; }
+.jd-form-wrap--cf7 .wpcf7-list-item label { position: relative; cursor: pointer; display: block; }
+.jd-form-wrap--cf7 .wpcf7-list-item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.jd-form-wrap--cf7 .wpcf7-list-item-label {
+	display: inline-block;
+	border: 1px solid var(--jd-ink);
+	padding: 0.5em 0.85em;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	background: var(--jd-cream);
+}
+.jd-form-wrap--cf7 .wpcf7-list-item label:hover .wpcf7-list-item-label { background: var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:checked + .wpcf7-list-item-label { background: var(--jd-ink); color: var(--jd-cream); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:checked + .wpcf7-list-item-label::before { content: "✓ "; color: var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-list-item input:focus-visible + .wpcf7-list-item-label { outline: 2px solid var(--jd-ink); outline-offset: 3px; }
+.jd-form-wrap--cf7 .wpcf7-submit {
+	font: inherit;
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
+	background: var(--jd-ink);
+	color: var(--jd-cyan);
+	border: 1px solid var(--jd-ink);
+	border-radius: 0;
+	padding: 12px 20px;
+	box-shadow: var(--jd-shadow) var(--jd-shadow) 0 var(--jd-cyan);
+	cursor: pointer;
+	justify-self: start;
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jd-form-wrap--cf7 .wpcf7-submit:hover { transform: translate(var(--jd-shadow), var(--jd-shadow)); box-shadow: 0 0 0 var(--jd-cyan); }
+.jd-form-wrap--cf7 .wpcf7-spinner { margin: 0 0 0 1rem; }
+.jd-form-wrap--cf7 .wpcf7-not-valid-tip { font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--jd-ink); margin-top: 0.4rem; }
+.jd-form-wrap--cf7 .wpcf7-not-valid { box-shadow: 4px 4px 0 var(--jd-ink); }
+.jd-form-wrap--cf7 .wpcf7-response-output { margin: 0 !important; padding: 1rem 1.25rem !important; border: 1px solid var(--jd-ink) !important; font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--s); }
+.jd-form-wrap--cf7 .sent .wpcf7-response-output { background: var(--jd-cyan); }
+.jd-form-wrap--cf7 .invalid .wpcf7-response-output,
+.jd-form-wrap--cf7 .failed .wpcf7-response-output { background: var(--jd-ink); color: var(--jd-cream); }
+
+/* ---------- Formations : niveaux et FAQ ---------- */
+.jd-level h6.wp-block-heading { margin: 1.25rem 0 0.3rem !important; }
+.jd-level .jd-level__num { font-family: var(--jd-mono); font-size: var(--wp--preset--font-size--xs); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+.has-ink-background-color .jd-level .jd-level__num { color: var(--jd-cyan); }
+.jd-cards .jd-level { cursor: default; }
+.jd-level h3 { font-family: var(--jd-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.025em; font-size: clamp(1.8rem, 2.6vw, 2.4rem); margin: 0; }
+.jd-cards .jd-level:hover { background: none; }
+.has-ink-background-color .jd-cards .jd-level:hover { color: inherit; }
+.jd-level .is-style-arrows { margin-top: 0.3rem; }
+.jd-faq { border-top: 1px solid var(--jd-ink); }
+.jd-faq > * + * { margin-top: 0 !important; }
+.jd-faq__item { border-bottom: 1px solid var(--jd-ink); padding: 0; margin: 0; }
+.jd-faq__item summary {
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 1.1rem 0;
+	font-weight: 700;
+	font-size: 1.25rem;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+}
+.jd-faq__item summary::-webkit-details-marker { display: none; }
+.jd-faq__item summary::after { content: "+"; font-family: var(--jd-mono); font-weight: 400; font-size: 1.25rem; line-height: 1; flex: none; }
+.jd-faq__item[open] summary::after { content: "−"; }
+.jd-faq__item summary:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.jd-faq__item > p { margin: 0 0 1rem; max-width: 68ch; }
+.jd-faq__item > p:last-child { margin-bottom: 1.4rem; }
+
+/* Bandeau de preuves sous l'ouverture de l'accueil */
+.jd-proof { margin-top: var(--wp--preset--spacing--50) !important; padding-top: 1rem; border-top: 1px solid currentColor; }
+.jd-proof .is-style-eyebrow { margin-bottom: 0.5rem; }
+.jd-proof .jd-names { display: flex; flex-wrap: wrap; gap: 0.25rem 0; border-top: 0; margin: 0 0 0.75rem; }
+.jd-proof .jd-names > li { border: 0; padding: 0; font-size: clamp(1.3rem, 2.2vw, 1.85rem); }
+.jd-proof .jd-names > li:not(:last-child)::after { content: "·"; font-style: normal; margin: 0 0.6em; color: var(--jd-teal); }
+
+/* Formulaire : mention des champs obligatoires */
+.jd-form__note { font-size: var(--wp--preset--font-size--s); margin: 0 0 1rem; }
+
+/* Indice : trois principales fragilités */
+.jd-indice__fragilities { margin-top: var(--wp--preset--spacing--40) !important; }
+.jd-indice__fragilities ol { list-style: none; counter-reset: frag; padding: 0; margin: 0; border-top: 1px solid var(--jd-ink); }
+.jd-indice__fragilities li { counter-increment: frag; position: relative; padding: 1rem 0 1rem 2.75rem; border-bottom: 1px solid var(--jd-ink); }
+.jd-indice__fragilities li::before { content: "0" counter(frag); position: absolute; left: 0; top: 1.05rem; font-family: var(--jd-mono); font-size: 0.8rem; }
+.jd-indice__fragilities li p { margin: 0; }
+.jd-indice__fragilities li p + p { margin-top: 0.4rem; }
+.jd-indice__fragname { font-size: 1.125rem; }
+.jd-indice__action { background: var(--jd-cyan); color: var(--jd-ink); display: inline-block; padding: 0.35rem 0.6rem; margin-top: 0.6rem !important; }
